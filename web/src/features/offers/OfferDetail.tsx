@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react';
 
 import { ApiError, type MatchResult } from '../../api/client';
-import { useAssessOffer, useOffer, useSetOfferStatus, useSettings } from '../../api/hooks';
+import { useAssessOffer, useOffer, useSetOfferActivity, useSetOfferStatus, useSettings } from '../../api/hooks';
 import {
   BookmarkIcon,
+  CheckIcon,
   ChevronLeftIcon,
   CrossIcon,
   ExternalIcon,
@@ -11,7 +12,7 @@ import {
   SparkleIcon,
 } from '../../components/icons';
 import { ScoreBars, ScoreBadge, Skeleton, SkillChips } from '../../components/ui';
-import { citiesLabel, percent, salaryText, workplaceLabel, years } from '../../lib/format';
+import { citiesLabel, percent, relativeDay, salaryText, workplaceLabel, years } from '../../lib/format';
 import { PHONE_QUERY, useMediaQuery } from '../../lib/hooks';
 import s from './offers.module.css';
 
@@ -39,6 +40,7 @@ export function OfferDetail({
   const phone = useMediaQuery(PHONE_QUERY);
   const details = useOffer(offer.description ? undefined : offer.id);
   const setStatus = useSetOfferStatus();
+  const setActivity = useSetOfferActivity();
   const assess = useAssessOffer();
   const description = offer.description ?? details.data?.description ?? null;
   const salary = salaryText(offer);
@@ -48,6 +50,8 @@ export function OfferDetail({
   const notes = rule.notes.filter((note) => !note.startsWith('Doświadczenie w technologiach oferty'));
 
   const toggleSaved = () => setStatus.mutate({ offerId: offer.id, status: saved ? null : 'saved' });
+  const markVisited = () => setActivity.mutate({ offerId: offer.id, visited: true });
+  const toggleApplied = () => setActivity.mutate({ offerId: offer.id, applied: !result.applied_at });
   const hide = () => setStatus.mutate({ offerId: offer.id, status: 'hidden' }, { onSuccess: onHidden });
   const runAssessment = () =>
     assess.mutate({ offerId: offer.id, search }, { onSuccess: (assessed) => onAssessed(assessed) });
@@ -129,7 +133,16 @@ export function OfferDetail({
     </button>
   );
   const applyLink = (
-    <a href={applyHref} target="_blank" rel="noreferrer" className={`btn btn-primary ${s.applyBtn}`}>
+    <a
+      href={applyHref}
+      target="_blank"
+      rel="noreferrer"
+      className={`btn btn-primary ${s.applyBtn}`}
+      onClick={markVisited}
+      onAuxClick={(event) => {
+        if (event.button === 1) markVisited();
+      }}
+    >
       Aplikuj w JustJoin.it
       <ExternalIcon size={14} />
     </a>
@@ -183,6 +196,35 @@ export function OfferDetail({
             </button>
           </div>
         )}
+
+        <div className={s.activityRow}>
+          <span className={s.activityText}>
+            {result.visited_at ? (
+              <>
+                Odwiedzona {relativeDay(result.visited_at)}
+                <button
+                  type="button"
+                  className={s.linkBtn}
+                  aria-label="Oznacz jako nieodwiedzoną"
+                  onClick={() => setActivity.mutate({ offerId: offer.id, visited: false })}
+                >
+                  Cofnij
+                </button>
+              </>
+            ) : (
+              'Jeszcze nie otwierana w JustJoin.it'
+            )}
+          </span>
+          <button
+            type="button"
+            className={`btn ${s.appliedBtn} ${result.applied_at ? s.appliedOn : ''}`}
+            aria-pressed={Boolean(result.applied_at)}
+            onClick={toggleApplied}
+          >
+            <CheckIcon size={14} />
+            {result.applied_at ? `Aplikowano ${relativeDay(result.applied_at)}` : 'Oznacz jako aplikowaną'}
+          </button>
+        </div>
 
         <dl className={s.metaGrid}>
           <div>

@@ -103,6 +103,59 @@ describe('OffersPage', () => {
     await waitFor(() => expect(saved).toEqual({ id: 'justjoin:a1', body: { status: 'saved' } }));
   });
 
+  it('marks an offer as visited when the job board link is opened, and as applied on request', async () => {
+    const user = userEvent.setup();
+    const updates: unknown[] = [];
+    server.use(
+      ...baseHandlers(),
+      matchesHandler(),
+      http.put('/api/offers/:id/activity', async ({ request, params }) => {
+        updates.push({ id: params.id, body: await request.json() });
+        return HttpResponse.json({ visited_at: '2026-10-07T10:00:00Z', applied_at: null });
+      }),
+    );
+    renderApp('/');
+
+    const detail = await screen.findByRole('article', { name: 'Oferta: Backend Engineer' });
+    expect(within(detail).getByText('Jeszcze nie otwierana w JustJoin.it')).toBeInTheDocument();
+    document.addEventListener('click', (event) => event.preventDefault(), { once: true }); // jsdom can't navigate
+    await user.click(within(detail).getByRole('link', { name: /Aplikuj w JustJoin.it/ }));
+    await waitFor(() => expect(updates).toEqual([{ id: 'justjoin:a1', body: { visited: true } }]));
+
+    await user.click(within(detail).getByRole('button', { name: 'Oznacz jako aplikowaną' }));
+    await waitFor(() => expect(updates).toHaveLength(2));
+    expect(updates[1]).toEqual({ id: 'justjoin:a1', body: { applied: true } });
+  });
+
+  it('dims visited offers, tags them and filters by activity', async () => {
+    const user = userEvent.setup();
+    const log: URLSearchParams[] = [];
+    const today = new Date().toISOString();
+    const results = [
+      { ...RESULTS[0]!, visited_at: today },
+      { ...RESULTS[1]!, visited_at: today, applied_at: today },
+    ];
+    server.use(
+      ...baseHandlers(),
+      http.get('/api/matches', ({ request }) => {
+        log.push(new URL(request.url).searchParams);
+        return HttpResponse.json(matchResponse(results));
+      }),
+    );
+    const { router } = renderApp('/');
+
+    const list = await screen.findByRole('region', { name: 'Ranking ofert' });
+    expect(await within(list).findByText('Odwiedzona dziś')).toBeInTheDocument();
+    expect(within(list).getByText('Aplikowano dziś')).toBeInTheDocument();
+    const detail = await screen.findByRole('article', { name: 'Oferta: Backend Engineer' });
+    expect(within(detail).getByRole('button', { name: 'Oznacz jako nieodwiedzoną' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Bez odwiedzonych' }));
+    await waitFor(() => expect(router.state.location.search).toBe('?activity=unvisited'));
+    await waitFor(() => expect(log.at(-1)?.get('activity')).toBe('unvisited'));
+    expect(screen.getByRole('button', { name: 'Bez odwiedzonych' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
   it('asks for a CV when the backend has none', async () => {
     server.use(
       ...baseHandlers(),

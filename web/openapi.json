@@ -159,6 +159,28 @@
             "description": "Only saved / only hidden offers (default: all but hidden)"
           },
           {
+            "name": "activity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "unvisited",
+                    "applied"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Only offers never opened on the job board / only offers marked as applied",
+              "title": "Activity"
+            },
+            "description": "Only offers never opened on the job board / only offers marked as applied"
+          },
+          {
             "name": "category",
             "in": "query",
             "required": false,
@@ -318,6 +340,59 @@
         "responses": {
           "204": {
             "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offer_id}/activity": {
+      "put": {
+        "tags": [
+          "offers"
+        ],
+        "summary": "Set Offer Activity",
+        "description": "Record that the user opened the offer on the job board and/or applied to it; omitted fields stay as they are.",
+        "operationId": "set_offer_activity_offers__offer_id__activity_put",
+        "parameters": [
+          {
+            "name": "offer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Offer Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferActivityUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferActivity"
+                }
+              }
+            }
           },
           "422": {
             "description": "Validation Error",
@@ -1612,6 +1687,32 @@
             ],
             "title": "Status",
             "description": "The user's mark on the offer"
+          },
+          "visited_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Visited At",
+            "description": "When the user last opened the offer's page"
+          },
+          "applied_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Applied At",
+            "description": "When the user marked the offer as applied"
           }
         },
         "type": "object",
@@ -1620,7 +1721,9 @@
           "rule",
           "ai",
           "final_score",
-          "status"
+          "status",
+          "visited_at",
+          "applied_at"
         ],
         "title": "MatchResult"
       },
@@ -1631,6 +1734,70 @@
           "ai"
         ],
         "title": "MatchingMode"
+      },
+      "OfferActivity": {
+        "properties": {
+          "visited_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Visited At"
+          },
+          "applied_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Applied At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "visited_at",
+          "applied_at"
+        ],
+        "title": "OfferActivity"
+      },
+      "OfferActivityUpdate": {
+        "properties": {
+          "visited": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Visited",
+            "description": "true stamps a visit now; false forgets visit and application"
+          },
+          "applied": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Applied",
+            "description": "Mark (true) or unmark (false) the offer as applied"
+          }
+        },
+        "type": "object",
+        "title": "OfferActivityUpdate"
       },
       "OfferStatusUpdate": {
         "properties": {

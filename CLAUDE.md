@@ -63,8 +63,8 @@ Before finishing a change, all checks for the touched part must pass:
   - `experience.py`: experience in the offer's main technologies. Untargeted experience transfers at `transfer_ratio`; the `"auto"` level filter allows your level plus one step up.
   - `pipeline.py`: rules first, then the AI for the top N. The AI cache is keyed by `assessment_key` (profile hash + target skills + experience config + provider + model).
   - `ai/`: pluggable scorers with a shared prompt.
-- `services/job_seeker.py`: everything the CLI and API call: matching, background sync job (`start_sync_job` / `sync_status` / `cancel_sync`), offer marks (saved/hidden), single-offer assessment, search summaries.
-- `storage/db.py`: SQLite with short-lived connections per operation. Tables: `offers`, `offer_status`, `ai_assessments`, `sync_runs`. Schema changes need an in-place migration in `Database.__init__` (see the `categories` column).
+- `services/job_seeker.py`: everything the CLI and API call: matching, background sync job (`start_sync_job` / `sync_status` / `cancel_sync`), offer marks (saved/hidden), offer activity (visited/applied), single-offer assessment, search summaries.
+- `storage/db.py`: SQLite with short-lived connections per operation. Tables: `offers`, `offer_status` (saved/hidden), `offer_activity` (visited/applied timestamps, independent of the status), `ai_assessments`, `sync_runs`. Schema changes need an in-place migration in `Database.__init__` (see the `categories` column).
 
 Tests live in `backend/tests/`:
 - recorded JustJoin fixtures in `tests/fixtures/`;
@@ -80,7 +80,8 @@ Tests live in `backend/tests/`:
   - `AppShell.tsx`: sidebar on ≥768 px, bottom tabs on phones;
   - `theme.ts`: dark is the default; the choice is stored in localStorage.
 - `features/<screen>/`: one folder per screen, each with its own CSS module.
-  - Offer list state (preset, mode, filter overrides, status) lives in URL search params (`features/offers/params.ts`).
+  - Offer list state (preset, mode, filter overrides, status, activity) lives in URL search params (`features/offers/params.ts`).
+  - Opening "Aplikuj w JustJoin.it" marks the offer as visited (`useSetOfferActivity`, patched optimistically); "applied" is a manual toggle in the offer details. Visited cards are dimmed.
 - `components/`: shared UI (`ui.tsx`, `PresetPicker`, `ApiErrorState`, `icons.tsx` with inline SVGs from the design).
 - `styles/tokens.css`: design tokens as CSS variables for dark and light. Use `var(--…)`, never hard-coded colors.
 

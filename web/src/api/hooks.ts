@@ -10,6 +10,8 @@ import {
   type MatchResponse,
   type MatchResult,
   type MatchingMode,
+  type ActivityFilter,
+  type OfferActivity,
   type OfferStatus,
   type ProfileOverrides,
   type ProfileOverridesInput,
@@ -29,6 +31,7 @@ export interface MatchParams {
   city?: string[];
   minSalary?: number | null;
   status?: OfferStatus | null;
+  activity?: ActivityFilter | null;
 }
 
 export const keys = {
@@ -64,6 +67,7 @@ export function useMatches(params: MatchParams, enabled = true) {
           city: params.city,
           min_salary: params.minSalary,
           status: params.status,
+          activity: params.activity,
         },
       }),
     enabled,
@@ -160,6 +164,33 @@ export function useSetOfferStatus() {
     mutationFn: ({ offerId, status }: { offerId: string; status: OfferStatus | null }) =>
       request<void>(`/offers/${encodeURIComponent(offerId)}/status`, { method: 'PUT', ...jsonBody({ status }) }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: keys.allMatches }),
+  });
+}
+
+/** Visited / applied marks. The cached lists are patched right away so the card dims as soon as the link is clicked. */
+export function useSetOfferActivity() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ offerId, ...update }: { offerId: string; visited?: boolean; applied?: boolean }) =>
+      request<OfferActivity>(`/offers/${encodeURIComponent(offerId)}/activity`, { method: 'PUT', ...jsonBody(update) }),
+    onMutate: ({ offerId, visited, applied }) => {
+      const now = new Date().toISOString();
+      const patch = (result: MatchResult): MatchResult => {
+        if (result.offer.id !== offerId) return result;
+        let { visited_at, applied_at } = result;
+        if (visited === false) visited_at = applied_at = null;
+        else if (visited) visited_at = now;
+        if (applied) {
+          visited_at ??= now;
+          applied_at ??= now;
+        } else if (applied === false) applied_at = null;
+        return { ...result, visited_at, applied_at };
+      };
+      queryClient.setQueriesData<MatchResponse>({ queryKey: keys.allMatches }, (data) =>
+        data ? { ...data, results: data.results.map(patch) } : data,
+      );
+    },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: keys.allMatches }),
   });
 }
 

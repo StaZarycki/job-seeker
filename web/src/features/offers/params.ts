@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router';
 
-import type { MatchingMode, OfferStatus } from '../../api/client';
+import type { ActivityFilter, MatchingMode, OfferStatus } from '../../api/client';
 import type { MatchParams } from '../../api/hooks';
 
 export const DEFAULT_TOP = 20;
@@ -14,6 +14,7 @@ export interface OfferFilters {
   city: string[];
   minSalary: number | null;
   status: OfferStatus | null;
+  activity: ActivityFilter | null;
 }
 
 /** Offer list state lives in the URL (?search=cpp&mode=ai&category=c…) so views can be linked and go back. */
@@ -24,6 +25,7 @@ export function useOfferFilters(): [OfferFilters, (patch: Partial<OfferFilters>)
     const top = Number(params.get('top'));
     const minSalary = Number(params.get('min_salary'));
     const status = params.get('status');
+    const activity = params.get('activity');
     return {
       search: params.get('search'),
       mode: params.get('mode') === 'ai' ? 'ai' : 'basic',
@@ -32,6 +34,7 @@ export function useOfferFilters(): [OfferFilters, (patch: Partial<OfferFilters>)
       city: params.getAll('city'),
       minSalary: Number.isFinite(minSalary) && minSalary > 0 ? minSalary : null,
       status: status === 'saved' || status === 'hidden' ? status : null,
+      activity: activity === 'unvisited' || activity === 'applied' ? activity : null,
     };
   }, [params]);
 
@@ -61,6 +64,7 @@ export function useOfferFilters(): [OfferFilters, (patch: Partial<OfferFilters>)
           if (patch.city) setAll('city', patch.city);
           if ('minSalary' in patch) set('min_salary', patch.minSalary);
           if ('status' in patch) set('status', patch.status);
+          if ('activity' in patch) set('activity', patch.activity);
           return next;
         },
         { replace: true },
@@ -81,5 +85,6 @@ export function toMatchParams(filters: OfferFilters, mode: MatchingMode): MatchP
     city: filters.city.length ? filters.city : undefined,
     minSalary: filters.minSalary,
     status: filters.status,
+    activity: filters.activity,
   };
 }

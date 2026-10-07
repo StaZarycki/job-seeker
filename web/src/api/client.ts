@@ -20,6 +20,8 @@ export type CategoryInfo = Schemas['CategoryInfo'];
 export type Salary = Schemas['Salary'];
 export type MatchingMode = Schemas['MatchingMode'];
 export type OfferStatus = 'saved' | 'hidden';
+export type OfferActivity = Schemas['OfferActivity'];
+export type ActivityFilter = 'unvisited' | 'applied';
 
 /** Machine-readable error codes returned by the backend (see backend/src/job_seeker/api/app.py). */
 export type ApiErrorCode =

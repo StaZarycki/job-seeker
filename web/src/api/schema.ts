@@ -81,6 +81,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/offers/{offer_id}/activity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Set Offer Activity
+         * @description Record that the user opened the offer on the job board and/or applied to it; omitted fields stay as they are.
+         */
+        put: operations["set_offer_activity_offers__offer_id__activity_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/offers/{offer_id}/assess": {
         parameters: {
             query?: never;
@@ -609,12 +629,42 @@ export interface components {
              * @description The user's mark on the offer
              */
             status: ("saved" | "hidden") | null;
+            /**
+             * Visited At
+             * @description When the user last opened the offer's page
+             */
+            visited_at: string | null;
+            /**
+             * Applied At
+             * @description When the user marked the offer as applied
+             */
+            applied_at: string | null;
         };
         /**
          * MatchingMode
          * @enum {string}
          */
         MatchingMode: "basic" | "ai";
+        /** OfferActivity */
+        OfferActivity: {
+            /** Visited At */
+            visited_at: string | null;
+            /** Applied At */
+            applied_at: string | null;
+        };
+        /** OfferActivityUpdate */
+        OfferActivityUpdate: {
+            /**
+             * Visited
+             * @description true stamps a visit now; false forgets visit and application
+             */
+            visited?: boolean | null;
+            /**
+             * Applied
+             * @description Mark (true) or unmark (false) the offer as applied
+             */
+            applied?: boolean | null;
+        };
         /** OfferStatusUpdate */
         OfferStatusUpdate: {
             /** Status */
@@ -1069,6 +1119,8 @@ export interface operations {
                 search?: string | null;
                 /** @description Only saved / only hidden offers (default: all but hidden) */
                 status?: ("saved" | "hidden") | null;
+                /** @description Only offers never opened on the job board / only offers marked as applied */
+                activity?: ("unvisited" | "applied") | null;
                 /** @description Override search.categories */
                 category?: string[] | null;
                 /** @description Override search.preferred_cities */
@@ -1154,6 +1206,41 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_offer_activity_offers__offer_id__activity_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                offer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OfferActivityUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfferActivity"];
+                };
             };
             /** @description Validation Error */
             422: {

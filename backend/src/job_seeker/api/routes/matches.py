@@ -49,6 +49,10 @@ async def get_matches(
         Literal["saved", "hidden"] | None,
         Query(description="Only saved / only hidden offers (default: all but hidden)"),
     ] = None,
+    activity: Annotated[
+        Literal["unvisited", "applied"] | None,
+        Query(description="Only offers never opened on the job board / only offers marked as applied"),
+    ] = None,
     category: Annotated[list[str] | None, Query(description="Override search.categories")] = None,
     city: Annotated[list[str] | None, Query(description="Override search.preferred_cities")] = None,
     min_salary: Annotated[float | None, Query(description="Override search.min_salary_pln_month")] = None,
@@ -63,6 +67,7 @@ async def get_matches(
         min_score=min_score,
         search=search,
         status=status,
+        activity=activity,
         preferences={k: v for k, v in preferences.items() if v is not None},
     )
     outcome = await service.match(request)

@@ -66,6 +66,17 @@ export function formatDateTime(iso: string | null | undefined): string {
   return `${day}, ${time}`;
 }
 
+/** Calendar-day distance in the user's time zone: "dziś", "wczoraj", "3 dni temu"; older dates as "7.10.2026". */
+export function relativeDay(iso: string, now: Date = new Date()): string {
+  const date = new Date(iso);
+  const startOfDay = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const days = Math.round((startOfDay(now) - startOfDay(date)) / 86_400_000);
+  if (days <= 0) return 'dziś';
+  if (days === 1) return 'wczoraj';
+  if (days < 14) return `${days} dni temu`;
+  return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+}
+
 export function durationSeconds(start: string | null | undefined, end: string | null | undefined): string {
   if (!start || !end) return '—';
   const seconds = Math.max(0, Math.round((new Date(end).getTime() - new Date(start).getTime()) / 1000));

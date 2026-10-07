@@ -155,6 +155,19 @@
   background: var(--accent-soft);
 }
 
+/* Already opened on the job board: dimmed, but the score stays readable and hover restores it. */
+.cardVisited .cardBody,
+.cardVisited .cardSalary {
+  opacity: 0.6;
+}
+
+.cardVisited:hover .cardBody,
+.cardVisited:hover .cardSalary,
+.cardSelected .cardBody,
+.cardSelected .cardSalary {
+  opacity: 1;
+}
+
 .cardScore {
   flex: 0 0 56px;
   display: flex;
@@ -203,6 +216,23 @@
   font-family: var(--font-mono);
   font-size: 11.5px;
   color: var(--text);
+}
+
+.activityTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.activityApplied {
+  border-color: transparent;
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .cardSalary {
@@ -360,6 +390,47 @@
 
 .applyBtn {
   text-decoration: none;
+}
+
+.activityRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 8px 8px 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 12.5px;
+}
+
+.activityText {
+  color: var(--muted);
+}
+
+.linkBtn {
+  margin-left: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+
+.linkBtn:hover {
+  text-decoration: underline;
+}
+
+.appliedBtn {
+  min-height: 32px;
+  font-size: 12.5px;
+}
+
+.appliedOn {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .metaGrid {
@@ -676,6 +747,15 @@
 
   .detailTitle {
     font-size: 20px;
+  }
+
+  .activityRow {
+    padding: 4px 4px 4px 12px;
+  }
+
+  .appliedBtn,
+  .linkBtn {
+    min-height: 44px;
   }
 
   .detailFooter {

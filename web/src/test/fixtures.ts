@@ -82,6 +82,8 @@ export function result(o: JobOffer, score: number, extra: Partial<MatchResult> =
     ai: null,
     final_score: score,
     status: null,
+    visited_at: null,
+    applied_at: null,
     ...extra,
   };
 }

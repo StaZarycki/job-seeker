@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { offer } from '../test/fixtures';
-import { citiesLabel, countLabel, formatNumber, plural, salaryText, scoreTone, years } from './format';
+import { citiesLabel, countLabel, formatNumber, plural, relativeDay, salaryText, scoreTone, years } from './format';
 
 describe('format', () => {
   it('groups thousands with spaces', () => {
@@ -53,6 +53,14 @@ describe('format', () => {
     });
     expect(salaryText(o)).toEqual({ range: '16 000 – 21 000', contract: 'UoP, brutto' });
     expect(salaryText(offer('y', 'Y', { salaries: [] }))).toBeNull();
+  });
+
+  it('describes visit dates by calendar day', () => {
+    const now = new Date(2026, 9, 7, 9, 0);
+    expect(relativeDay(new Date(2026, 9, 7, 0, 5).toISOString(), now)).toBe('dziś');
+    expect(relativeDay(new Date(2026, 9, 6, 23, 50).toISOString(), now)).toBe('wczoraj');
+    expect(relativeDay(new Date(2026, 9, 4, 12, 0).toISOString(), now)).toBe('3 dni temu');
+    expect(relativeDay(new Date(2026, 8, 1, 12, 0).toISOString(), now)).toBe('1.9.2026');
   });
 
   it('shortens long city lists', () => {

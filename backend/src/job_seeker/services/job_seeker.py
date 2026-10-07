@@ -28,7 +28,7 @@ from job_seeker.matching.rules import score_offer
 from job_seeker.profile.service import ProfileService, ProfileState
 from job_seeker.sources.base import CategoryInfo, FetchProgress, JobSource, SourceError, SourceQuery
 from job_seeker.sources.registry import create_source
-from job_seeker.storage.db import Database, OfferStatus, UpsertStats
+from job_seeker.storage.db import Database, OfferActivity, OfferStatus, UpsertStats
 
 log = logging.getLogger(__name__)
 
@@ -48,6 +48,9 @@ class MatchRequest(BaseModel):
     search: str | None = Field(default=None, description="Named search preset from [searches.<name>]")
     status: Literal["saved", "hidden"] | None = Field(
         default=None, description="Only offers with this mark; by default hidden offers are left out"
+    )
+    activity: Literal["unvisited", "applied"] | None = Field(
+        default=None, description="Only offers never opened on the job board / only offers marked as applied"
     )
     preferences: dict[str, Any] = Field(default_factory=dict, description="Overrides of SearchPreferences fields")
 
@@ -246,12 +249,14 @@ class JobSeekerService:
         prefs = self.preferences(request.search, request.preferences)
         mode = request.mode or self.config.matching.mode
         statuses = self.db.offer_statuses()
+        activity = self.db.offer_activity()
         offers = [
             o
             for o in self.db.list_offers(
                 sources=prefs.sources, categories=prefs.categories, max_age_days=prefs.max_offer_age_days
             )
             if (statuses.get(o.id) == request.status if request.status else statuses.get(o.id) != "hidden")
+            and _activity_matches(activity.get(o.id), request.activity)
         ]
 
         ai_config = self._ai_config(request.provider, request.model)
@@ -279,8 +284,7 @@ class JobSeekerService:
                 await scorer.aclose()
         if request.min_score is not None:
             report.results = [r for r in report.results if r.final_score >= request.min_score]
-        for result in report.results:
-            result.status = statuses.get(result.offer.id)
+        self._attach_marks(report.results, statuses, activity)
         return MatchOutcome(report=report, profile=profile_state, preferences=prefs)
 
     async def assess_offer(
@@ -296,9 +300,8 @@ class JobSeekerService:
             offer, profile_state.profile, self.config.matching.experience, prefs.target_skills
         )
         rule = score_offer(offer, profile_state.profile, prefs, self.config.matching.weights, experience=experience)
-        result = MatchResult(
-            offer=offer, rule=rule, final_score=rule.score, status=self.db.offer_statuses().get(offer_id)
-        )
+        result = MatchResult(offer=offer, rule=rule, final_score=rule.score)
+        self._attach_marks([result], self.db.offer_statuses(), self.db.offer_activity())
         ai_config = self._ai_config(provider, model)
         scorer = self._scorer_factory(ai_config)
         enrich, close_sources = self._enricher()
@@ -322,6 +325,25 @@ class JobSeekerService:
         if self.db.get_offer(offer_id) is None:
             raise OfferNotFoundError(offer_id)
         self.db.set_offer_status(offer_id, status)
+
+    def set_offer_activity(
+        self, offer_id: str, visited: bool | None = None, applied: bool | None = None
+    ) -> OfferActivity:
+        """Record a visit on the job board and/or an application; returns the offer's marks afterwards."""
+        if self.db.get_offer(offer_id) is None:
+            raise OfferNotFoundError(offer_id)
+        self.db.set_offer_activity(offer_id, visited=visited, applied=applied)
+        return self.db.offer_activity().get(offer_id, OfferActivity())
+
+    @staticmethod
+    def _attach_marks(
+        results: list[MatchResult], statuses: dict[str, OfferStatus], activity: dict[str, OfferActivity]
+    ) -> None:
+        for result in results:
+            marks = activity.get(result.offer.id, OfferActivity())
+            result.status = statuses.get(result.offer.id)
+            result.visited_at = marks.visited_at
+            result.applied_at = marks.applied_at
 
     def search_summaries(self) -> list[SearchSummary]:
         """The default search plus every [searches.<name>] preset, with how many offers pass its filters."""
@@ -383,3 +405,11 @@ class JobSeekerService:
                 await source.aclose()
 
         return enrich, close
+
+
+def _activity_matches(marks: OfferActivity | None, wanted: Literal["unvisited", "applied"] | None) -> bool:
+    if wanted == "unvisited":
+        return marks is None or (marks.visited_at is None and marks.applied_at is None)
+    if wanted == "applied":
+        return marks is not None and marks.applied_at is not None
+    return True

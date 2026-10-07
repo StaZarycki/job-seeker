@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 
-import type { SearchPreferences } from '../../api/client';
+import type { ActivityFilter, SearchPreferences } from '../../api/client';
 import { ChevronDownIcon } from '../../components/icons';
 import { formatNumber } from '../../lib/format';
 import { useEscape } from '../../lib/hooks';
@@ -13,6 +13,11 @@ function splitList(value: string): string[] {
     .map((v) => v.trim())
     .filter(Boolean);
 }
+
+const ACTIVITY_CHIPS: [ActivityFilter, string][] = [
+  ['unvisited', 'Bez odwiedzonych'],
+  ['applied', 'Aplikowane'],
+];
 
 interface EditableChip {
   key: string;
@@ -117,6 +122,17 @@ export function FilterChips({
       >
         Tylko zapisane
       </button>
+      {ACTIVITY_CHIPS.map(([value, label]) => (
+        <button
+          key={value}
+          type="button"
+          aria-pressed={filters.activity === value}
+          className={`${s.filterChip} ${filters.activity === value ? s.filterChipOn : ''}`}
+          onClick={() => onChange({ activity: filters.activity === value ? null : value })}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 }

@@ -167,3 +167,5 @@ class MatchResult(Model):
     ai: AIResult | None = None
     final_score: float
     status: Literal["saved", "hidden"] | None = Field(default=None, description="The user's mark on the offer")
+    visited_at: datetime | None = Field(default=None, description="When the user last opened the offer's page")
+    applied_at: datetime | None = Field(default=None, description="When the user marked the offer as applied")

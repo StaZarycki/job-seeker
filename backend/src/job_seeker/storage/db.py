@@ -1,4 +1,4 @@
-"""SQLite persistence: offers from all sources, offer statuses, cached AI assessments and sync history."""
+"""SQLite persistence: offers from all sources, offer statuses and activity, cached AI assessments and sync history."""
 
 from __future__ import annotations
 
@@ -55,6 +55,12 @@ CREATE TABLE IF NOT EXISTS offer_status (
     status         TEXT NOT NULL CHECK (status IN ('saved', 'hidden')),
     updated_at     TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS offer_activity (
+    offer_id       TEXT PRIMARY KEY,
+    visited_at     TEXT,
+    applied_at     TEXT
+);
 """
 
 OfferStatus = Literal["saved", "hidden"]
@@ -64,6 +70,14 @@ OfferStatus = Literal["saved", "hidden"]
 class UpsertStats:
     fetched: int = 0
     new: int = 0
+
+
+@dataclass(frozen=True)
+class OfferActivity:
+    """When the user last opened the offer on the job board and when they marked it as applied."""
+
+    visited_at: datetime | None = None
+    applied_at: datetime | None = None
 
 
 @dataclass(frozen=True)
@@ -196,6 +210,40 @@ class Database:
             rows = conn.execute("SELECT offer_id, status FROM offer_status").fetchall()
         return {r["offer_id"]: r["status"] for r in rows}
 
+    # --- offer activity (visited / applied) --------------------------------------------------------------
+
+    def set_offer_activity(self, offer_id: str, visited: bool | None = None, applied: bool | None = None) -> None:
+        """``visited`` stamps the latest visit (False forgets the offer entirely, including "applied");
+        ``applied`` marks or unmarks an application, which implies a visit."""
+        now = _now()
+        with self._connect() as conn:
+            if visited is False:
+                conn.execute("DELETE FROM offer_activity WHERE offer_id = ?", (offer_id,))
+            elif visited:
+                conn.execute(
+                    """INSERT INTO offer_activity (offer_id, visited_at) VALUES (?, ?)
+                       ON CONFLICT (offer_id) DO UPDATE SET visited_at = excluded.visited_at""",
+                    (offer_id, now),
+                )
+            if applied:
+                conn.execute(
+                    """INSERT INTO offer_activity (offer_id, visited_at, applied_at) VALUES (?, ?, ?)
+                       ON CONFLICT (offer_id) DO UPDATE SET
+                           visited_at = COALESCE(visited_at, excluded.visited_at),
+                           applied_at = COALESCE(applied_at, excluded.applied_at)""",
+                    (offer_id, now, now),
+                )
+            elif applied is False:
+                conn.execute("UPDATE offer_activity SET applied_at = NULL WHERE offer_id = ?", (offer_id,))
+
+    def offer_activity(self) -> dict[str, OfferActivity]:
+        with self._connect() as conn:
+            rows = conn.execute("SELECT offer_id, visited_at, applied_at FROM offer_activity").fetchall()
+        return {
+            r["offer_id"]: OfferActivity(visited_at=_parse(r["visited_at"]), applied_at=_parse(r["applied_at"]))
+            for r in rows
+        }
+
     # --- AI assessment cache --------------------------------------------------------------------------
 
     def get_ai_result(self, offer_id: str, profile_hash: str, provider: str, model: str) -> AIResult | None:
@@ -289,6 +337,10 @@ def _iso(value: datetime | None) -> str | None:
     if value.tzinfo is None:
         value = value.replace(tzinfo=UTC)
     return value.astimezone(UTC).isoformat(timespec="microseconds")
+
+
+def _parse(value: str | None) -> datetime | None:
+    return datetime.fromisoformat(value) if value else None
 
 
 def _placeholders(values: list[str]) -> str:

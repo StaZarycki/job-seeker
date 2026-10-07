@@ -14,7 +14,7 @@ from fastapi.testclient import TestClient
 from job_seeker.api.app import create_app
 from job_seeker.config import AIConfig, AppConfig
 from job_seeker.domain.models import JobOffer
-from job_seeker.services.job_seeker import JobSeekerService, MatchRequest, SyncInProgressError
+from job_seeker.services.job_seeker import JobSeekerService, MatchRequest, OfferNotFoundError, SyncInProgressError
 from job_seeker.sources.base import FetchProgress, ProgressCallback, SourceQuery
 from job_seeker.storage.db import Database
 from tests.conftest import SAMPLE_CV, make_pdf
@@ -77,6 +77,44 @@ async def test_hidden_offers_are_left_out_and_saved_can_be_listed(service: JobSe
 
     service.set_offer_status(hidden_id, None)
     assert hidden_id in {r.offer.id for r in (await service.match(MatchRequest(top=50))).report.results}
+
+
+def test_offer_activity_marks(tmp_path: Path) -> None:
+    db = Database(tmp_path / "db.sqlite")
+    db.set_offer_activity("a", applied=True)  # applying implies a visit
+    marks = db.offer_activity()["a"]
+    assert marks.visited_at is not None and marks.applied_at is not None
+
+    db.set_offer_activity("a", visited=True)  # a later visit moves visited_at but keeps the application
+    later = db.offer_activity()["a"]
+    assert later.visited_at is not None and later.visited_at >= marks.visited_at
+    assert later.applied_at == marks.applied_at
+
+    db.set_offer_activity("a", applied=False)
+    assert db.offer_activity()["a"].applied_at is None and db.offer_activity()["a"].visited_at is not None
+    db.set_offer_activity("a", visited=False)  # forgetting a visit clears everything
+    assert "a" not in db.offer_activity()
+
+
+async def test_activity_filter_and_marks_in_results(service: JobSeekerService) -> None:
+    await service.sync()
+    first = (await service.match(MatchRequest(top=50))).report.results
+    visited_id, applied_id = first[0].offer.id, first[1].offer.id
+    service.set_offer_activity(visited_id, visited=True)
+    service.set_offer_activity(applied_id, applied=True)
+
+    results = {r.offer.id: r for r in (await service.match(MatchRequest(top=50))).report.results}
+    assert results[visited_id].visited_at is not None and results[visited_id].applied_at is None
+    assert results[applied_id].applied_at is not None
+
+    unvisited = (await service.match(MatchRequest(top=50, activity="unvisited"))).report.results
+    assert {visited_id, applied_id}.isdisjoint(r.offer.id for r in unvisited)
+    assert len(unvisited) == len(first) - 2
+    applied = (await service.match(MatchRequest(top=50, activity="applied"))).report.results
+    assert [r.offer.id for r in applied] == [applied_id]
+
+    with pytest.raises(OfferNotFoundError):
+        service.set_offer_activity("justjoin:nope", visited=True)
 
 
 async def test_assess_single_offer_uses_cache(service: JobSeekerService, scorer: FakeScorer) -> None:
@@ -154,6 +192,18 @@ def test_api_endpoints_for_frontend(service: JobSeekerService) -> None:
         assert [r["offer"]["id"] for r in saved] == [offer_id] and saved[0]["status"] == "saved"
         missing = client.put("/offers/justjoin:nope/status", json={"status": "saved"})
         assert missing.status_code == 404 and missing.json()["code"] == "offer_not_found"
+
+        visited = client.put(f"/offers/{offer_id}/activity", json={"visited": True})
+        assert visited.status_code == 200 and visited.json()["visited_at"] and visited.json()["applied_at"] is None
+        applied = client.put(f"/offers/{offer_id}/activity", json={"applied": True}).json()
+        assert applied["applied_at"] and applied["visited_at"] == visited.json()["visited_at"]
+        marked = client.get("/matches", params={"activity": "applied"}).json()["results"]
+        assert [r["offer"]["id"] for r in marked] == [offer_id] and marked[0]["applied_at"] == applied["applied_at"]
+        assert offer_id not in {
+            r["offer"]["id"] for r in client.get("/matches", params={"activity": "unvisited"}).json()["results"]
+        }
+        missing_activity = client.put("/offers/justjoin:nope/activity", json={"visited": True})
+        assert missing_activity.status_code == 404 and missing_activity.json()["code"] == "offer_not_found"
 
         assessed = client.post(f"/offers/{offer_id}/assess").json()
         assert assessed["ai"]["assessment"]["score"] == 77

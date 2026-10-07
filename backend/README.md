@@ -36,8 +36,9 @@ Inne komendy: `jobseeker categories` (klucze kategorii do configu), `jobseeker o
 
 | Endpoint | Opis |
 |---|---|
-| `GET /matches?search=&mode=&top=&status=` | ranking ofert (Standard lub AI), z filtrami |
+| `GET /matches?search=&mode=&top=&status=&activity=` | ranking ofert (Standard lub AI), z filtrami; `activity=unvisited` pomija odwiedzone, `activity=applied` zwraca aplikowane |
 | `GET /offers/{id}`, `PUT /offers/{id}/status`, `POST /offers/{id}/assess` | szczegóły z opisem, Zapisz/Ukryj, ocena AI jednej oferty |
+| `PUT /offers/{id}/activity` | znaczniki „Odwiedzona” (`visited`) i „Aplikowano” (`applied`) |
 | `GET /profile`, `POST /profile/cv`, `POST /profile/rebuild`, `GET/PUT /profile/overrides` | profil z CV i ręczne poprawki |
 | `GET /searches`, `GET /preferences`, `GET /settings` | profile wyszukiwania z liczbą ofert, preferencje, ustawienia dla UI |
 | `GET /sources`, `GET /sources/{source}/categories` | status źródeł i kategorie |

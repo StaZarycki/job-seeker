@@ -210,7 +210,11 @@ export function OffersPage() {
           <StateCard tag="0 wyników" title="Żadna oferta nie przeszła filtrów">
             {filters.status === 'saved'
               ? 'Nie masz jeszcze zapisanych ofert w tym wyszukiwaniu.'
-              : `Odrzucono ${formatNumber(report.filtered_out)} z ${formatNumber(report.considered)} ofert. Poluzuj filtry powyżej albo w config.toml.`}
+              : filters.activity === 'applied'
+                ? 'Żadna oferta w tym wyszukiwaniu nie jest oznaczona jako aplikowana.'
+                : filters.activity === 'unvisited'
+                  ? 'Wszystkie pasujące oferty były już otwierane w JustJoin.it.'
+                  : `Odrzucono ${formatNumber(report.filtered_out)} z ${formatNumber(report.considered)} ofert. Poluzuj filtry powyżej albo w config.toml.`}
           </StateCard>
         ) : (
           <div className={s.split}>

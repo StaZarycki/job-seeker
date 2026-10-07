@@ -1,9 +1,9 @@
 import { Link } from 'react-router';
 
 import type { MatchResult } from '../../api/client';
-import { BookmarkIcon } from '../../components/icons';
+import { BookmarkIcon, CheckIcon } from '../../components/icons';
 import { ScoreBadge, SkillChips } from '../../components/ui';
-import { citiesLabel, salaryText, workplaceLabel, years } from '../../lib/format';
+import { citiesLabel, relativeDay, salaryText, workplaceLabel, years } from '../../lib/format';
 import s from './offers.module.css';
 
 function scoreSub(result: MatchResult): string {
@@ -13,10 +13,11 @@ function scoreSub(result: MatchResult): string {
 export function OfferCard({ result, href, selected }: { result: MatchResult; href: string; selected: boolean }) {
   const { offer, rule } = result;
   const salary = salaryText(offer);
+  const visited = Boolean(result.visited_at || result.applied_at);
   return (
     <Link
       to={href}
-      className={`${s.card} ${selected ? s.cardSelected : ''}`}
+      className={`${s.card} ${selected ? s.cardSelected : ''} ${visited ? s.cardVisited : ''}`}
       aria-current={selected ? 'true' : undefined}
     >
       <div className={s.cardScore}>
@@ -32,6 +33,14 @@ export function OfferCard({ result, href, selected }: { result: MatchResult; hre
         <div className={s.cardMeta}>
           <span className={s.company}>{offer.company}</span>
           <span className={s.level}>{offer.seniority ?? '?'}</span>
+          {result.applied_at ? (
+            <span className={`${s.activityTag} ${s.activityApplied}`}>
+              <CheckIcon size={11} />
+              Aplikowano {relativeDay(result.applied_at)}
+            </span>
+          ) : result.visited_at ? (
+            <span className={s.activityTag}>Odwiedzona {relativeDay(result.visited_at)}</span>
+          ) : null}
           <span className="mono" style={{ fontSize: 11.5 }}>
             Ty: ~{years(rule.effective_years)} l.
           </span>
