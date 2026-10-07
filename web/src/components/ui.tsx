@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 
 import type { RuleWeights } from '../lib/weights';
 import { DEFAULT_WEIGHTS } from '../lib/weights';
@@ -17,6 +17,36 @@ export function ScoreBadge({ score, sub, large = false }: { score: number; sub?:
       </div>
       {sub ? <div className={s.scoreSub}>{sub}</div> : null}
     </div>
+  );
+}
+
+/** Company logo from the job board; the company's initial when there is none or it fails to load. */
+export function CompanyLogo({ src, company, size = 18 }: { src: string | null; company: string; size?: number }) {
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  if (!src || failedSrc === src) {
+    return (
+      <span
+        className={s.logoFallback}
+        style={{ width: size, height: size, fontSize: Math.round(size * 0.55) }}
+        aria-hidden="true"
+      >
+        {company.trim().charAt(0).toUpperCase() || '?'}
+      </span>
+    );
+  }
+  // Fixed height, width follows the logo up to 3:1: about half the logos are wide wordmarks that a square would shrink.
+  return (
+    <img
+      className={s.logo}
+      src={src}
+      alt=""
+      height={size}
+      style={{ height: size, minWidth: size, maxWidth: size * 3 }}
+      loading="lazy"
+      decoding="async"
+      referrerPolicy="no-referrer"
+      onError={() => setFailedSrc(src)}
+    />
   );
 }
 

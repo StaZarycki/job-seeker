@@ -26,6 +26,7 @@ def test_maps_listing_offer(offers_page: dict[str, Any]) -> None:
     assert offer.published_at is not None and offer.published_at.tzinfo is not None
     assert offer.description is None  # listing has no body
     assert offer.extra["slug"] == raw["slug"]
+    assert offer.company_logo_url == raw["companyLogoThumbUrl"]
 
 
 def test_every_fixture_offer_maps(offers_page: dict[str, Any]) -> None:
@@ -76,6 +77,7 @@ def test_detail_maps_description(offer_detail: dict[str, Any]) -> None:
     assert offer.external_id == offer_detail["id"]
     assert offer.description and "<p>" not in offer.description
     assert len(offer.description) > 200
+    assert offer.company_logo_url == offer_detail["companyLogoUrl"]
 
 
 @respx.mock

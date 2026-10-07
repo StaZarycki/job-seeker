@@ -17,6 +17,8 @@
   --scroll-hover: #4b525e;
   --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
   --backdrop: rgba(0, 0, 0, 0.55);
+  /* Logos are drawn for white backgrounds (transparent PNGs often have dark text). */
+  --logo-bg: #ffffff;
 }
 
 :root[data-theme='light'] {
@@ -36,6 +38,7 @@
   --scroll-hover: #a3aab5;
   --shadow: 0 16px 40px rgba(20, 22, 26, 0.12);
   --backdrop: rgba(20, 22, 26, 0.35);
+  --logo-bg: #ffffff;
 }
 
 :root {

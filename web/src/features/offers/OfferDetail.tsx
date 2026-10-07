@@ -11,7 +11,7 @@ import {
   EyeOffIcon,
   SparkleIcon,
 } from '../../components/icons';
-import { ScoreBars, ScoreBadge, Skeleton, SkillChips } from '../../components/ui';
+import { CompanyLogo, ScoreBars, ScoreBadge, Skeleton, SkillChips } from '../../components/ui';
 import { citiesLabel, percent, relativeDay, salaryText, workplaceLabel, years } from '../../lib/format';
 import { PHONE_QUERY, useMediaQuery } from '../../lib/hooks';
 import s from './offers.module.css';
@@ -178,7 +178,10 @@ export function OfferDetail({
         <div className={s.detailHead}>
           <div style={{ flex: '1 1 auto', minWidth: 0 }}>
             <h2 className={s.detailTitle}>{offer.title}</h2>
-            <div className="muted">{offer.company}</div>
+            <div className={`muted ${s.detailCompany}`}>
+              <CompanyLogo src={offer.company_logo_url} company={offer.company} size={20} />
+              {offer.company}
+            </div>
           </div>
           <ScoreBadge
             score={result.final_score}

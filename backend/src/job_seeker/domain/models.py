@@ -77,6 +77,7 @@ class JobOffer(Model):
     published_at: datetime | None = None
     expires_at: datetime | None = None
     apply_url: str | None = None
+    company_logo_url: str | None = Field(default=None, description="Small company logo hosted by the job board")
     description: str | None = Field(default=None, description="Plain-text description, filled by fetch_details")
     extra: dict[str, str] = Field(default_factory=dict, description="Source-specific identifiers, e.g. slug")
 

@@ -47,6 +47,8 @@ def map_offer(raw: dict[str, Any]) -> JobOffer:
         published_at=_parse_dt(raw.get("publishedAt")),
         expires_at=_parse_dt(raw.get("expiredAt")),
         apply_url=raw.get("applyUrl"),
+        # The listing has a 200x200 thumbnail; the detail endpoint only the original image.
+        company_logo_url=raw.get("companyLogoThumbUrl") or raw.get("companyLogoUrl"),
         description=html_to_text(body) if body else None,
         extra={"slug": slug},
     )

@@ -560,6 +560,11 @@ export interface components {
             /** Apply Url */
             apply_url: string | null;
             /**
+             * Company Logo Url
+             * @description Small company logo hosted by the job board
+             */
+            company_logo_url: string | null;
+            /**
              * Description
              * @description Plain-text description, filled by fetch_details
              */

@@ -205,8 +205,21 @@
   font-size: 12.5px;
 }
 
+.company,
+.detailCompany {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
 .company {
   color: var(--text);
+}
+
+.detailCompany {
+  display: flex;
+  margin-top: 4px;
 }
 
 .level {

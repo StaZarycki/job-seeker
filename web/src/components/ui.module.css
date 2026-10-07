@@ -1,3 +1,29 @@
+/* Company logo */
+.logo,
+.logoFallback {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.logo {
+  width: auto;
+  padding: 1px 2px;
+  object-fit: contain;
+  background: var(--logo-bg);
+}
+
+.logoFallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel2);
+  color: var(--muted);
+  font-weight: 600;
+  line-height: 1;
+}
+
 /* Score */
 .score {
   display: flex;

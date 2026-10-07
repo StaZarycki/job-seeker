@@ -60,6 +60,7 @@ export function offer(id: string, title: string, overrides: Partial<JobOffer> = 
     published_at: '2026-10-07T10:00:00Z',
     expires_at: null,
     apply_url: null,
+    company_logo_url: null,
     description: null,
     extra: { slug: id },
     ...overrides,

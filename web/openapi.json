@@ -1474,6 +1474,18 @@
             ],
             "title": "Apply Url"
           },
+          "company_logo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Logo Url",
+            "description": "Small company logo hosted by the job board"
+          },
           "description": {
             "anyOf": [
               {
@@ -1520,6 +1532,7 @@
           "published_at",
           "expires_at",
           "apply_url",
+          "company_logo_url",
           "description",
           "extra",
           "id"

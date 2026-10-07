@@ -156,6 +156,22 @@ describe('OffersPage', () => {
     expect(screen.getByRole('button', { name: 'Bez odwiedzonych' })).toHaveAttribute('aria-pressed', 'true');
   });
 
+  it('shows company logos, or the initial when an offer has none', async () => {
+    const logo = 'https://example.test/logo.png';
+    const results = [{ ...RESULTS[0]!, offer: { ...RESULTS[0]!.offer, company_logo_url: logo } }, RESULTS[1]!];
+    server.use(
+      ...baseHandlers(),
+      http.get('/api/matches', () => HttpResponse.json(matchResponse(results))),
+    );
+    renderApp('/');
+
+    const list = await screen.findByRole('region', { name: 'Ranking ofert' });
+    const [withLogo, withoutLogo] = await within(list).findAllByRole('link');
+    expect(withLogo!.querySelector('img')).toHaveAttribute('src', logo);
+    expect(withoutLogo!.querySelector('img')).toBeNull();
+    expect(within(withoutLogo!).getByText(RESULTS[1]!.offer.company.charAt(0).toUpperCase())).toBeInTheDocument();
+  });
+
   it('asks for a CV when the backend has none', async () => {
     server.use(
       ...baseHandlers(),

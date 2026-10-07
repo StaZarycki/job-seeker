@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 
 import type { MatchResult } from '../../api/client';
 import { BookmarkIcon, CheckIcon } from '../../components/icons';
-import { ScoreBadge, SkillChips } from '../../components/ui';
+import { CompanyLogo, ScoreBadge, SkillChips } from '../../components/ui';
 import { citiesLabel, relativeDay, salaryText, workplaceLabel, years } from '../../lib/format';
 import s from './offers.module.css';
 
@@ -31,7 +31,10 @@ export function OfferCard({ result, href, selected }: { result: MatchResult; hre
           {offer.title}
         </div>
         <div className={s.cardMeta}>
-          <span className={s.company}>{offer.company}</span>
+          <span className={s.company}>
+            <CompanyLogo src={offer.company_logo_url} company={offer.company} />
+            {offer.company}
+          </span>
           <span className={s.level}>{offer.seniority ?? '?'}</span>
           {result.applied_at ? (
             <span className={`${s.activityTag} ${s.activityApplied}`}>
