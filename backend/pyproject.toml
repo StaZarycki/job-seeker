@@ -4,8 +4,9 @@ version = "0.1.0"
 description = "Matches job offers from job boards (JustJoin.it, ...) to your CV"
 readme = "README.md"
 authors = [
-    { name = "StaZarycki", email = "stazarycki@gmail.com" }
+    { name = "StaZarycki" }
 ]
+license = "MIT"
 requires-python = ">=3.13"
 dependencies = [
     "anthropic>=1.12.0",

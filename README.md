@@ -43,3 +43,7 @@ cd web && npm run typecheck && npm run lint && npm test
 # po zmianie API: wygeneruj typy TypeScript z OpenAPI backendu
 cd web && npm run gen:api
 ```
+
+## Licencja
+
+[MIT](LICENSE)

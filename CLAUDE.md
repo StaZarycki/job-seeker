@@ -43,7 +43,7 @@ Before finishing a change, all checks for the touched part must pass:
 - **Personal data.** Never commit `backend/cv/`, `backend/data/`, `backend/.env`, `backend/config.toml` or `backend/profile.overrides.toml`; all are gitignored. Never put CV contact data into anything sent to an AI model: `cv_reader.sanitize` strips it.
 - **AI calls cost money.** `mode=ai` sends real requests to Anthropic using the user's key from `backend/.env`. Don't trigger AI mode (CLI `--mode ai`, `/matches?mode=ai`, `/offers/{id}/assess`) without asking. Tests use `tests/fakes.py::FakeScorer` and never touch the network. Default model: `claude-haiku-4-5`. Keys without a workspace need `ANTHROPIC_WORKSPACE_ID`.
 - **Don't edit the user's config.** `backend/config.toml` and `profile.overrides.toml` belong to the user. Change `config.example.toml` / `profile.overrides.example.toml` instead, and tell the user what to copy.
-- **uv workspace trap.** `C:\Users\ja\pyproject.toml` is a uv workspace. Running `uv init` here once added this project to its `members`, so never run `uv init`. `backend/` works standalone with `uv sync`.
+- **uv workspace trap.** On the author's machine a parent directory holds a `pyproject.toml` uv workspace. Running `uv init` here once added this project to its `members`, so never run `uv init`. `backend/` works standalone with `uv sync`.
 
 ## Backend architecture (`backend/src/job_seeker/`)
 
