@@ -5,7 +5,7 @@ Job Seeker matches job offers (JustJoin.it for now) to the user's CV. Two indepe
 - `backend/`: Python 3.13, FastAPI, SQLite, uv. The CLI (`jobseeker`) and the REST API share one service layer.
 - `web/`: React 19, TypeScript (strict), Vite, TanStack Query, CSS Modules. It talks only to the REST API.
 
-The user writes in Polish. All UI copy, CLI output and user-facing error messages are in Polish. Code, comments and commit messages are in English.
+The user writes in Polish. All UI copy, CLI output and user-facing error messages are in Polish. Code, comments, commit messages and the READMEs are in English.
 
 ## Commands
 

@@ -1,129 +1,131 @@
 # Job Seeker – backend
 
-Backend aplikacji (frontend jest w [`../web`](../web/README.md)). Wszystkie komendy poniżej uruchamiasz w katalogu `backend/`.
+The application's backend (the frontend lives in [`../web`](../web/README.md)). Run all commands below from the `backend/` directory.
 
-Aplikacja szuka ofert pracy pasujących do Twojego CV. Pobiera oferty z serwisów (na razie JustJoin.it), buduje profil z CV w PDF i układa ranking ofert z uzasadnieniem. Działa w dwóch trybach:
+The app finds job offers that match your CV. It downloads offers from job boards (JustJoin.it for now), builds a profile from your PDF CV and ranks the offers with an explanation for each. It has two modes:
 
-- **`basic`** (domyślny): ocena na podstawie reguł. Nie wymaga klucza API i nic nie kosztuje.
-- **`ai`**: najlepsze oferty z rankingu regułowego ocenia dodatkowo model AI. Domyślnie to Claude Haiku 4.5.
+- **`basic`** (default, called "Standard" in the UI): rule-based scoring. Needs no API key and costs nothing.
+- **`ai`**: the best offers from the rule-based ranking are also assessed by an AI model. Claude Haiku 4.5 by default.
 
-## Szybki start
+CLI output and API error messages are in Polish.
+
+## Quick start
 
 ```bash
-uv sync                                   # instalacja zależności
-cp config.example.toml config.toml        # opcjonalnie: dostosuj preferencje
-mkdir cv                                  # wrzuć tu CV w PDF (nazwa dowolna)
-uv run jobseeker profile show             # podgląd profilu zbudowanego z CV
-uv run jobseeker sync                     # pobranie ofert do lokalnej bazy (~20 s)
-uv run jobseeker match --top 20           # ranking (tryb basic)
-uv run jobseeker match -n 10 --details    # z rozbiciem wyniku na składowe
+uv sync                                   # install dependencies
+cp config.example.toml config.toml        # optional: adjust your preferences
+mkdir cv                                  # put your PDF CV here (any file name)
+uv run jobseeker profile show             # preview the profile built from the CV
+uv run jobseeker sync                     # download offers into the local database (~20 s)
+uv run jobseeker match --top 20           # ranking (basic mode)
+uv run jobseeker match -n 10 --details    # with the score broken down into components
 ```
 
-Tryb AI wymaga klucza API. Skopiuj `.env.example` do `.env`, wpisz `ANTHROPIC_API_KEY`, a potem uruchom:
+AI mode needs an API key. Copy `.env.example` to `.env`, set `ANTHROPIC_API_KEY`, then run:
 
 ```bash
-uv run jobseeker match --mode ai                          # Haiku 4.5, ocena top 20 ofert
+uv run jobseeker match --mode ai                          # Haiku 4.5, assesses the top 20 offers
 uv run jobseeker match --mode ai --model claude-sonnet-5-5
 ```
 
-Oceny AI są zapisywane w cache dla każdej wersji profilu i każdego modelu, więc ponowne uruchomienie nie wysyła zapytań do modelu.
+AI assessments are cached per profile version and per model, so running again sends no requests to the model.
 
-Inne komendy: `jobseeker categories` (klucze kategorii do configu), `jobseeker offer <id>` (pełny opis oferty), `jobseeker serve` (REST API, dokumentacja pod http://127.0.0.1:8000/docs).
+Other commands: `jobseeker categories` (category keys for the config), `jobseeker offer <id>` (full offer description), `jobseeker serve` (REST API, docs at http://127.0.0.1:8000/docs).
 
 ## REST API
 
-`uv run jobseeker serve` uruchamia API, z którego korzysta frontend. Pełna, aktualna dokumentacja jest pod `/docs`.
+`uv run jobseeker serve` starts the API used by the frontend. Full, up-to-date documentation is at `/docs`.
 
-| Endpoint | Opis |
+| Endpoint | Description |
 |---|---|
-| `GET /matches?search=&mode=&top=&status=&activity=` | ranking ofert (Standard lub AI), z filtrami; `activity=unvisited` pomija odwiedzone, `activity=applied` zwraca aplikowane |
-| `GET /offers/{id}`, `PUT /offers/{id}/status`, `POST /offers/{id}/assess` | szczegóły z opisem, Zapisz/Ukryj, ocena AI jednej oferty |
-| `PUT /offers/{id}/activity` | znaczniki „Odwiedzona” (`visited`) i „Aplikowano” (`applied`) |
-| `GET /profile`, `POST /profile/cv`, `POST /profile/rebuild`, `GET/PUT /profile/overrides` | profil z CV i ręczne poprawki |
-| `GET /searches`, `GET /preferences`, `GET /settings` | profile wyszukiwania z liczbą ofert, preferencje, ustawienia dla UI |
-| `GET /sources`, `GET /sources/{source}/categories` | status źródeł i kategorie |
-| `POST /sync`, `GET /sync/status`, `DELETE /sync`, `GET /syncs` | synchronizacja w tle z postępem, przerwanie, historia |
+| `GET /matches?search=&mode=&top=&status=&activity=` | ranked offers (Standard or AI) with filters; `activity=unvisited` leaves out visited offers, `activity=applied` returns the ones marked as applied |
+| `GET /offers/{id}`, `PUT /offers/{id}/status`, `POST /offers/{id}/assess` | details with description, save/hide, AI assessment of a single offer |
+| `PUT /offers/{id}/activity` | "visited" (`visited`) and "applied" (`applied`) marks |
+| `GET /profile`, `POST /profile/cv`, `POST /profile/rebuild`, `GET/PUT /profile/overrides` | profile built from the CV and manual corrections |
+| `GET /searches`, `GET /preferences`, `GET /settings` | search presets with offer counts, preferences, settings for the UI |
+| `GET /sources`, `GET /sources/{source}/categories` | source status and categories |
+| `POST /sync`, `GET /sync/status`, `DELETE /sync`, `GET /syncs` | background sync with progress, cancellation, history |
 
-Błędy mają postać `{"detail": "...", "code": "..."}`. Przykładowe kody: `cv_not_found`, `ai_not_configured`, `source_unavailable`, `sync_in_progress`.
+Errors look like `{"detail": "...", "code": "..."}`. Example codes: `cv_not_found`, `ai_not_configured`, `source_unavailable`, `sync_in_progress`.
 
-Dostęp z przeglądarki z innych adresów niż serwer deweloperski frontendu ustawisz w `[api] cors_origins`. Klucze API Anthropic przypisane do organizacji (bez workspace) wymagają `ANTHROPIC_WORKSPACE_ID` w `.env`.
+To allow browser access from origins other than the frontend dev server, set `[api] cors_origins`. Anthropic API keys that belong to an organization without a workspace need `ANTHROPIC_WORKSPACE_ID` in `.env`.
 
-## Zmiana CV
+## Changing your CV
 
-Wrzuć nowy PDF do `cv/`. Stary możesz usunąć, ale nie musisz, bo liczy się najnowszy plik, a nazwa nie ma znaczenia.
+Put the new PDF in `cv/`. You can delete the old one, but you don't have to: the newest file wins and the name doesn't matter.
 
-- Przy kolejnym uruchomieniu aplikacja wykrywa zmianę po sumie kontrolnej SHA-256 i sama przebudowuje profil.
-- Stare oceny AI przestają być używane, a pobranych ofert nie trzeba ściągać ponownie.
-- Ręczne poprawki profilu wpisujesz w `profile.overrides.toml` (wzór: `profile.overrides.example.toml`). Przetrwają podmianę CV.
-- Nowe CV można też wgrać przez API: `POST /profile/cv`.
+- On the next run the app detects the change by its SHA-256 checksum and rebuilds the profile by itself.
+- Old AI assessments stop being used, and downloaded offers don't need to be fetched again.
+- Manual profile corrections go in `profile.overrides.toml` (template: `profile.overrides.example.toml`). They survive a CV change.
+- A new CV can also be uploaded through the API: `POST /profile/cv`.
 
-## Obszary i zmiana technologii
+## Areas and switching technologies
 
-Doświadczenie liczone jest **dla każdej oferty osobno**, w jej głównych technologiach. Lata z pozycji w CV przypisywane są technologiom w nich wymienionym (`jobseeker profile show` pokazuje wynik), a ogólny staż przenosi się częściowo (`transfer_ratio`).
+Experience is computed **for each offer separately**, in the offer's main technologies. Years from positions in your CV are attributed to the technologies mentioned in them (`jobseeker profile show` shows the result), and general experience carries over partially (`transfer_ratio`).
 
-Przykład: przy 4 latach stażu, w tym 3 w Node.js, oferta Node.js oznacza ~3,4 roku, czyli poziom mid, a oferta C++ ~1,4 roku, czyli junior. Przy `experience_levels = "auto"` przechodzą oferty na Twoim poziomie i jeden wyżej, czyli junior/mid w C++ i mid/senior w Node.js.
+Example: with 4 years of experience, 3 of them in Node.js, a Node.js offer means ~3.4 years, i.e. mid level, and a C++ offer ~1.4 years, i.e. junior. With `experience_levels = "auto"`, offers at your level and one level up pass: junior/mid in C++ and mid/senior in Node.js.
 
-Obszar wybierasz profilem wyszukiwania z `config.toml`:
+You choose the area with a search preset from `config.toml`:
 
 ```bash
-uv run jobseeker searches                 # lista profili
-uv run jobseeker sync --search cpp        # pobranie kategorii z profilu
-uv run jobseeker match --search cpp -d    # ranking dla C++ (oferty junior/mid, C++ jako cel)
+uv run jobseeker searches                 # list presets
+uv run jobseeker sync --search cpp        # download the preset's categories
+uv run jobseeker match --search cpp -d    # C++ ranking (junior/mid offers, C++ as the target)
 ```
 
-`target_skills` oznacza technologie, w których kierunku idziesz: są częściowo zaliczane w dopasowaniu i przekazywane modelowi AI. Oceny AI są zapisywane osobno dla każdego profilu wyszukiwania.
+`target_skills` are the technologies you are moving towards: they get partial credit in matching and are passed to the AI model. AI assessments are cached separately for each search preset.
 
-## Dopasowanie
+## Matching
 
-1. **Filtry twarde** z `[search]`: poziom doświadczenia (automatyczny albo stała lista), tryb pracy, praca stacjonarna/hybrydowa tylko w preferowanych miastach, wykluczone słowa kluczowe.
-2. **Wynik regułowy 0–100**: ważona suma składowych. Wagi ustawisz w `[matching.weights]`.
+1. **Hard filters** from `[search]`: experience level (automatic or a fixed list), workplace type, on-site/hybrid only in preferred cities, excluded keywords.
+2. **Rule score 0–100**: a weighted sum of components. Set the weights in `[matching.weights]`.
 
-   | Składowa | Co ocenia |
+   | Component | What it measures |
    |---|---|
-   | umiejętności | pokrycie wymaganych umiejętności ważone ich poziomem; aliasy i technologie pokrewne liczą się częściowo |
-   | tytuł | czy tytuł stanowiska pasuje do szukanej roli |
-   | seniority | wymagany poziom w porównaniu z Twoim doświadczeniem w technologiach oferty |
-   | lokalizacja | praca zdalna albo preferowane miasto |
-   | widełki | wynagrodzenie względem oczekiwanego minimum |
-   | języki | wymagane języki i poziomy |
-   | świeżość | jak dawno opublikowano ofertę |
+   | skills | coverage of required skills, weighted by their level; aliases and related technologies count partially |
+   | title | whether the job title matches the role you are looking for |
+   | seniority | the required level compared with your experience in the offer's technologies |
+   | location | remote work or a preferred city |
+   | salary | pay compared with your expected minimum |
+   | languages | required languages and levels |
+   | freshness | how long ago the offer was published |
 
-3. **Tryb `ai`**: `top_n` najlepszych ofert trafia do modelu razem z pełnym opisem. Model zwraca wynik, plusy, minusy i brakujące umiejętności. Wynik końcowy to `weight · AI + (1 − weight) · reguły`.
+3. **`ai` mode**: the `top_n` best offers are sent to the model together with their full descriptions. The model returns a score, pros, cons and missing skills. The final score is `weight · AI + (1 − weight) · rules`.
 
-Do modelu trafia profil i tekst CV **bez** e-maila, telefonu, linków i nagłówka z imieniem i nazwiskiem.
+The model receives the profile and the CV text **without** email, phone number, links and the header with your name.
 
-## Architektura
+## Architecture
 
 ```
 src/job_seeker/
-  domain/models.py        modele niezależne od źródła (JobOffer, CandidateProfile, MatchResult…)
-  sources/                integracje z serwisami: base.py (protokół JobSource) + registry.py
-    justjoin/             klient API JustJoin.it + mapper JSON → JobOffer
-  profile/                CV → profil: odczyt PDF, słownik umiejętności, wykrywanie zmian, poprawki
+  domain/models.py        source-agnostic models (JobOffer, CandidateProfile, MatchResult…)
+  sources/                job board integrations: base.py (JobSource protocol) + registry.py
+    justjoin/             JustJoin.it API client + JSON → JobOffer mapper
+  profile/                CV → profile: PDF reading, skill dictionary, change detection, overrides
   matching/
-    rules.py              filtry + scoring regułowy
-    ai/                   wymienni dostawcy AI (anthropic, openai_compatible) ze wspólnym promptem
-    pipeline.py           filtry → reguły → [AI] → ranking
-  storage/db.py           SQLite: oferty, cache ocen AI, historia synchronizacji
-  services/job_seeker.py  logika aplikacji współdzielona przez CLI i API
-  cli.py, api/            interfejsy
+    rules.py              filters + rule-based scoring
+    ai/                   pluggable AI providers (anthropic, openai_compatible) with a shared prompt
+    pipeline.py           filters → rules → [AI] → ranking
+  storage/db.py           SQLite: offers, AI assessment cache, sync history
+  services/job_seeker.py  application logic shared by the CLI and the API
+  cli.py, api/            interfaces
 ```
 
-### Nowy serwis z ofertami
+### Adding a job board
 
-1. Utwórz `sources/<nazwa>/` z klasą implementującą `JobSource` (`fetch_offers`, `fetch_details`, `list_categories`, `aclose`), która mapuje dane serwisu na `JobOffer`.
-2. Zarejestruj ją w `sources/registry.py` (`register("<nazwa>", factory)`).
-3. Dodaj nazwę do `search.sources` w `config.toml`.
+1. Create `sources/<name>/` with a class implementing `JobSource` (`fetch_offers`, `fetch_details`, `list_categories`, `aclose`) that maps the board's data to `JobOffer`.
+2. Register it in `sources/registry.py` (`register("<name>", factory)`).
+3. Add the name to `search.sources` in `config.toml`.
 
-Matching, cache, CLI i API zadziałają bez dalszych zmian.
+Matching, caching, the CLI and the API work without further changes.
 
-### Inny model AI
+### Another AI model
 
-- **Claude:** wystarczy zmienić `ai.model`.
-- **Inni dostawcy** (OpenAI, OpenRouter, lokalna Ollama lub LM Studio): `uv sync --extra openai`, a w configu `provider = "openai_compatible"`, `model` i ewentualnie `base_url`.
-- **Własny dostawca:** zaimplementuj `AIScorer` w `matching/ai/` i dodaj go do `matching/ai/registry.py`.
+- **Claude:** just change `ai.model`.
+- **Other providers** (OpenAI, OpenRouter, local Ollama or LM Studio): `uv sync --extra openai`, then set `provider = "openai_compatible"`, `model` and, if needed, `base_url` in the config.
+- **Your own provider:** implement `AIScorer` in `matching/ai/` and add it to `matching/ai/registry.py`.
 
-## Rozwój
+## Development
 
 ```bash
 uv sync --all-extras
