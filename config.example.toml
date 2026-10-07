@@ -1,0 +1,70 @@
+# Skopiuj do config.toml i dostosuj. Każdy klucz jest opcjonalny - brakujące mają wartości domyślne.
+
+[paths]
+cv_dir = "cv"                 # wrzuć tu CV (PDF, dowolna nazwa) - używany jest najnowszy plik
+cv_path = ""                  # albo wskaż konkretny plik (puste = najnowszy PDF z cv_dir)
+data_dir = "data"             # baza SQLite i zbudowany profil
+overrides = "profile.overrides.toml"
+
+[search]
+sources = ["justjoin"]
+# Klucze kategorii: `uv run jobseeker categories`
+categories = ["javascript", "python", "architecture", "devops"]
+# "auto" = Twój poziom w technologiach oferty + jeden wyżej (Node.js: mid/senior, C++: junior/mid)
+# albo stała lista: ["mid", "senior"] (intern, junior, mid, senior, manager, c_level)
+experience_levels = "auto"
+workplace = ["remote", "hybrid"]               # remote, hybrid, office
+preferred_cities = ["Katowice", "Kraków", "Gliwice"]
+onsite_only_in_preferred_cities = true         # odrzuć hybrydę/biuro poza preferowanymi miastami
+# min_salary_pln_month = 18000                 # oczekiwane minimum (górne widełki), PLN/mies.
+exclude_keywords = ["Java", "PHP", ".NET"]     # odrzuca: całe słowa w tytule lub wymaganych umiejętnościach
+title_keywords = ["backend", "back-end", "full stack", "fullstack", "full-stack"]  # premiowane w tytule (+ główne umiejętności z CV)
+avoid_title_keywords = []                      # obniżają wynik, np. ["frontend", "manager"]
+target_skills = []                             # technologie, na które się przebranżawiasz (częściowo zaliczane)
+max_offer_age_days = 45
+
+[matching]
+mode = "basic"                # basic = tylko reguły (darmowo) | ai = reguły + ocena modelem AI
+
+[matching.experience]         # jak doświadczenie przenosi się między technologiami
+transfer_ratio = 0.35         # jaka część ogólnego stażu liczy się w nieznanej technologii
+declared_ratio = 0.5          # ile stażu przyjąć dla umiejętności z CV niezwiązanej z żadnym stanowiskiem
+
+[matching.weights]            # wagi składowych wyniku regułowego
+skills = 0.45
+title = 0.10
+seniority = 0.15
+location = 0.10
+salary = 0.10
+languages = 0.05
+freshness = 0.05
+
+[ai]
+provider = "anthropic"        # anthropic | openai_compatible
+model = "claude-haiku-4-5"    # tani i szybki; mocniejszy: "claude-sonnet-5-5"
+top_n = 20                    # ile najlepszych ofert (wg reguł) ocenia model
+weight = 0.7                  # udział oceny AI w wyniku końcowym
+max_concurrency = 4
+# api_key_env = "ANTHROPIC_API_KEY"   # nazwa zmiennej z kluczem (domyślnie standardowa dla dostawcy)
+
+# Przykład: lokalny model przez Ollamę (wymaga `uv sync --extra openai`)
+# provider = "openai_compatible"
+# model = "llama3.1"
+# base_url = "http://localhost:11434/v1"
+
+# Profile wyszukiwania: nadpisują wybrane pola [search]. Użycie: `jobseeker sync --search cpp`,
+# `jobseeker match --search cpp`, API: GET /matches?search=cpp
+[searches.cpp]
+categories = ["c"]                             # klucz JustJoin dla C/C++
+target_skills = ["C++"]
+title_keywords = ["c++", "embedded"]
+exclude_keywords = ["Java", "C#", ".NET"]
+
+[searches.python]
+categories = ["python"]
+title_keywords = ["backend", "python"]
+
+[justjoin]
+page_size = 100
+request_delay_s = 0.5
+max_retries = 3

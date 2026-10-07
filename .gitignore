@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+dist/
+
+# Personal data - never commit
+cv/
+*.pdf
+data/
+.env
+config.toml
+profile.overrides.toml

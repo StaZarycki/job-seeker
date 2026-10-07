@@ -1,0 +1,3061 @@
+{
+ "data": [
+  {
+   "guid": "5f2ebb46-2ead-401e-bd3e-12cbbaf22f9a",
+   "slug": "coalition-technologies-wordpress-developer-los-angeles-javascript",
+   "title": "WordPress Developer",
+   "workplaceType": "remote",
+   "workingTime": "full_time",
+   "experienceLevel": "mid",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Los Angeles",
+   "street": "flower street",
+   "latitude": 34.0372315,
+   "longitude": -118.2687298,
+   "isRemoteInterview": false,
+   "companyName": "Coalition Technologies",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/j7JMnzhJQ1FDFr_U3IJTi1A9Vfpb1_mhh1GzqhD6ixQ/h:200/w:200/plain/https://s3.eu-west-1.amazonaws.com/public.justjoin.com/justjoinit/hiring-company-logos/01a0ee25-359b-79f8-9299-a7b09bcaa5f7.png",
+   "publishedAt": "2026-10-07T18:05:11.6203794Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Los Angeles",
+     "street": "flower street",
+     "latitude": 34.0372315,
+     "longitude": -118.2687298,
+     "slug": "coalition-technologies-wordpress-developer-los-angeles-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 10989.0,
+     "fromPerUnit": 65.4126,
+     "to": 22625.0,
+     "toPerUnit": 134.673,
+     "currency": "PLN",
+     "currencySource": "conversion",
+     "type": "permanent",
+     "unit": "Hour",
+     "gross": true
+    },
+    {
+     "from": 2856.0,
+     "fromPerUnit": 17.0,
+     "to": 5880.0,
+     "toPerUnit": 35.0,
+     "currency": "USD",
+     "currencySource": "original",
+     "type": "permanent",
+     "unit": "Hour",
+     "gross": true
+    },
+    {
+     "from": 2511.0,
+     "fromPerUnit": 14.944961045488814,
+     "to": 5169.0,
+     "toPerUnit": 30.769037446594616,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "permanent",
+     "unit": "Hour",
+     "gross": true
+    },
+    {
+     "from": 2374.0,
+     "fromPerUnit": 14.12890684061602,
+     "to": 4887.0,
+     "toPerUnit": 29.0889258483271,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "permanent",
+     "unit": "Hour",
+     "gross": true
+    },
+    {
+     "from": 2152.0,
+     "fromPerUnit": 12.81243389352451,
+     "to": 4432.0,
+     "toPerUnit": 26.37854036902105,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "permanent",
+     "unit": "Hour",
+     "gross": true
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "WordPress",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "MySQL",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Ajax",
+     "level": 2,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": true,
+   "applyMethod": "external",
+   "applyUrl": "https://app.testedrecruits.com/posting/16782",
+   "lastPublishedAt": "2026-09-29T17:16:25.249672Z",
+   "expiredAt": "2026-12-28T17:08:01.848Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "46be3d6a-638b-4f8a-bd70-f56a60a4c399",
+   "slug": "peoplemore-p-s-a--senior-frontend-developer-angular--wroclaw-javascript",
+   "title": "Senior Frontend Developer (Angular)",
+   "workplaceType": "hybrid",
+   "workingTime": "b2b_contract",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Wrocław",
+   "street": ".",
+   "latitude": 51.10929480000001,
+   "longitude": 17.0386019,
+   "isRemoteInterview": false,
+   "companyName": "PEOPLEMORE P.S.A.",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/UpJrWIXavo_rrRWYoj2r9cGpF1YQpXnUlAJgRsNc6W8/h:200/w:200/plain/https://public.rocketjobs.pl/companies/logos/original/545aacf1bca13aa839de6bd69c20f901e2ffe635.png",
+   "publishedAt": "2026-10-07T16:00:14.3528915Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Wrocław",
+     "street": ".",
+     "latitude": 51.10929480000001,
+     "longitude": 17.0386019,
+     "slug": "peoplemore-p-s-a--senior-frontend-developer-angular--wroclaw-javascript"
+    },
+    {
+     "city": "Katowice",
+     "street": ".",
+     "latitude": 50.26489189999999,
+     "longitude": 19.0237815,
+     "slug": "peoplemore-p-s-a--senior-frontend-developer-angular--katowice-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 20160.0,
+     "fromPerUnit": 120.0,
+     "to": 23520.0,
+     "toPerUnit": 140.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 5227.0,
+     "fromPerUnit": 31.11226341716364,
+     "to": 6098.0,
+     "toPerUnit": 36.29764065335758,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4592.0,
+     "fromPerUnit": 27.33485193621864,
+     "to": 5358.0,
+     "toPerUnit": 31.89066059225508,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4327.0,
+     "fromPerUnit": 25.75494172944432,
+     "to": 5048.0,
+     "toPerUnit": 30.04743201768504,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 3948.0,
+     "fromPerUnit": 23.50130236383936,
+     "to": 4606.0,
+     "toPerUnit": 27.41818609114592,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Angular",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "RxJS",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Docker",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Kubernetes",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Git",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "API",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "SOLID Principles",
+     "level": 3,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "pl",
+     "level": "C1"
+    },
+    {
+     "code": "en",
+     "level": "B2"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": true,
+   "applyMethod": "external",
+   "applyUrl": "https://peoplemorepl.traffit.com/public/form/a/723c9bde1dec08e7f8348af3532e5f4f42566d65",
+   "lastPublishedAt": "2026-09-25T15:33:34.336686Z",
+   "expiredAt": "2026-12-24T16:26:16.146Z",
+   "companyProfileSlug": "people-more-psa",
+   "hybridWorkSchedule": {
+    "officeDays": 4,
+    "remoteDays": 1
+   }
+  },
+  {
+   "guid": "b000597a-28ea-41a4-89f6-aefb115c49d8",
+   "slug": "kalepa-senior-full-stack-engineer---core-ux-europe--warszawa-javascript",
+   "title": "Senior Full Stack Engineer - Core UX (Europe)",
+   "workplaceType": "remote",
+   "workingTime": "full_time",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "-",
+   "latitude": 52.2296756,
+   "longitude": 21.0122287,
+   "isRemoteInterview": true,
+   "companyName": "Kalepa",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/ZCjsly0LxQU2uYLUpqV2nN_4dSJQDhcHzc8KMzfOkmk/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/953ae99b4cb078294309add247b63d6181a58998.png",
+   "publishedAt": "2026-10-07T08:05:06.8490396Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "-",
+     "latitude": 52.2296756,
+     "longitude": 21.0122287,
+     "slug": "kalepa-senior-full-stack-engineer---core-ux-europe--warszawa-javascript"
+    },
+    {
+     "city": "Kraków",
+     "street": "-",
+     "latitude": 50.06465009999999,
+     "longitude": 19.9449799,
+     "slug": "kalepa-senior-full-stack-engineer---core-ux-europe--krakow-javascript"
+    },
+    {
+     "city": "Wrocław",
+     "street": "-",
+     "latitude": 51.10929480000001,
+     "longitude": 17.0386019,
+     "slug": "kalepa-senior-full-stack-engineer---core-ux-europe--wroclaw-javascript"
+    },
+    {
+     "city": "Poznań",
+     "street": "-",
+     "latitude": 52.40567859999999,
+     "longitude": 16.9312766,
+     "slug": "kalepa-senior-full-stack-engineer---core-ux-europe--poznan-javascript"
+    },
+    {
+     "city": "Gdańsk",
+     "street": "-",
+     "latitude": 54.35202520000001,
+     "longitude": 18.6466384,
+     "slug": "kalepa-senior-full-stack-engineer---core-ux-europe--gdansk-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 38881.0,
+     "fromPerUnit": 466572.0,
+     "to": 48601.0,
+     "toPerUnit": 583215.0,
+     "currency": "PLN",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    },
+    {
+     "from": 10000.0,
+     "fromPerUnit": 120000.0,
+     "to": 12500.0,
+     "toPerUnit": 150000.0,
+     "currency": "USD",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    },
+    {
+     "from": 8888.0,
+     "fromPerUnit": 106657.21796776776,
+     "to": 11110.0,
+     "toPerUnit": 133321.5224597097,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    },
+    {
+     "from": 8283.0,
+     "fromPerUnit": 99393.29385198756,
+     "to": 10353.0,
+     "toPerUnit": 124241.61731498445,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    },
+    {
+     "from": 7571.0,
+     "fromPerUnit": 90855.84094405393,
+     "to": 9464.0,
+     "toPerUnit": 113569.8011800674,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "React",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Python",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Lambda",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "EC2",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "PostgreSQL",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "LLM",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "AI",
+     "level": 3,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "en",
+     "level": "B2"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://job-boards.greenhouse.io/kalepa/jobs/5737411004?gh_src=ppdg0edt4us",
+   "lastPublishedAt": "2026-09-07T07:55:17.941608Z",
+   "expiredAt": "2026-12-06T22:59:59.999999Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "8e8324f5-9b96-447a-9626-242623e3ea81",
+   "slug": "devsdata-llc-senior-frontend-engineer-react-typescript--warszawa-javascript",
+   "title": "Senior Frontend Engineer (React/TypeScript)",
+   "workplaceType": "remote",
+   "workingTime": "full_time",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "Centrum",
+   "latitude": 52.2302091,
+   "longitude": 21.0113922,
+   "isRemoteInterview": false,
+   "companyName": "DevsData LLC",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/vFLEMOKYyWIuFOTUut6DVt2UzhG0PYMRzWmPvEiyhjE/h:200/w:200/plain/https://public.rocketjobs.pl/companies/logos/original/caafbaed2bc3882b2898e4ae490ad5e87cfa001e.png",
+   "publishedAt": "2026-10-06T12:05:07.549677Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "Centrum",
+     "latitude": 52.2302091,
+     "longitude": 21.0113922,
+     "slug": "devsdata-llc-senior-frontend-engineer-react-typescript--warszawa-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 22445.0,
+     "fromPerUnit": 269346.0,
+     "to": 28858.0,
+     "toPerUnit": 346302.0,
+     "currency": "PLN",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    },
+    {
+     "from": 5833.0,
+     "fromPerUnit": 70000.0,
+     "to": 7500.0,
+     "toPerUnit": 90000.0,
+     "currency": "USD",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    },
+    {
+     "from": 5128.0,
+     "fromPerUnit": 61538.07489318923,
+     "to": 6593.0,
+     "toPerUnit": 79120.38200552901,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    },
+    {
+     "from": 4848.0,
+     "fromPerUnit": 58177.8516966542,
+     "to": 6233.0,
+     "toPerUnit": 74800.0950385554,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    },
+    {
+     "from": 4396.0,
+     "fromPerUnit": 52757.0807380421,
+     "to": 5653.0,
+     "toPerUnit": 67830.5323774827,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Year",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "React",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "CSS",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "REST APIs",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "AI coding tools",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Prototyping",
+     "level": 4,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "en",
+     "level": "C1"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "form",
+   "applyUrl": null,
+   "lastPublishedAt": "2026-09-21T11:55:46.968588Z",
+   "expiredAt": "2026-12-20T22:59:59.999999Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "c361875f-31d1-4968-9133-8634463150e6",
+   "slug": "jit-team-junior-frontend-developer-gdansk-javascript",
+   "title": "Junior Frontend Developer",
+   "workplaceType": "hybrid",
+   "workingTime": "full_time",
+   "experienceLevel": "junior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Gdańsk",
+   "street": ".",
+   "latitude": 54.33757,
+   "longitude": 18.71966,
+   "isRemoteInterview": false,
+   "companyName": "Jit Team",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/wWSYQ3PfIRATt5r6FpNQ1tx2EsfW1STfzPhAXi3RVQg/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/00ba86031f7afdcdef6c386aea90b95428e30224.png",
+   "publishedAt": "2026-10-07T12:05:09.5772538Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Gdańsk",
+     "street": ".",
+     "latitude": 54.33757,
+     "longitude": 18.71966,
+     "slug": "jit-team-junior-frontend-developer-gdansk-javascript"
+    },
+    {
+     "city": "Warszawa",
+     "street": ".",
+     "latitude": 52.23584,
+     "longitude": 21.011959,
+     "slug": "jit-team-junior-frontend-developer-warszawa-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 11760.0,
+     "fromPerUnit": 560.0,
+     "to": 15120.0,
+     "toPerUnit": 720.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Day",
+     "gross": false
+    },
+    {
+     "from": 3049.0,
+     "fromPerUnit": 145.19056261343033,
+     "to": 3920.0,
+     "toPerUnit": 186.67358050298185,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Day",
+     "gross": false
+    },
+    {
+     "from": 2679.0,
+     "fromPerUnit": 127.56264236902032,
+     "to": 3444.0,
+     "toPerUnit": 164.00911161731185,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Day",
+     "gross": false
+    },
+    {
+     "from": 2524.0,
+     "fromPerUnit": 120.18972807074016,
+     "to": 3245.0,
+     "toPerUnit": 154.52965037666593,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Day",
+     "gross": false
+    },
+    {
+     "from": 2303.0,
+     "fromPerUnit": 109.67274436458368,
+     "to": 2961.0,
+     "toPerUnit": 141.00781418303615,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Day",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "React",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 1,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://jit.traffit.com/public/form/a/38754c508217fa1846d66028a936aff03272374238673d3d?source=justjoin.it",
+   "lastPublishedAt": "2026-09-09T11:20:03.582205Z",
+   "expiredAt": "2026-10-09T11:20:03.582205Z",
+   "companyProfileSlug": "jit-team",
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "8f3477fb-b7bc-480c-ba54-73d18f22914c",
+   "slug": "emagine-polska-frontend-developer-coimbra-javascript",
+   "title": "Frontend Developer",
+   "workplaceType": "hybrid",
+   "workingTime": "full_time",
+   "experienceLevel": "mid",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Coimbra",
+   "street": "Centrum",
+   "latitude": 40.211491,
+   "longitude": -8.429201,
+   "isRemoteInterview": true,
+   "companyName": "emagine Polska",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/BzWgyxi50NEVw8vVhCjtH0e1OtZow3scOIpr5d1O1qQ/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/b6fd52b7d3d170271a3d77ac5cc99a1212236ce3.jpg",
+   "publishedAt": "2026-10-07T18:05:11.6884118Z",
+   "isOpenToHireUkrainians": true,
+   "locations": [
+    {
+     "city": "Coimbra",
+     "street": "Centrum",
+     "latitude": 40.211491,
+     "longitude": -8.429201,
+     "slug": "emagine-polska-frontend-developer-coimbra-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Java",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "CMS",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "frontend",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Vue.js",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Angular",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Optimizely (Episerver)",
+     "level": 4,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "en",
+     "level": "B1"
+    },
+    {
+     "code": "pt",
+     "level": "C1"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://portal.emagine.org/jobs/179676/frontend-developer?utm_source=JustJoinIt",
+   "lastPublishedAt": "2026-08-28T17:15:32.099116Z",
+   "expiredAt": "2026-11-26T17:15:32.099116Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "1748329d-7dee-439c-bf00-990c6b886490",
+   "slug": "alior-bank-sa-low-code-developer-k-m--krakow-javascript-cd89ae18",
+   "title": "Low-Code Developer (K/M)",
+   "workplaceType": "hybrid",
+   "workingTime": "full_time",
+   "experienceLevel": "mid",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Kraków",
+   "street": "-",
+   "latitude": 50.06465009999999,
+   "longitude": 19.9449799,
+   "isRemoteInterview": false,
+   "companyName": "Alior Bank SA",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/WgH8aFvwdtoYdx-rW-W22gvSyaHw-A0sxxLiE0bsTvk/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/8c1947b829996fcae87dd0faffeac45bd20e3954.jpg",
+   "publishedAt": "2026-10-07T15:05:13.3627078Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Kraków",
+     "street": "-",
+     "latitude": 50.06465009999999,
+     "longitude": 19.9449799,
+     "slug": "alior-bank-sa-low-code-developer-k-m--krakow-javascript-cd89ae18"
+    },
+    {
+     "city": "Warszawa",
+     "street": "-",
+     "latitude": 52.2296756,
+     "longitude": 21.0122287,
+     "slug": "alior-bank-sa-low-code-developer-k-m--warszawa-javascript-c7ba164d"
+    },
+    {
+     "city": "Gdańsk",
+     "street": "-",
+     "latitude": 54.35202520000001,
+     "longitude": 18.6466384,
+     "slug": "alior-bank-sa-low-code-developer-k-m--gdansk-javascript-54d565fd"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "permanent",
+     "unit": "month",
+     "gross": true
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "permanent",
+     "unit": "month",
+     "gross": true
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "permanent",
+     "unit": "month",
+     "gross": true
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "permanent",
+     "unit": "month",
+     "gross": true
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "permanent",
+     "unit": "month",
+     "gross": true
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "HTML",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "CSS",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "REST API",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "SQL",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Relational Databases",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "BPM",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "OutSystems",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Mendix",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Appian",
+     "level": 3,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": true,
+   "applyMethod": "external",
+   "applyUrl": "https://system.erecruiter.pl/FormTemplates/RecruitmentForm.aspx?WebID=909e765c0ec94ac7853fae4552b92648",
+   "lastPublishedAt": "2026-07-27T14:32:33.051922Z",
+   "expiredAt": "2026-10-25T22:59:59.999999Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "697fc994-0b2b-4e27-944b-93beaa4b5778",
+   "slug": "emagine-polska-senior-summit-tci-and-calypso-developer-bengaluru-javascript",
+   "title": "Senior Summit TCI and Calypso Developer",
+   "workplaceType": "office",
+   "workingTime": "full_time",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Bengaluru",
+   "street": "Centrum",
+   "latitude": 12.976746,
+   "longitude": 77.575278,
+   "isRemoteInterview": true,
+   "companyName": "emagine Polska",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/BzWgyxi50NEVw8vVhCjtH0e1OtZow3scOIpr5d1O1qQ/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/b6fd52b7d3d170271a3d77ac5cc99a1212236ce3.jpg",
+   "publishedAt": "2026-10-07T13:00:17.5276641Z",
+   "isOpenToHireUkrainians": true,
+   "locations": [
+    {
+     "city": "Bengaluru",
+     "street": "Centrum",
+     "latitude": 12.976746,
+     "longitude": 77.575278,
+     "slug": "emagine-polska-senior-summit-tci-and-calypso-developer-bengaluru-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "any",
+     "unit": "month",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Linux",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "C++",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "SQL",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Operations",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Calypso",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Back Office",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "System Architecture",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Scripting",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "System Availability (Operations)",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Technical Specifications (Engineering)",
+     "level": 4,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "en",
+     "level": "B1"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://portal.emagine.org/jobs/180443/senior-summit-tci-and-calypso-developer?utm_source=JustJoinIt",
+   "lastPublishedAt": "2026-09-22T12:15:24.432984Z",
+   "expiredAt": "2026-12-21T12:15:24.432984Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "e6ef00ad-7c25-43d8-bbe9-441fd24ff281",
+   "slug": "link-group-junior-react-developer-warszawa-javascript-04b7923b",
+   "title": "Junior React Developer",
+   "workplaceType": "remote",
+   "workingTime": "full_time",
+   "experienceLevel": "junior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "-",
+   "latitude": 52.2296756,
+   "longitude": 21.0122287,
+   "isRemoteInterview": false,
+   "companyName": "Link Group",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/Z_sxsKj7-tHd-9Jn_bIBXrD4hUKXAtL-snUIzjPa1No/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/b8ec131a1074810a98be228aa03cc01502dd077b.jpg",
+   "publishedAt": "2026-10-07T14:05:08.1546528Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "-",
+     "latitude": 52.2296756,
+     "longitude": 21.0122287,
+     "slug": "link-group-junior-react-developer-warszawa-javascript-04b7923b"
+    },
+    {
+     "city": "Gdańsk",
+     "street": "-",
+     "latitude": 54.35202520000001,
+     "longitude": 18.6466384,
+     "slug": "link-group-junior-react-developer-gdansk-javascript"
+    },
+    {
+     "city": "Białystok",
+     "street": "-",
+     "latitude": 53.13248859999999,
+     "longitude": 23.1688403,
+     "slug": "link-group-junior-react-developer-bialystok-javascript"
+    },
+    {
+     "city": "Olsztyn",
+     "street": "-",
+     "latitude": 53.778422,
+     "longitude": 20.4801193,
+     "slug": "link-group-junior-react-developer-olsztyn-javascript"
+    },
+    {
+     "city": "Poznań",
+     "street": "-",
+     "latitude": 52.40567859999999,
+     "longitude": 16.9312766,
+     "slug": "link-group-junior-react-developer-poznan-javascript"
+    },
+    {
+     "city": "Szczecin",
+     "street": "-",
+     "latitude": 53.4285438,
+     "longitude": 14.5528116,
+     "slug": "link-group-junior-react-developer-szczecin-javascript"
+    },
+    {
+     "city": "Kraków",
+     "street": "-",
+     "latitude": 50.06465009999999,
+     "longitude": 19.9449799,
+     "slug": "link-group-junior-react-developer-krakow-javascript-6b343447"
+    },
+    {
+     "city": "Wrocław",
+     "street": "-",
+     "latitude": 51.10929480000001,
+     "longitude": 17.0386019,
+     "slug": "link-group-junior-react-developer-wroclaw-javascript"
+    },
+    {
+     "city": "Łódź",
+     "street": "-",
+     "latitude": 51.7592924,
+     "longitude": 19.4558778,
+     "slug": "link-group-junior-react-developer-lodz-javascript"
+    },
+    {
+     "city": "Lublin",
+     "street": "-",
+     "latitude": 51.2509458,
+     "longitude": 22.5747275,
+     "slug": "link-group-junior-react-developer-lublin-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 8400.0,
+     "fromPerUnit": 50.0,
+     "to": 13440.0,
+     "toPerUnit": 80.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 2147.0,
+     "fromPerUnit": 12.78249309745375,
+     "to": 3436.0,
+     "toPerUnit": 20.451988955926,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 1915.0,
+     "fromPerUnit": 11.401208528104,
+     "to": 3065.0,
+     "toPerUnit": 18.2419336449664,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 1781.0,
+     "fromPerUnit": 10.6008565492092,
+     "to": 2850.0,
+     "toPerUnit": 16.96137047873472,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 1623.0,
+     "fromPerUnit": 9.66015572171025,
+     "to": 2597.0,
+     "toPerUnit": 15.4562491547364,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "React",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "ReactJS",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "RESTful API",
+     "level": 1,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Web Applications",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Git",
+     "level": 2,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": true,
+   "applyMethod": "external",
+   "applyUrl": "https://linkgroup.recruitify.ai/job/83c2ae25-ad92-4145-aea4-dea79d2490e1?sourceId=37",
+   "lastPublishedAt": "2026-09-01T13:21:53.620029Z",
+   "expiredAt": "2026-11-29T22:59:59.999Z",
+   "companyProfileSlug": "link-group",
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "703365b7-6d45-4552-a434-fa547c166981",
+   "slug": "craftware-backend-engineer-node-js--warszawa-javascript",
+   "title": "Backend Engineer (Node.js)",
+   "workplaceType": "remote",
+   "workingTime": "full_time",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "Al. Jerozolimskie 134",
+   "latitude": 52.2213667,
+   "longitude": 20.9732041,
+   "isRemoteInterview": false,
+   "companyName": "Craftware",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/AIZkkAWAsh-jupN5bWC_odT7wc3BcGTVbRw_JoDwRyQ/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/b540e1967dda28d0dd8501ef9fa2808b5db1491d.jpg",
+   "publishedAt": "2026-10-07T15:05:11.2434423Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "Al. Jerozolimskie 134",
+     "latitude": 52.2213667,
+     "longitude": 20.9732041,
+     "slug": "craftware-backend-engineer-node-js--warszawa-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 25200.0,
+     "fromPerUnit": 150.0,
+     "to": 33600.0,
+     "toPerUnit": 200.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 6442.0,
+     "fromPerUnit": 38.34747929236125,
+     "to": 8590.0,
+     "toPerUnit": 51.129972389815,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 5746.0,
+     "fromPerUnit": 34.203625584312,
+     "to": 7662.0,
+     "toPerUnit": 45.604834112416,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 5343.0,
+     "fromPerUnit": 31.8025696476276,
+     "to": 7124.0,
+     "toPerUnit": 42.4034261968368,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4869.0,
+     "fromPerUnit": 28.98046716513075,
+     "to": 6492.0,
+     "toPerUnit": 38.640622886841,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Node.js",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "AWS",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "REST API",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "System Integration",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Distributed systems",
+     "level": 3,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://system.erecruiter.pl/FormTemplates/RecruitmentForm.aspx?WebID=cae21513be7140c48a9de878b7056a33",
+   "lastPublishedAt": "2026-09-02T14:43:42.053939Z",
+   "expiredAt": "2026-11-22T22:59:59.999Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "ddab975e-8021-47b5-bf86-398c7b830cd9",
+   "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-wroclaw-javascript-959b62f1",
+   "title": "Lead Fullstack Engineer (Typescript/Node.js) with German",
+   "workplaceType": "remote",
+   "workingTime": "b2b_contract",
+   "experienceLevel": "c_level",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Wrocław",
+   "street": "plac Nowy Targ 28",
+   "latitude": 51.1104135,
+   "longitude": 17.0385273,
+   "isRemoteInterview": false,
+   "companyName": "Spyrosoft",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/vhkgNy_CyWDfuvqXuINXL4UL2_EGjx-e-UtYI06OHdA/h:200/w:200/plain/https://public.rocketjobs.pl/companies/logos/original/117daeff278efaa1a048105d93d6c8cbfd236704.png",
+   "publishedAt": "2026-10-07T14:00:05.8202424Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Wrocław",
+     "street": "plac Nowy Targ 28",
+     "latitude": 51.1104135,
+     "longitude": 17.0385273,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-wroclaw-javascript-959b62f1"
+    },
+    {
+     "city": "Warszawa",
+     "street": "Prosta 20",
+     "latitude": 52.23275710000001,
+     "longitude": 20.9925103,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-warszawa-javascript"
+    },
+    {
+     "city": "Kraków",
+     "street": "Zabłocie 43A",
+     "latitude": 50.04921530000001,
+     "longitude": 19.9659287,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-krakow-javascript"
+    },
+    {
+     "city": "Białystok",
+     "street": "Świętojańska 12A",
+     "latitude": 53.1279897,
+     "longitude": 23.1726761,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-bialystok-javascript"
+    },
+    {
+     "city": "Szczecin",
+     "street": "Cyfrowa 4",
+     "latitude": 53.4499821,
+     "longitude": 14.5362943,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-szczecin-javascript"
+    },
+    {
+     "city": "Łódź",
+     "street": "Al. Piłsudskiego 24",
+     "latitude": 51.7608285,
+     "longitude": 19.4664536,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-lodz-javascript"
+    },
+    {
+     "city": "Gdańsk",
+     "street": "no office",
+     "latitude": 54.35202520000001,
+     "longitude": 18.6466384,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-gdansk-javascript"
+    },
+    {
+     "city": "Poznań",
+     "street": "no offcie",
+     "latitude": 52.40567859999999,
+     "longitude": 16.9312766,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-poznan-javascript"
+    },
+    {
+     "city": "Zielona Góra",
+     "street": "no office",
+     "latitude": 51.9356214,
+     "longitude": 15.5061862,
+     "slug": "spyrosoft-lead-fullstack-engineer-typescript-node-js-with-german-zielona-gora-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 25200.0,
+     "fromPerUnit": 150.0,
+     "to": 35280.0,
+     "toPerUnit": 210.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 6501.0,
+     "fromPerUnit": 38.69769361746045,
+     "to": 9102.0,
+     "toPerUnit": 54.17677106444463,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 5757.0,
+     "fromPerUnit": 34.2700479780672,
+     "to": 8060.0,
+     "toPerUnit": 47.97806716929408,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 5430.0,
+     "fromPerUnit": 32.32201344595755,
+     "to": 7602.0,
+     "toPerUnit": 45.25081882434057,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4921.0,
+     "fromPerUnit": 29.28886632561405,
+     "to": 6889.0,
+     "toPerUnit": 41.00441285585967,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Node.js",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Golang",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Python",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Angular",
+     "level": 4,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "de",
+     "level": "C1"
+    },
+    {
+     "code": "en",
+     "level": "C1"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": true,
+   "applyMethod": "external",
+   "applyUrl": "https://careers.spyro-soft.com/jobs/7937874-lead-fullstack-engineer-typescript-node-js-with-german",
+   "lastPublishedAt": "2026-09-22T13:37:35.851276Z",
+   "expiredAt": "2026-12-21T22:59:59.999999Z",
+   "companyProfileSlug": "spyrosoft",
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "3e3d9e3b-df79-4bf2-915f-e3b8b926c06d",
+   "slug": "rodzina-bez-dlugow-senior-full-stack-developer-legaltech-kancelaria-prawna-warszawa-javascript-e8b6dba6",
+   "title": "Senior Full-Stack Developer | LegalTech / Kancelaria Prawna",
+   "workplaceType": "remote",
+   "workingTime": "full_time",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "Żelazna 59A",
+   "latitude": 52.2340657,
+   "longitude": 20.9906473,
+   "isRemoteInterview": false,
+   "companyName": "RODZINA BEZ DŁUGÓW",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/S_RzGiAFy7c47lj4vO7JX4fljy8_zcL3VS9WLLlfhJM/h:200/w:200/plain/https://s3.eu-west-1.amazonaws.com/public.justjoin.com/justjoinit/hiring-company-logos/01a0fc92-adc1-7c56-af6d-0e1b7f74d5ef.png",
+   "publishedAt": "2026-10-07T13:35:00.9167725Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "Żelazna 59A",
+     "latitude": 52.2340657,
+     "longitude": 20.9906473,
+     "slug": "rodzina-bez-dlugow-senior-full-stack-developer-legaltech-kancelaria-prawna-warszawa-javascript-e8b6dba6"
+    },
+    {
+     "city": "Wrocław",
+     "street": "Marszałka Józefa Piłsudskiego 105",
+     "latitude": 51.0988248,
+     "longitude": 17.036442,
+     "slug": "rodzina-bez-dlugow-senior-full-stack-developer-legaltech-kancelaria-prawna-wroclaw-javascript"
+    },
+    {
+     "city": "Gdańsk",
+     "street": "Podwale Grodzkie 2",
+     "latitude": 54.35481069999999,
+     "longitude": 18.6446844,
+     "slug": "rodzina-bez-dlugow-senior-full-stack-developer-legaltech-kancelaria-prawna-gdansk-javascript"
+    },
+    {
+     "city": "Poznań",
+     "street": "Dworcowa 2",
+     "latitude": 52.4007652,
+     "longitude": 16.9110904,
+     "slug": "rodzina-bez-dlugow-senior-full-stack-developer-legaltech-kancelaria-prawna-poznan-javascript"
+    },
+    {
+     "city": "Rzeszów",
+     "street": "plac Dworcowy 1",
+     "latitude": 50.0425894,
+     "longitude": 22.008062,
+     "slug": "rodzina-bez-dlugow-senior-full-stack-developer-legaltech-kancelaria-prawna-rzeszow-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 26000.0,
+     "fromPerUnit": 26000.0,
+     "to": 30000.0,
+     "toPerUnit": 30000.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Month",
+     "gross": false
+    },
+    {
+     "from": 6708.0,
+     "fromPerUnit": 6707.600227026478,
+     "to": 7740.0,
+     "toPerUnit": 7739.53872349209,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Month",
+     "gross": false
+    },
+    {
+     "from": 5940.0,
+     "fromPerUnit": 5940.141649531648,
+     "to": 6854.0,
+     "toPerUnit": 6854.00959561344,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Month",
+     "gross": false
+    },
+    {
+     "from": 5602.0,
+     "fromPerUnit": 5602.482330632642,
+     "to": 6464.0,
+     "toPerUnit": 6464.40268919151,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Month",
+     "gross": false
+    },
+    {
+     "from": 5077.0,
+     "fromPerUnit": 5076.736829773102,
+     "to": 5858.0,
+     "toPerUnit": 5857.77326512281,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Month",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "MySQL",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Docker",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Node.js",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Nest.js",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Next.js",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Kubernetes",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Analityczne Myślenie",
+     "level": 4,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "form",
+   "applyUrl": null,
+   "lastPublishedAt": "2026-10-02T13:32:49.081233Z",
+   "expiredAt": "2026-11-01T13:32:49.081233Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "61bada60-9c14-45d4-810f-814cd6ed23bb",
+   "slug": "netguru-node-architect---freelance-poznan-javascript",
+   "title": "Node Architect - Freelance",
+   "workplaceType": "remote",
+   "workingTime": "freelance",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Poznań",
+   "street": "-",
+   "latitude": 52.40567859999999,
+   "longitude": 16.9312766,
+   "isRemoteInterview": true,
+   "companyName": "Netguru",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/ae9GIWyATrVR2kXJt4edH9qfSEDgZSbLyYJE9maDMLc/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/b58c8fb307aa139f8ab4a013d50a8479e5ac4d37.jpg",
+   "publishedAt": "2026-10-07T13:05:01.8852935Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Poznań",
+     "street": "-",
+     "latitude": 52.40567859999999,
+     "longitude": 16.9312766,
+     "slug": "netguru-node-architect---freelance-poznan-javascript"
+    },
+    {
+     "city": "Warszawa",
+     "street": "-",
+     "latitude": 52.2296756,
+     "longitude": 21.0122287,
+     "slug": "netguru-node-architect---freelance-warszawa-javascript"
+    },
+    {
+     "city": "Kraków",
+     "street": "-",
+     "latitude": 50.06465009999999,
+     "longitude": 19.9449799,
+     "slug": "netguru-node-architect---freelance-krakow-javascript"
+    },
+    {
+     "city": "Wrocław",
+     "street": "-",
+     "latitude": 51.10929480000001,
+     "longitude": 17.0386019,
+     "slug": "netguru-node-architect---freelance-wroclaw-javascript"
+    },
+    {
+     "city": "Gdańsk",
+     "street": "-",
+     "latitude": 54.35202520000001,
+     "longitude": 18.6466384,
+     "slug": "netguru-node-architect---freelance-gdansk-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 30884.0,
+     "fromPerUnit": 183.834,
+     "to": 30884.0,
+     "toPerUnit": 183.834,
+     "currency": "PLN",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 7968.0,
+     "fromPerUnit": 47.42634538981458,
+     "to": 7968.0,
+     "toPerUnit": 47.42634538981458,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 7056.0,
+     "fromPerUnit": 42.0,
+     "to": 7056.0,
+     "toPerUnit": 42.0,
+     "currency": "EUR",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 6655.0,
+     "fromPerUnit": 39.61256679882781,
+     "to": 6655.0,
+     "toPerUnit": 39.61256679882781,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 6030.0,
+     "fromPerUnit": 35.8952630140196,
+     "to": 6030.0,
+     "toPerUnit": 35.8952630140196,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Architecture",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Node.js",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "AI",
+     "level": 5,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "en",
+     "level": "C1"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": true,
+   "applyMethod": "external",
+   "applyUrl": "https://apply.workable.com/netguru/j/12B5233489/",
+   "lastPublishedAt": "2026-09-16T12:16:39.510416Z",
+   "expiredAt": "2026-11-24T22:59:59.999Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "ddf1f785-115c-4bf5-9161-67cffaaf9430",
+   "slug": "redstone-frontend-developer-web-designer-warszawa-javascript",
+   "title": "Frontend Developer & Web Designer",
+   "workplaceType": "remote",
+   "workingTime": "b2b_contract",
+   "experienceLevel": "mid",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "Zgoda",
+   "latitude": 52.2330746,
+   "longitude": 21.0127843,
+   "isRemoteInterview": false,
+   "companyName": "RedStone",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/dXJhw0nq_kczWt5ENKwk847doiwYhu82BGemTMoyxKQ/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/9a77a5aeb6ea10c29194eabb3bd5b470d951bf11.png",
+   "publishedAt": "2026-10-07T14:21:28.0134381Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "Zgoda",
+     "latitude": 52.2330746,
+     "longitude": 21.0127843,
+     "slug": "redstone-frontend-developer-web-designer-warszawa-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Next.js",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "React",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Tailwind CSS",
+     "level": 3,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://redstone.traffit.com/public/form/a/0d8f618fa3969c1c8b85ad8d3e4c68f47947343d",
+   "lastPublishedAt": "2026-10-07T14:21:28.0134381Z",
+   "expiredAt": "2026-11-06T14:21:28.0134381Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "be07fa32-e4a3-4e0f-ae65-785f05de1d97",
+   "slug": "tss-programista-frontend-react-warszawa-javascript",
+   "title": "Programista Frontend React",
+   "workplaceType": "hybrid",
+   "workingTime": "full_time",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "Centrum",
+   "latitude": 52.2302091,
+   "longitude": 21.0113922,
+   "isRemoteInterview": false,
+   "companyName": "TSS",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/S5v7LPECD91RO--8K45QDZ12v3SI2f3qBWck3l-FRkQ/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/d1eb1cbb6f2933d0ec062b701ab86d0db1a24483.png",
+   "publishedAt": "2026-10-07T14:05:08.9139303Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "Centrum",
+     "latitude": 52.2302091,
+     "longitude": 21.0113922,
+     "slug": "tss-programista-frontend-react-warszawa-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 13440.0,
+     "fromPerUnit": 80.0,
+     "to": 15960.0,
+     "toPerUnit": 95.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 3436.0,
+     "fromPerUnit": 20.451988955926,
+     "to": 4080.0,
+     "toPerUnit": 24.286736885162124,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 3065.0,
+     "fromPerUnit": 18.2419336449664,
+     "to": 3639.0,
+     "toPerUnit": 21.6622962033976,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 2850.0,
+     "fromPerUnit": 16.96137047873472,
+     "to": 3384.0,
+     "toPerUnit": 20.14162744349748,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 2597.0,
+     "fromPerUnit": 15.4562491547364,
+     "to": 3084.0,
+     "toPerUnit": 18.354295871249477,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "HTML5",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "CSS3",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "React",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "REST API",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Git",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "jQuery",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Bootstrap",
+     "level": 2,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Vite",
+     "level": 2,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "pl",
+     "level": "C2"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "form",
+   "applyUrl": null,
+   "lastPublishedAt": "2026-09-02T14:13:57.934612Z",
+   "expiredAt": "2026-11-30T22:59:59.999Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "053e0099-7469-4553-9fbd-fdc51e6bf8c6",
+   "slug": "espeo-software-frontend-developer---talent-pool-poznan-javascript",
+   "title": "Frontend Developer - Talent Pool",
+   "workplaceType": "remote",
+   "workingTime": "freelance",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Poznań",
+   "street": "Baraniaka 88",
+   "latitude": 52.4013056,
+   "longitude": 16.9640172,
+   "isRemoteInterview": false,
+   "companyName": "Espeo Software",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/oElt4DVuF7Kpobu72zXpQsO35LIEsNb0lbildSZoaDk/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/5daa8bb8c5497d1741cb9afe80b7f42656bf013d.png",
+   "publishedAt": "2026-10-07T14:05:08.8978474Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Poznań",
+     "street": "Baraniaka 88",
+     "latitude": 52.4013056,
+     "longitude": 16.9640172,
+     "slug": "espeo-software-frontend-developer---talent-pool-poznan-javascript"
+    },
+    {
+     "city": "Wrocław",
+     "street": "-",
+     "latitude": 51.10929480000001,
+     "longitude": 17.0386019,
+     "slug": "espeo-software-frontend-developer---talent-pool-wroclaw-javascript"
+    },
+    {
+     "city": "Warszawa",
+     "street": "-",
+     "latitude": 52.2296756,
+     "longitude": 21.0122287,
+     "slug": "espeo-software-frontend-developer---talent-pool-warszawa-javascript"
+    },
+    {
+     "city": "Kraków",
+     "street": "-",
+     "latitude": 50.06465009999999,
+     "longitude": 19.9449799,
+     "slug": "espeo-software-frontend-developer---talent-pool-krakow-javascript"
+    },
+    {
+     "city": "Łódź",
+     "street": "-",
+     "latitude": 51.7592924,
+     "longitude": 19.4558778,
+     "slug": "espeo-software-frontend-developer---talent-pool-lodz-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 1,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "React",
+     "level": 1,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 1,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "pl",
+     "level": "B2"
+    },
+    {
+     "code": "en",
+     "level": "B2"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://espeo.eu/career/?utm_source=jjit&utm_medium=job+board&utm_campaign=front+pool#jobform-2737052",
+   "lastPublishedAt": "2026-09-07T13:15:47.850532Z",
+   "expiredAt": "2026-11-30T22:59:59.999Z",
+   "companyProfileSlug": "espeo-software",
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "324d0abd-f3a1-4aa4-841a-3cd36980aa51",
+   "slug": "cyclad-fullstack-developer-angular-python-aws-german-speaking-wroclaw-javascript",
+   "title": "Fullstack Developer (Angular / Python / AWS) German-Speaking",
+   "workplaceType": "remote",
+   "workingTime": "full_time",
+   "experienceLevel": "mid",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Wrocław",
+   "street": "ul. Legnicka",
+   "latitude": 51.1186225,
+   "longitude": 16.9983948,
+   "isRemoteInterview": false,
+   "companyName": "Cyclad",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/eK-vPVPHIArpMi4DWur8bgVOB8Wdnp1WOWJCBtzWU5w/h:200/w:200/plain/https://public.rocketjobs.pl/companies/logos/original/0cf4dde608b0d90b438ffdef5bfa9c81c06417e8.png",
+   "publishedAt": "2026-10-07T15:05:12.1463923Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Wrocław",
+     "street": "ul. Legnicka",
+     "latitude": 51.1186225,
+     "longitude": 16.9983948,
+     "slug": "cyclad-fullstack-developer-angular-python-aws-german-speaking-wroclaw-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 13440.0,
+     "fromPerUnit": 80.0,
+     "to": 20160.0,
+     "toPerUnit": 120.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 3457.0,
+     "fromPerUnit": 20.57560247936008,
+     "to": 5185.0,
+     "toPerUnit": 30.86340371904012,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 3072.0,
+     "fromPerUnit": 18.28780432049376,
+     "to": 4609.0,
+     "toPerUnit": 27.43170648074064,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 2863.0,
+     "fromPerUnit": 17.04230752843936,
+     "to": 4295.0,
+     "toPerUnit": 25.56346129265904,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 2617.0,
+     "fromPerUnit": 15.57844721827352,
+     "to": 3926.0,
+     "toPerUnit": 23.36767082741028,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Angular",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Python",
+     "level": 5,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "TypeScript",
+     "level": 5,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [
+    {
+     "code": "de",
+     "level": "B2"
+    },
+    {
+     "code": "en",
+     "level": "B2"
+    }
+   ],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://cyclad.recruitify.ai/job/5921a947-5bfb-4d46-99e5-5eb2739c40d4?sourceId=37",
+   "lastPublishedAt": "2026-07-24T14:15:25.204435Z",
+   "expiredAt": "2026-10-22T14:11:10.634Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "2006222f-0dbc-4eb3-9075-181e80f820c9",
+   "slug": "link-group-senior-frontend-developer-angular--warszawa-javascript",
+   "title": "Senior Frontend Developer (Angular)",
+   "workplaceType": "hybrid",
+   "workingTime": "full_time",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "-",
+   "latitude": 52.2296756,
+   "longitude": 21.0122287,
+   "isRemoteInterview": false,
+   "companyName": "Link Group",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/Z_sxsKj7-tHd-9Jn_bIBXrD4hUKXAtL-snUIzjPa1No/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/b8ec131a1074810a98be228aa03cc01502dd077b.jpg",
+   "publishedAt": "2026-10-07T14:05:06.6876306Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "-",
+     "latitude": 52.2296756,
+     "longitude": 21.0122287,
+     "slug": "link-group-senior-frontend-developer-angular--warszawa-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 21840.0,
+     "fromPerUnit": 130.0,
+     "to": 26880.0,
+     "toPerUnit": 160.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 5617.0,
+     "fromPerUnit": 33.43535402896013,
+     "to": 6913.0,
+     "toPerUnit": 41.15120495872016,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4993.0,
+     "fromPerUnit": 29.71768202080236,
+     "to": 6145.0,
+     "toPerUnit": 36.57560864098752,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4653.0,
+     "fromPerUnit": 27.69374973371396,
+     "to": 5726.0,
+     "toPerUnit": 34.08461505687872,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4253.0,
+     "fromPerUnit": 25.31497672969447,
+     "to": 5234.0,
+     "toPerUnit": 31.15689443654704,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Angular",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Cypress",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Kubernetes",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Docker",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Terraform",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Maven",
+     "level": 4,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": true,
+   "applyMethod": "external",
+   "applyUrl": "https://linkgroup.recruitify.ai/job/a4f1b4b7-d864-4e58-8841-d6a1fbe9c034?sourceId=37",
+   "lastPublishedAt": "2026-07-24T13:58:23.702036Z",
+   "expiredAt": "2026-10-22T21:59:59.999999Z",
+   "companyProfileSlug": "link-group",
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "4d56e55c-534a-43df-9259-287e2de85290",
+   "slug": "link-group-mid-level-full-stack-developer-warszawa-javascript",
+   "title": "Mid-level Full Stack Developer",
+   "workplaceType": "hybrid",
+   "workingTime": "full_time",
+   "experienceLevel": "mid",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "-",
+   "latitude": 52.2296756,
+   "longitude": 21.0122287,
+   "isRemoteInterview": false,
+   "companyName": "Link Group",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/Z_sxsKj7-tHd-9Jn_bIBXrD4hUKXAtL-snUIzjPa1No/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/b8ec131a1074810a98be228aa03cc01502dd077b.jpg",
+   "publishedAt": "2026-10-07T14:05:06.6128174Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "-",
+     "latitude": 52.2296756,
+     "longitude": 21.0122287,
+     "slug": "link-group-mid-level-full-stack-developer-warszawa-javascript"
+    },
+    {
+     "city": "Kraków",
+     "street": "-",
+     "latitude": 50.06465009999999,
+     "longitude": 19.9449799,
+     "slug": "link-group-mid-level-full-stack-developer-krakow-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": 18480.0,
+     "fromPerUnit": 110.0,
+     "to": 23520.0,
+     "toPerUnit": 140.0,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4753.0,
+     "fromPerUnit": 28.29145340912011,
+     "to": 6049.0,
+     "toPerUnit": 36.00730433888014,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 4224.0,
+     "fromPerUnit": 25.14573094067892,
+     "to": 5377.0,
+     "toPerUnit": 32.00365756086408,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 3937.0,
+     "fromPerUnit": 23.43317285160412,
+     "to": 5010.0,
+     "toPerUnit": 29.82403817476888,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    },
+    {
+     "from": 3599.0,
+     "fromPerUnit": 21.42036492512609,
+     "to": 4580.0,
+     "toPerUnit": 27.26228263197866,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "Hour",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Java",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Spring Boot",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Hibernate",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Oracle",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Angular",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "NgRx",
+     "level": 3,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Jest",
+     "level": 3,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": true,
+   "applyMethod": "external",
+   "applyUrl": "https://linkgroup.recruitify.ai/job/78ad30eb-e333-4e47-ad25-562492c9f96a?sourceId=37",
+   "lastPublishedAt": "2026-07-24T14:00:17.042919Z",
+   "expiredAt": "2026-10-22T21:59:59.999999Z",
+   "companyProfileSlug": "link-group",
+   "hybridWorkSchedule": null
+  },
+  {
+   "guid": "c522b3ee-8e9b-4c61-bc42-587a653c961c",
+   "slug": "edge-one-solutions-sp-z-o-o-senior-front-end-developer-angular-branza-bankowa-warszawa-javascript",
+   "title": "Senior Front-end Developer (Angular) | branża bankowa",
+   "workplaceType": "hybrid",
+   "workingTime": "full_time",
+   "experienceLevel": "senior",
+   "category": {
+    "key": "javascript",
+    "parentKey": null
+   },
+   "city": "Warszawa",
+   "street": "-",
+   "latitude": 52.2296756,
+   "longitude": 21.0122287,
+   "isRemoteInterview": false,
+   "companyName": "Edge One Solutions Sp. z o.o",
+   "companyLogoThumbUrl": "https://imgproxy.justjoinit.tech/6OxmD463XSmk9TKc9iaP3E_gzDAleo7rcN668TtXBUA/h:200/w:200/plain/https://public.justjoin.it/companies/logos/original/124d6dfac311d0577ad6b874f99f99feb30751eb.jpg",
+   "publishedAt": "2026-10-07T13:55:03.3869892Z",
+   "isOpenToHireUkrainians": false,
+   "locations": [
+    {
+     "city": "Warszawa",
+     "street": "-",
+     "latitude": 52.2296756,
+     "longitude": 21.0122287,
+     "slug": "edge-one-solutions-sp-z-o-o-senior-front-end-developer-angular-branza-bankowa-warszawa-javascript"
+    }
+   ],
+   "employmentTypes": [
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "GBP",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "CHF",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "EUR",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "USD",
+     "currencySource": "conversion",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    },
+    {
+     "from": null,
+     "fromPerUnit": null,
+     "to": null,
+     "toPerUnit": null,
+     "currency": "PLN",
+     "currencySource": "original",
+     "type": "b2b",
+     "unit": "month",
+     "gross": false
+    }
+   ],
+   "requiredSkills": [
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JavaScript",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "HTML",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "CSS",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "JSON",
+     "level": 4,
+     "group": null
+    },
+    {
+     "skillId": "00000000-0000-0000-0000-000000000000",
+     "name": "Angular",
+     "level": 4,
+     "group": null
+    }
+   ],
+   "niceToHaveSkills": [],
+   "languages": [],
+   "isPromoted": false,
+   "isSuperOffer": false,
+   "applyMethod": "external",
+   "applyUrl": "https://edge1s.recruitify.ai/job/de44a9bd-30fe-470c-bc86-94485d6c08ab?sourceId=37",
+   "lastPublishedAt": "2026-10-02T13:50:21.611997Z",
+   "expiredAt": "2026-12-31T22:59:59.999999Z",
+   "companyProfileSlug": null,
+   "hybridWorkSchedule": null
+  }
+ ],
+ "meta": {
+  "from": 0,
+  "totalItems": 20,
+  "prev": {
+   "cursor": null,
+   "itemsCount": 100
+  },
+  "next": {
+   "cursor": null,
+   "itemsCount": 100
+  }
+ }
+}

@@ -1,0 +1,140 @@
+{
+ "id": "703365b7-6d45-4552-a434-fa547c166981",
+ "slug": "craftware-backend-engineer-node-js--warszawa-javascript",
+ "title": "Backend Engineer (Node.js)",
+ "experienceLevel": "senior",
+ "category": {
+  "key": "javascript",
+  "parentKey": null
+ },
+ "companyName": "Craftware",
+ "companyUrl": "",
+ "body": "<p>Craftware is a technology company of over 500 experts, empowering large organizations to solve complex business challenges with modern IT solutions - from sales systems and automation to data platforms and AI. We operate where technology must be reliable, secure, and scalable. We deliver end-to-end projects: from analysis and architecture through implementation to development and maintenance. We are a trusted partner of industry leaders such as Salesforce, Veeva, UiPath, and Databricks.</p><p><strong>Model:</strong> Remote <br><strong>Engagement:</strong> Full-time (B2B)</p><p class=\"ql-header-2\">Responsibilities</p><p>You will join an international project team as part of a growing engineering group with a shared technology stack.</p><ul><li><p>Design, develop, and maintain server-side Node.js applications and services</p></li><li><p>Build and maintain system/data integration solutions, including data analysis, transformation, and validation</p></li><li><p>Design and implement REST-like APIs</p></li><li><p>Contribute to distributed systems architecture, applying sound design patterns for robustness, scaling, elasticity, consistency, replication, asynchrony, parallelism, and failure handling</p></li><li><p>Work with AWS serverless services (Lambda, SQS, CloudWatch, S3) and, where applicable, DynamoDB, DocumentDB, and streaming services</p></li><li><p>Optionally design, develop, and maintain Terraform infrastructure-as-code configurations for AWS</p></li><li><p>Collaborate using the GitHub tool suite - branching strategies, CI/CD with GitHub Actions, and issue/ticket tracking</p></li><li><p>Operate in a Linux environment, using shell scripting for day-to-day tasks</p></li></ul><p class=\"ql-header-2\">Requirements</p><ul><li><p>4+ years of experience in Node.js (server-side JavaScript) development</p></li><li><p>2+ years of experience in system/data integration (data analysis, transformation, validation)</p></li><li><p>1+ years of experience working with distributed systems, with a solid understanding of their design patterns (robustness, scaling, elasticity, consistency, replication, asynchrony, parallelism, failure handling)</p></li><li><p>2+ years of experience in REST-like API design and implementation</p></li><li><p>Basic knowledge of designing, developing, operating, and troubleshooting AWS services (must-have, serverless-focused: Lambda, SQS, CloudWatch, S3)</p></li><li><p>Solid knowledge of the GitHub tool suite, including branching concepts, CI/CD (GitHub Actions), and working with issues/tickets</p></li><li><p>Basic knowledge of Linux command-line tools and shell scripting</p></li><li><p>Good communication skills (English) and team collaboration skills</p></li></ul><p class=\"ql-header-2\">Nice to have</p><ul><li><p>Experience in designing, developing, and maintaining Terraform infrastructure-as-code configurations for AWS services</p></li><li><p>Knowledge of additional AWS services: DynamoDB, DocumentDB, streaming services</p></li></ul><p class=\"ql-header-2\">We offer</p><ul><li><p>B2B contract (rate negotiated individually, up to ... PLN net/h + VAT)</p></li><li><p>Fully remote service delivery</p></li><li><p>Broad range of projects (internal, international) - genuine variety of clients and tasks</p></li><li><p>Budget for skills development and certifications as part of the collaboration</p></li><li><p>Regular collaboration reviews and discussion of project scope</p></li><li><p>Additional benefits available as part of the collaboration</p></li><li><p>Networking and team-building events for project teams</p></li></ul>",
+ "locationId": "f1d4c76c-1fe9-434d-af23-3e0101d1211a",
+ "city": "Warszawa",
+ "street": "Al. Jerozolimskie 134",
+ "countryCode": "PL",
+ "latitude": 52.2213667,
+ "longitude": 20.9732041,
+ "companySize": "",
+ "informationClause": "Zgodnie z art. 13 ust. 1 i 2 rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych, dalej: RODO) (Dz. Urz. UE L119/1) informujemy, że:\n1. Administratorem Pana/Pani danych osobowych jest Craftware Sp. z o.o. al. Jerozolimskie 134, 02-305 Warszawa; wpisana do Krajowego Rejestru Sądowego pod nr KRS 0000328647; NIP 527-260-22-47.\n2. Pana/Pani dane osobowe będą przetwarzane zgodnie z RODO w celu\n1) przeprowadzenia procesu rekrutacji, na podstawie uprawnienia wynikającego z art. 22 kodeksu pracy, w zakresie: imienia i nazwiska, daty urodzenia, danych kontaktowych, wykształcenia, kwalifikacji zawodowych i przebiegu dotychczasowego zatrudnienia. Podstawą przetwarzania wyżej wymienionych\ndanych osobowych jest wykonanie obowiązku nałożonego przepisami prawa (art. 6 ust. 1 lit. c) RODO),\n2) przeprowadzenia procesu rekrutacji, na podstawie Państwa zgody na przetwarzanie Państwa danych osobowych, tj. danych osobowych innych niż wskazane w punkcie powyżej, przekazanych w CV, formularzu, liście motywacyjnym i innych dokumentach.  Podstawą przetwarzania jest ta zgoda (art. 6 ust. 1 lit. a) RODO), a w przypadku szczególnych kategorii danych art. 9 ust. 2 lit. a RODO.\n3) realizacji uzasadnionego interesu administratora w zakresie danych pozyskanych od Państwa w trakcie procesu rekrutacji w związku ze sprawdzeniem Państwa umiejętności i zdolności potrzebnych do pracy na określonym w ogłoszeniu stanowisku.  Podstawą przetwarzania tych danych jest nasz uzasadniony\ninteres (art. 6 ust. 1 lit. f) RODO),\n4) realizacji uzasadnionego interesu Państwa oraz administratora na wypadek prawnej potrzeby wykazania faktów, wykazania wykonania obowiązków dochodzenia lub obrony przed roszczeniami, jeżeli roszczenia dotyczą prowadzonej przez nas rekrutacji, w postępowaniu przed sądami lub organami państwowymi oraz w celu możliwości udzielania odpowiedzi na pisma, wnioski i żądania, a także konieczności jednoznacznej identyfikacji uczestnika procesu rekrutacyjnego poprzez wgląd do Państwa dokumentu tożsamości, także w czasie kontaktów przez zdalne kanały komunikacji (zakres niezbędnych danych obejmuje: imię, nazwisko i wizerunek) (podstawa z art. 6 ust. 1 lit. f) RODO),\n5) w celu przeprowadzenia przyszłych procesów rekrutacyjnych, na podstawie Państwa zgody na przetwarzanie danych osobowych przekazanych w CV, formularzu, liście motywacyjnym i innych dokumentach. Podstawą przetwarzania jest ta zgoda (art. 6 ust. 1 lit. a) RODO)\n3. Administrator może żądać podania innych danych niż wskazane w pkt. 2, które są niezbędne przed zawarciem umowy o pracę z kandydatem do pracy.\n4. Administrator powołał inspektora ochrony danych – Pawła Markiewicza, iod@m3mcom.pl.\n5. Dane Osobowe, co do których wyrażono zgodę na przetwarzanie w innych procesach rekrutacyjnych będą przetwarzane do czasu wycofania przez Pana/Panią zgody na przetwarzanie w tym celu.\n6. W niektórych sytuacjach Administrator ma prawo przekazywać Pana/Pani dane osobowe innym odbiorcom, jeśli będzie to niezbędne do przeprowadzenia procesu rekrutacyjnego. Pani/Pana dane osobowe mogą być przekazywane:\n● upoważnionym pracownikom i współpracownikom administratora danych,\n● współpracującym z nami podmiotom – w szczególności dostawcom systemów informatycznych i usług IT oraz dostawcom usług zaopatrującym Administratora w rozwiązania techniczne, informatyczne oraz organizacyjne, umożliwiające Administratorowi prowadzenie działalności gospodarczej, podmiotom świadczącym usługi i dostarczającym narzędzia z zakresu obsługi procesu rekrutacji, w tym agencjom rekrutacyjnym, dostawcom usług księgowych, prawnych i doradczych, zapewniających Administratorowi wsparcie księgowe, prawne lub doradcze - na zasadzie zleconych usług, przy czym takie podmioty przetwarzają dane osobowe zgodnie z zawartymi umowami powierzenia przetwarzania danych osobowych i wyłącznie zgodnie z naszymi poleceniami,\n● klientom i partnerom Administratora,\n● podmiotom upoważnionym do tego na podstawie powszechnie obowiązujących przepisów prawa,\n● współpracującym z nami podmiotom – w celu przeprowadzenia przez nie przyszłych procesów rekrutacyjnych, jeżeli wyraziliście Państwo zgodę na przekazanie Państwa danych osobowych takim podmiotom. \n7. Pana/Pani dane osobowe mogą być przekazywane do państw trzecich – poza strefę UE/EOG. Dane będą należycie chronione w oparciu o odpowiednie zabezpieczenia wynikające z RODO rozdział V.\n8. Przysługuje Panu/Pani prawo żądania od Administratora dostępu do danych osobowych Pana/Pani dotyczących, ich sprostowania, usunięcia, ograniczenia przetwarzania oraz przenoszenia danych, złożenia sprzeciwu wobec ich przetwarzania.\n9. Przysługuje Panu/Pani prawo do cofnięcia wyrażonej zgody w zakresie pkt 2 w każdym czasie poprzez przesłanie oświadczenia o wycofaniu zgody na adres e-mail iod@m3mcom.pl, co pozostaje bez wpływu na zgodność z prawem przetwarzania, którego dokonano na podstawie zgody przed jej cofnięciem.\n10. Na działania Administratora przysługuje Panu/Pani skarga do Prezesa Urzędu Ochrony Danych Osobowych, ul. Stawki 2, 00-193 Warszawa.\n11. Podanie przez Pana/Panią danych osobowych, o których mowa w pkt 2 ppkt. 1, 3 i 4 jest dobrowolne ale niezbędne do przeprowadzenia procesu rekrutacyjnego, a ich niepodanie uniemożliwi Pani/Panu udział w ww. procesie.\n12. W stosunku do Pani/Pana dane osobowe mogą być poddawane profilowaniu w ramach narzędzi wspierających proces rekrutacji (np. algorytmów dopasowujących treść aplikacji do wymagań zawartych w ogłoszeniu o pracę). Profilowanie to służy wyłącznie ułatwieniu procesu preselekcji kandydatów i nie wywołuje wobec Pani/Pana skutków prawnych ani nie wpływa w inny istotny sposób na Pani/Pana sytuację. Ostateczne decyzje dotyczące przebiegu procesu rekrutacyjnego podejmowane są przez rekruterów.",
+ "futureConsent": null,
+ "customConsent": null,
+ "companyLogoUrl": "https://public.justjoin.it/companies/logos/original/b540e1967dda28d0dd8501ef9fa2808b5db1491d.jpg?1673620768",
+ "employmentTypes": [
+  {
+   "from": 5343.0,
+   "fromPerUnit": 31.8025696476276,
+   "to": 7124.0,
+   "toPerUnit": 42.4034261968368,
+   "currency": "CHF",
+   "currencySource": "conversion",
+   "type": "b2b",
+   "unit": "Hour",
+   "gross": false
+  },
+  {
+   "from": 5746.0,
+   "fromPerUnit": 34.203625584312,
+   "to": 7662.0,
+   "toPerUnit": 45.604834112416,
+   "currency": "EUR",
+   "currencySource": "conversion",
+   "type": "b2b",
+   "unit": "Hour",
+   "gross": false
+  },
+  {
+   "from": 4869.0,
+   "fromPerUnit": 28.98046716513075,
+   "to": 6492.0,
+   "toPerUnit": 38.640622886841,
+   "currency": "GBP",
+   "currencySource": "conversion",
+   "type": "b2b",
+   "unit": "Hour",
+   "gross": false
+  },
+  {
+   "from": 6442.0,
+   "fromPerUnit": 38.34747929236125,
+   "to": 8590.0,
+   "toPerUnit": 51.129972389815,
+   "currency": "USD",
+   "currencySource": "conversion",
+   "type": "b2b",
+   "unit": "Hour",
+   "gross": false
+  },
+  {
+   "from": 25200.0,
+   "fromPerUnit": 150.0,
+   "to": 33600.0,
+   "toPerUnit": 200.0,
+   "currency": "PLN",
+   "currencySource": "original",
+   "type": "b2b",
+   "unit": "Hour",
+   "gross": false
+  }
+ ],
+ "workplaceType": "remote",
+ "requiredSkills": [
+  {
+   "skillId": "00000000-0000-0000-0000-000000000000",
+   "name": "Node.js",
+   "level": 5,
+   "group": null
+  },
+  {
+   "skillId": "00000000-0000-0000-0000-000000000000",
+   "name": "AWS",
+   "level": 4,
+   "group": null
+  },
+  {
+   "skillId": "00000000-0000-0000-0000-000000000000",
+   "name": "REST API",
+   "level": 4,
+   "group": null
+  },
+  {
+   "skillId": "00000000-0000-0000-0000-000000000000",
+   "name": "System Integration",
+   "level": 4,
+   "group": null
+  },
+  {
+   "skillId": "00000000-0000-0000-0000-000000000000",
+   "name": "Distributed systems",
+   "level": 3,
+   "group": null
+  }
+ ],
+ "niceToHaveSkills": [],
+ "workingTime": "full_time",
+ "applyUrl": "https://system.erecruiter.pl/FormTemplates/RecruitmentForm.aspx?WebID=cae21513be7140c48a9de878b7056a33",
+ "publishedAt": "2026-10-07T15:05:11.2434423Z",
+ "companyProfileSlug": null,
+ "companyProfileCoverPhotoUrl": null,
+ "companyProfileShortDescription": null,
+ "isOpenToHireUkrainians": false,
+ "locations": [
+  {
+   "city": "Warszawa",
+   "street": "Al. Jerozolimskie 134",
+   "latitude": 52.2213667,
+   "longitude": 20.9732041,
+   "slug": "craftware-backend-engineer-node-js--warszawa-javascript"
+  }
+ ],
+ "videoUrl": null,
+ "bannerUrl": null,
+ "isActive": true,
+ "expiredAt": "2026-11-22T22:59:59.999Z",
+ "languages": [],
+ "coverImage": "https://og-image.justjoin.it/ogimage/justjoinit/craftware-backend-engineer-node-js--warszawa-javascript",
+ "appliedAt": null,
+ "hybridWorkSchedule": null,
+ "url": "https://justjoin.it/job-offer/craftware-backend-engineer-node-js--warszawa-javascript"
+}

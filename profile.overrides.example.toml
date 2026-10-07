@@ -1,0 +1,17 @@
+# Skopiuj do profile.overrides.toml. Poprawki są nakładane na profil zbudowany z CV
+# i przetrwają podmianę CV. Zmiana tego pliku unieważnia cache ocen AI.
+
+add_skills = []               # np. ["Kafka", "Kubernetes"] - dodane jako główne umiejętności
+remove_skills = []            # np. ["Scrum"]
+# years_of_experience = 5.5   # gdy wyliczenie z CV jest nietrafione
+# seniority = "senior"        # intern | junior | mid | senior
+# extra_notes = "Szukam roli backendowej, bez frontendu."   # dodatkowy kontekst dla oceny AI
+
+[skill_weights]               # 1.0 = główna umiejętność, mniej = poboczna, 0 = ignoruj
+# "go" = 0.4
+
+[skill_years]                 # lata komercyjnego użycia, gdy CV ich nie pokazuje (wpływa na poziom ofert)
+# python = 2
+
+[languages]                   # kod ISO -> poziom CEFR
+# de = "A2"
