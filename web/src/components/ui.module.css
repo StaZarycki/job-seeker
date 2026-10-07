@@ -1,0 +1,295 @@
+/* Score */
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-mono);
+}
+
+.scoreValue {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.scoreLg .scoreValue {
+  font-size: 34px;
+}
+
+.scoreLg {
+  align-items: flex-end;
+}
+
+.scoreSub {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.high {
+  color: var(--accent);
+}
+
+.mid {
+  color: var(--text);
+}
+
+.low {
+  color: var(--warn);
+}
+
+/* Skill chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid transparent;
+}
+
+.chipMatch {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.chipMiss {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+.chipMore {
+  padding: 2px 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Score bars */
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr) 32px;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.barLabel {
+  color: var(--muted);
+}
+
+.barWeight {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--panel2);
+  overflow: hidden;
+}
+
+.fill {
+  height: 6px;
+  border-radius: 3px;
+}
+
+.fillHigh {
+  background: var(--accent);
+}
+
+.fillMid {
+  background: var(--muted);
+}
+
+.fillLow {
+  background: var(--warn);
+}
+
+.barValue {
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+/* Segmented control */
+.segmented {
+  display: flex;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.segment {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.segmentActive {
+  background: var(--panel2);
+  color: var(--text);
+}
+
+@media (max-width: 767px) {
+  .segment {
+    min-height: 36px;
+    min-width: 44px;
+  }
+}
+
+/* Banner */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+}
+
+.bannerWarn {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+}
+
+.bannerIcon {
+  flex: 0 0 auto;
+  color: var(--accent);
+}
+
+.bannerWarn .bannerIcon {
+  color: var(--warn);
+}
+
+.bannerBody {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bannerClose {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* State card (empty / error) */
+.state {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.stateTag {
+  align-self: flex-start;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-family: var(--font-mono);
+}
+
+.stateTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.stateText {
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 460px;
+}
+
+.stateActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+/* Skeleton */
+.skeleton {
+  border-radius: 4px;
+  background: var(--panel2);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+/* Progress */
+.progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--panel2);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.progressIndeterminate {
+  width: 35%;
+  animation: slide 1.2s ease-in-out infinite;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressIndeterminate {
+    animation: none;
+  }
+}

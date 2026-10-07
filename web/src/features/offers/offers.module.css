@@ -1,0 +1,697 @@
+/* ---------- page layout ---------- */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.pageTitle {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.syncInfo {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.syncText {
+  font-size: 12.5px;
+}
+
+.main {
+  padding: 18px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  font-size: 12.5px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.summaryValue {
+  color: var(--text);
+}
+
+.summaryAi {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+}
+
+.aiProgress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.aiProgressHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.aiProgressHead svg {
+  color: var(--accent);
+}
+
+.aiProgressHead :global(.mono) {
+  font-size: 12px;
+}
+
+.split {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.list {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailPane {
+  flex: 0 0 440px;
+  min-width: 0;
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+}
+
+.drawerBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 44;
+  border: 0;
+  background: var(--backdrop);
+}
+
+/* ---------- offer card ---------- */
+.card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.card:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.cardSelected,
+.cardSelected:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.cardScore {
+  flex: 0 0 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.cardBody {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cardTitle {
+  font-weight: 600;
+  font-size: 14.5px;
+  line-height: 1.3;
+}
+
+.savedMark {
+  color: var(--accent);
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.company {
+  color: var(--text);
+}
+
+.level {
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text);
+}
+
+.cardSalary {
+  flex: 0 0 132px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.cardSalaryInline {
+  display: none;
+  font-size: 12.5px;
+}
+
+/* ---------- filter chips ---------- */
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.chipWrap {
+  position: relative;
+}
+
+.filterChip {
+  min-height: 34px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.filterChipStatic {
+  border-style: dashed;
+  cursor: default;
+}
+
+.filterChipOn {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.editorBackdrop {
+  display: none;
+}
+
+.editor {
+  position: absolute;
+  z-index: 40;
+  top: 40px;
+  left: 0;
+  width: 300px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editorLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.editorActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ---------- offer detail ---------- */
+.detail {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.detailBar {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.backBtn {
+  display: none;
+  padding: 0 8px;
+  color: var(--text);
+}
+
+.position {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.hideBtn {
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted);
+}
+
+.detailScroll {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* In the scrollable drawer the column has a fixed height; sections must keep their size and scroll. */
+.detailScroll > * {
+  flex-shrink: 0;
+}
+
+.detailHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.detailTitle {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.detailActionsInline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.savedBtn {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.applyBtn {
+  text-decoration: none;
+}
+
+.metaGrid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.metaGrid > div {
+  background: var(--panel);
+  padding: 10px 12px;
+}
+
+.metaGrid dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.metaGrid dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.aiBlock {
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--accent-soft);
+}
+
+.aiHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.aiModel {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.proCon {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.proCon li {
+  display: flex;
+  gap: 8px;
+}
+
+.pro,
+.con {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.pro {
+  color: var(--accent);
+}
+
+.con {
+  color: var(--warn);
+}
+
+.aiPrompt {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.aiPrompt > span:first-child {
+  flex: 1 1 220px;
+}
+
+.inlineError {
+  flex-basis: 100%;
+  color: var(--warn);
+}
+
+.detailSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.sectionTitle :global(.mono) {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.notes {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.description {
+  white-space: pre-line;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.descSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailFooter {
+  display: none;
+}
+
+.closeBtn {
+  border-color: transparent;
+  background: transparent;
+}
+
+.hidePhone {
+  display: inline;
+}
+
+/* ---------- tablet: detail as a drawer ---------- */
+@media (max-width: 1199px) {
+  .detailOverlay {
+    position: fixed;
+    z-index: 45;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(520px, 100%);
+    max-height: none;
+    border-radius: 0;
+    border-width: 0 0 0 1px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .detailOverlay .detail {
+    flex: 1 1 auto;
+  }
+
+  .detailOverlay .detailBar {
+    display: flex;
+  }
+
+  .detailOverlay .detailScroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 767px) {
+  .topbar {
+    padding: 12px 16px 10px;
+    gap: 10px;
+  }
+
+  .pageTitle {
+    font-size: 20px;
+  }
+
+  .controls {
+    order: 3;
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+  }
+
+  .syncInfo {
+    gap: 8px;
+  }
+
+  .syncBtn {
+    width: 44px;
+    padding: 0;
+  }
+
+  .hidePhone {
+    display: none;
+  }
+
+  .main {
+    padding: 12px 16px 16px;
+    gap: 10px;
+  }
+
+  .chipsRow {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: 0 -16px;
+    padding: 0 16px 2px;
+    scrollbar-width: none;
+  }
+
+  .chipsRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filterChip {
+    flex: 0 0 auto;
+  }
+
+  .editorBackdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    border: 0;
+    background: var(--backdrop);
+  }
+
+  .editor {
+    position: fixed;
+    z-index: 51;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
+    border-radius: 18px 18px 0 0;
+    border-width: 1px 0 0;
+  }
+
+  .summary {
+    font-size: 12px;
+    gap: 4px 12px;
+  }
+
+  .summaryAi {
+    margin-left: 0;
+  }
+
+  .list {
+    gap: 10px;
+  }
+
+  .card {
+    gap: 12px;
+    padding: 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .cardScore {
+    flex-basis: 44px;
+  }
+
+  .cardSalary {
+    display: none;
+  }
+
+  .cardSalaryInline {
+    display: block;
+  }
+
+  .detailOverlay {
+    width: 100%;
+    border-left: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .drawerBackdrop {
+    display: none;
+  }
+
+  .backBtn {
+    display: inline-flex;
+  }
+
+  .closeBtn,
+  .detailActionsInline {
+    display: none;
+  }
+
+  .detailScroll {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .detailTitle {
+    font-size: 20px;
+  }
+
+  .detailFooter {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 8px;
+    padding: 10px 16px 14px;
+    border-top: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .detailFooter :global(.btn) {
+    min-height: 48px;
+  }
+
+  .detailFooter .applyBtn {
+    flex: 1 1 auto;
+  }
+}

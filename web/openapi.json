@@ -1,0 +1,2741 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Job Seeker API",
+    "description": "Dopasowuje oferty pracy z serwisów (na razie JustJoin.it) do CV kandydata.",
+    "version": "0.2.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matches": {
+      "get": {
+        "tags": [
+          "matches"
+        ],
+        "summary": "Get Matches",
+        "description": "Offers ranked by fit. ``mode=basic`` uses rules only; ``mode=ai`` also asks the configured model.",
+        "operationId": "get_matches_matches_get",
+        "parameters": [
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/MatchingMode"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Mode"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 20,
+              "title": "Top"
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Provider"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Model"
+            }
+          },
+          {
+            "name": "min_score",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 100,
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Min Score"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Named search preset, see GET /searches",
+              "title": "Search"
+            },
+            "description": "Named search preset, see GET /searches"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "saved",
+                    "hidden"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Only saved / only hidden offers (default: all but hidden)",
+              "title": "Status"
+            },
+            "description": "Only saved / only hidden offers (default: all but hidden)"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Override search.categories",
+              "title": "Category"
+            },
+            "description": "Override search.categories"
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Override search.preferred_cities",
+              "title": "City"
+            },
+            "description": "Override search.preferred_cities"
+          },
+          {
+            "name": "min_salary",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Override search.min_salary_pln_month",
+              "title": "Min Salary"
+            },
+            "description": "Override search.min_salary_pln_month"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offer_id}": {
+      "get": {
+        "tags": [
+          "offers"
+        ],
+        "summary": "Get Offer",
+        "description": "Offer from the local database (``source:external_id``), with its description fetched on demand.",
+        "operationId": "get_offer_offers__offer_id__get",
+        "parameters": [
+          {
+            "name": "offer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Offer Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOffer"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offer_id}/status": {
+      "put": {
+        "tags": [
+          "offers"
+        ],
+        "summary": "Set Offer Status",
+        "description": "Mark an offer as saved or hidden (hidden offers are left out of /matches); null clears the mark.",
+        "operationId": "set_offer_status_offers__offer_id__status_put",
+        "parameters": [
+          {
+            "name": "offer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Offer Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferStatusUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offer_id}/assess": {
+      "post": {
+        "tags": [
+          "offers"
+        ],
+        "summary": "Assess Offer",
+        "description": "AI-assess one offer, e.g. one outside the top N rated in /matches?mode=ai.",
+        "operationId": "assess_offer_offers__offer_id__assess_post",
+        "parameters": [
+          {
+            "name": "offer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Offer Id"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Provider"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Model"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Get Profile",
+        "description": "Current profile; rebuilt automatically when the CV file changed.",
+        "operationId": "get_profile_profile_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/rebuild": {
+      "post": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Rebuild Profile",
+        "operationId": "rebuild_profile_profile_rebuild_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/cv": {
+      "post": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Upload Cv",
+        "description": "Upload a new CV (PDF). It becomes the newest file in the CV folder and the profile is rebuilt.",
+        "operationId": "upload_cv_profile_cv_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_cv_profile_cv_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/overrides": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Get Overrides",
+        "operationId": "get_overrides_profile_overrides_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOverrides-Output"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "Put Overrides",
+        "description": "Replace manual profile corrections (kept across CV changes) and return the resulting profile.",
+        "operationId": "put_overrides_profile_overrides_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileOverrides-Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sources": {
+      "get": {
+        "tags": [
+          "sources"
+        ],
+        "summary": "List Sources",
+        "operationId": "list_sources_sources_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SourceStatus"
+                  },
+                  "type": "array",
+                  "title": "Response List Sources Sources Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sources/{source}/categories": {
+      "get": {
+        "tags": [
+          "sources"
+        ],
+        "summary": "List Categories",
+        "operationId": "list_categories_sources__source__categories_get",
+        "parameters": [
+          {
+            "name": "source",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryInfo"
+                  },
+                  "title": "Response List Categories Sources  Source  Categories Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sync": {
+      "post": {
+        "tags": [
+          "sources"
+        ],
+        "summary": "Start Sync",
+        "description": "Start downloading offers in the background; poll GET /sync/status for progress.",
+        "operationId": "start_sync_sync_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "sources"
+        ],
+        "summary": "Cancel Sync",
+        "description": "Stop the running sync; offers downloaded so far are kept.",
+        "operationId": "cancel_sync_sync_delete",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/sync/status": {
+      "get": {
+        "tags": [
+          "sources"
+        ],
+        "summary": "Sync Status",
+        "operationId": "sync_status_sync_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/syncs": {
+      "get": {
+        "tags": [
+          "sources"
+        ],
+        "summary": "Sync History",
+        "operationId": "sync_history_syncs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SyncHistoryItem"
+                  },
+                  "title": "Response Sync History Syncs Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/searches": {
+      "get": {
+        "tags": [
+          "sources",
+          "meta"
+        ],
+        "summary": "Searches",
+        "description": "The default search and every [searches.<name>] preset from config.toml, with offer counts.",
+        "operationId": "searches_searches_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SearchSummaryItem"
+                  },
+                  "type": "array",
+                  "title": "Response Searches Searches Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/preferences": {
+      "get": {
+        "tags": [
+          "sources",
+          "meta"
+        ],
+        "summary": "Preferences",
+        "description": "Effective search preferences: config.toml [search], optionally with a named preset applied.",
+        "operationId": "preferences_preferences_get",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchPreferences"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings": {
+      "get": {
+        "tags": [
+          "sources",
+          "meta"
+        ],
+        "summary": "Settings",
+        "operationId": "settings_settings_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Settings"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AIAssessment": {
+        "properties": {
+          "score": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Score",
+            "description": "Overall fit of the candidate for the offer"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary",
+            "description": "Two or three sentences in Polish explaining the score"
+          },
+          "pros": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Pros",
+            "description": "Reasons the candidate fits, in Polish"
+          },
+          "cons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cons",
+            "description": "Gaps or risks, in Polish"
+          },
+          "missing_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Skills",
+            "description": "Skills the offer needs that the candidate lacks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "score",
+          "summary",
+          "pros",
+          "cons",
+          "missing_skills"
+        ],
+        "title": "AIAssessment",
+        "description": "Structured answer every AI scorer must return."
+      },
+      "AIResult": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "assessment": {
+            "$ref": "#/components/schemas/AIAssessment"
+          },
+          "input_tokens": {
+            "type": "integer",
+            "title": "Input Tokens",
+            "default": 0
+          },
+          "output_tokens": {
+            "type": "integer",
+            "title": "Output Tokens",
+            "default": 0
+          },
+          "cached": {
+            "type": "boolean",
+            "title": "Cached",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "assessment",
+          "input_tokens",
+          "output_tokens",
+          "cached"
+        ],
+        "title": "AIResult"
+      },
+      "AISettings": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "top_n": {
+            "type": "integer",
+            "title": "Top N"
+          },
+          "weight": {
+            "type": "number",
+            "title": "Weight"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "top_n",
+          "weight"
+        ],
+        "title": "AISettings"
+      },
+      "AIUsage": {
+        "properties": {
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "calls": {
+            "type": "integer",
+            "title": "Calls"
+          },
+          "cached": {
+            "type": "integer",
+            "title": "Cached"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          },
+          "input_tokens": {
+            "type": "integer",
+            "title": "Input Tokens"
+          },
+          "output_tokens": {
+            "type": "integer",
+            "title": "Output Tokens"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Errors"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "calls",
+          "cached",
+          "failed",
+          "input_tokens",
+          "output_tokens",
+          "errors"
+        ],
+        "title": "AIUsage"
+      },
+      "Body_upload_cv_profile_cv_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_cv_profile_cv_post"
+      },
+      "CandidateProfile": {
+        "properties": {
+          "parser_version": {
+            "type": "integer",
+            "title": "Parser Version",
+            "description": "Version of the CV parser that built this profile",
+            "default": 0
+          },
+          "source_file": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source File"
+          },
+          "source_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Hash",
+            "description": "SHA-256 of the CV file the profile was built from"
+          },
+          "built_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Built At"
+          },
+          "headline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Headline"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "years_of_experience": {
+            "type": "number",
+            "title": "Years Of Experience",
+            "default": 0
+          },
+          "seniority": {
+            "$ref": "#/components/schemas/Seniority",
+            "default": "mid"
+          },
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateSkill"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "skill_years": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Skill Years",
+            "description": "Canonical skill -> years used in positions listed in the CV"
+          },
+          "languages": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Languages",
+            "description": "ISO code -> CEFR level"
+          },
+          "cv_text": {
+            "type": "string",
+            "title": "Cv Text",
+            "description": "CV text with contact data removed; sent to AI scorers",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "parser_version",
+          "source_file",
+          "source_hash",
+          "built_at",
+          "headline",
+          "location",
+          "years_of_experience",
+          "seniority",
+          "skills",
+          "skill_years",
+          "languages",
+          "cv_text"
+        ],
+        "title": "CandidateProfile"
+      },
+      "CandidateSkill": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Canonical skill name, see profile.skill_extractor"
+          },
+          "weight": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Weight",
+            "description": "1.0 = core skill, lower = secondary",
+            "default": 1.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "weight"
+        ],
+        "title": "CandidateSkill"
+      },
+      "CategoryInfo": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "count"
+        ],
+        "title": "CategoryInfo"
+      },
+      "ExperienceSettings": {
+        "properties": {
+          "transfer_ratio": {
+            "type": "number",
+            "title": "Transfer Ratio"
+          },
+          "declared_ratio": {
+            "type": "number",
+            "title": "Declared Ratio"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transfer_ratio",
+          "declared_ratio"
+        ],
+        "title": "ExperienceSettings"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "JobOffer": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "external_id": {
+            "type": "string",
+            "title": "External Id"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "seniority": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Seniority"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "workplace_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkplaceType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "working_time": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Working Time"
+          },
+          "locations": {
+            "items": {
+              "$ref": "#/components/schemas/Location"
+            },
+            "type": "array",
+            "title": "Locations"
+          },
+          "required_skills": {
+            "items": {
+              "$ref": "#/components/schemas/Skill"
+            },
+            "type": "array",
+            "title": "Required Skills"
+          },
+          "nice_to_have_skills": {
+            "items": {
+              "$ref": "#/components/schemas/Skill"
+            },
+            "type": "array",
+            "title": "Nice To Have Skills"
+          },
+          "languages": {
+            "items": {
+              "$ref": "#/components/schemas/LanguageRequirement"
+            },
+            "type": "array",
+            "title": "Languages"
+          },
+          "salaries": {
+            "items": {
+              "$ref": "#/components/schemas/Salary"
+            },
+            "type": "array",
+            "title": "Salaries"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At"
+          },
+          "apply_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Apply Url"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Plain-text description, filled by fetch_details"
+          },
+          "extra": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Extra",
+            "description": "Source-specific identifiers, e.g. slug"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Globally unique id: ``source:external_id``.",
+            "readOnly": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "external_id",
+          "url",
+          "title",
+          "company",
+          "category",
+          "seniority",
+          "workplace_type",
+          "working_time",
+          "locations",
+          "required_skills",
+          "nice_to_have_skills",
+          "languages",
+          "salaries",
+          "published_at",
+          "expires_at",
+          "apply_url",
+          "description",
+          "extra",
+          "id"
+        ],
+        "title": "JobOffer"
+      },
+      "LanguageRequirement": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code",
+            "description": "ISO 639-1 language code, e.g. 'en'"
+          },
+          "level": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Level",
+            "description": "CEFR level, e.g. 'B2'"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "level"
+        ],
+        "title": "LanguageRequirement"
+      },
+      "Location": {
+        "properties": {
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "street": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Street"
+          }
+        },
+        "type": "object",
+        "required": [
+          "city",
+          "street"
+        ],
+        "title": "Location"
+      },
+      "MatchResponse": {
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/MatchingMode"
+          },
+          "considered": {
+            "type": "integer",
+            "title": "Considered"
+          },
+          "filtered_out": {
+            "type": "integer",
+            "title": "Filtered Out"
+          },
+          "passed": {
+            "type": "integer",
+            "title": "Passed"
+          },
+          "profile_hash": {
+            "type": "string",
+            "title": "Profile Hash"
+          },
+          "profile_rebuilt": {
+            "type": "boolean",
+            "title": "Profile Rebuilt"
+          },
+          "warning": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warning"
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/SearchPreferences"
+          },
+          "ai": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AIUsage"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/MatchResult"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "considered",
+          "filtered_out",
+          "passed",
+          "profile_hash",
+          "profile_rebuilt",
+          "warning",
+          "preferences",
+          "ai",
+          "results"
+        ],
+        "title": "MatchResponse"
+      },
+      "MatchResult": {
+        "properties": {
+          "offer": {
+            "$ref": "#/components/schemas/JobOffer"
+          },
+          "rule": {
+            "$ref": "#/components/schemas/RuleScore"
+          },
+          "ai": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AIResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "final_score": {
+            "type": "number",
+            "title": "Final Score"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "saved",
+                  "hidden"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status",
+            "description": "The user's mark on the offer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "offer",
+          "rule",
+          "ai",
+          "final_score",
+          "status"
+        ],
+        "title": "MatchResult"
+      },
+      "MatchingMode": {
+        "type": "string",
+        "enum": [
+          "basic",
+          "ai"
+        ],
+        "title": "MatchingMode"
+      },
+      "OfferStatusUpdate": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "saved",
+                  "hidden"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "OfferStatusUpdate"
+      },
+      "ProfileOverrides-Input": {
+        "properties": {
+          "add_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Add Skills",
+            "description": "Added as core skills"
+          },
+          "remove_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Remove Skills"
+          },
+          "skill_weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Skill Weights",
+            "description": "Skill -> weight 0..1"
+          },
+          "skill_years": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Skill Years",
+            "description": "Skill -> years of commercial use, e.g. {'python': 2}"
+          },
+          "years_of_experience": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Years Of Experience"
+          },
+          "seniority": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Seniority"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "languages": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Languages",
+            "description": "ISO code -> CEFR level"
+          },
+          "extra_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extra Notes",
+            "description": "Extra context for AI scoring, e.g. what you want"
+          }
+        },
+        "type": "object",
+        "title": "ProfileOverrides",
+        "description": "Manual corrections applied on top of the profile parsed from the CV."
+      },
+      "ProfileOverrides-Output": {
+        "properties": {
+          "add_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Add Skills",
+            "description": "Added as core skills"
+          },
+          "remove_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Remove Skills"
+          },
+          "skill_weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Skill Weights",
+            "description": "Skill -> weight 0..1"
+          },
+          "skill_years": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Skill Years",
+            "description": "Skill -> years of commercial use, e.g. {'python': 2}"
+          },
+          "years_of_experience": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Years Of Experience"
+          },
+          "seniority": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Seniority"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "languages": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Languages",
+            "description": "ISO code -> CEFR level"
+          },
+          "extra_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extra Notes",
+            "description": "Extra context for AI scoring, e.g. what you want"
+          }
+        },
+        "type": "object",
+        "required": [
+          "add_skills",
+          "remove_skills",
+          "skill_weights",
+          "skill_years",
+          "years_of_experience",
+          "seniority",
+          "languages",
+          "extra_notes"
+        ],
+        "title": "ProfileOverrides",
+        "description": "Manual corrections applied on top of the profile parsed from the CV."
+      },
+      "ProfileResponse": {
+        "properties": {
+          "profile": {
+            "$ref": "#/components/schemas/CandidateProfile"
+          },
+          "profile_hash": {
+            "type": "string",
+            "title": "Profile Hash"
+          },
+          "rebuilt": {
+            "type": "boolean",
+            "title": "Rebuilt"
+          },
+          "warning": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warning"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile",
+          "profile_hash",
+          "rebuilt",
+          "warning"
+        ],
+        "title": "ProfileResponse"
+      },
+      "RuleScore": {
+        "properties": {
+          "score": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Score"
+          },
+          "breakdown": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Breakdown",
+            "description": "Component -> 0..1"
+          },
+          "matched_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Matched Skills"
+          },
+          "missing_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Skills"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "effective_years": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective Years",
+            "description": "Candidate's experience in this offer's main technologies"
+          },
+          "effective_level": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Seniority"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "main_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Main Skills",
+            "description": "Offer skills used for effective_years"
+          }
+        },
+        "type": "object",
+        "required": [
+          "score",
+          "breakdown",
+          "matched_skills",
+          "missing_skills",
+          "notes",
+          "effective_years",
+          "effective_level",
+          "main_skills"
+        ],
+        "title": "RuleScore"
+      },
+      "RuleWeights": {
+        "properties": {
+          "skills": {
+            "type": "number",
+            "title": "Skills",
+            "default": 0.45
+          },
+          "title": {
+            "type": "number",
+            "title": "Title",
+            "default": 0.1
+          },
+          "seniority": {
+            "type": "number",
+            "title": "Seniority",
+            "default": 0.15
+          },
+          "location": {
+            "type": "number",
+            "title": "Location",
+            "default": 0.1
+          },
+          "salary": {
+            "type": "number",
+            "title": "Salary",
+            "default": 0.1
+          },
+          "languages": {
+            "type": "number",
+            "title": "Languages",
+            "default": 0.05
+          },
+          "freshness": {
+            "type": "number",
+            "title": "Freshness",
+            "default": 0.05
+          }
+        },
+        "type": "object",
+        "required": [
+          "skills",
+          "title",
+          "seniority",
+          "location",
+          "salary",
+          "languages",
+          "freshness"
+        ],
+        "title": "RuleWeights"
+      },
+      "Salary": {
+        "properties": {
+          "contract": {
+            "type": "string",
+            "title": "Contract",
+            "description": "b2b, permanent, mandate_contract, internship or any"
+          },
+          "min_pln_month": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Pln Month"
+          },
+          "max_pln_month": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Pln Month"
+          },
+          "gross": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gross"
+          },
+          "original_currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Currency"
+          },
+          "original_unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Unit"
+          },
+          "original_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Min"
+          },
+          "original_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Max"
+          }
+        },
+        "type": "object",
+        "required": [
+          "contract",
+          "min_pln_month",
+          "max_pln_month",
+          "gross",
+          "original_currency",
+          "original_unit",
+          "original_min",
+          "original_max"
+        ],
+        "title": "Salary",
+        "description": "Salary range normalized to PLN per month."
+      },
+      "SearchPreferences": {
+        "properties": {
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Categories"
+          },
+          "experience_levels": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Seniority"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string",
+                "const": "auto"
+              }
+            ],
+            "title": "Experience Levels",
+            "description": "'auto' = your level in the offer's technologies plus one level up; or an explicit list",
+            "default": "auto"
+          },
+          "workplace": {
+            "items": {
+              "$ref": "#/components/schemas/WorkplaceType"
+            },
+            "type": "array",
+            "title": "Workplace"
+          },
+          "preferred_cities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Preferred Cities"
+          },
+          "onsite_only_in_preferred_cities": {
+            "type": "boolean",
+            "title": "Onsite Only In Preferred Cities",
+            "description": "Drop hybrid/office offers that are not located in one of preferred_cities",
+            "default": true
+          },
+          "min_salary_pln_month": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Salary Pln Month"
+          },
+          "exclude_keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Exclude Keywords",
+            "description": "Whole words matched in title and skills"
+          },
+          "title_keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Title Keywords",
+            "description": "Words that make a job title attractive (core skills from the CV count automatically)"
+          },
+          "avoid_title_keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Avoid Title Keywords",
+            "description": "Words that make a job title unattractive (soft penalty, not a filter)"
+          },
+          "target_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Target Skills",
+            "description": "Skills you are moving towards (e.g. C++): partial credit in matching, told to the AI scorer"
+          },
+          "max_offer_age_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Offer Age Days",
+            "default": 45
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sources",
+          "categories",
+          "experience_levels",
+          "workplace",
+          "preferred_cities",
+          "onsite_only_in_preferred_cities",
+          "min_salary_pln_month",
+          "exclude_keywords",
+          "title_keywords",
+          "avoid_title_keywords",
+          "target_skills",
+          "max_offer_age_days"
+        ],
+        "title": "SearchPreferences",
+        "description": "What the user is looking for. Every field can be overridden per request (CLI flags / API params)."
+      },
+      "SearchSummaryItem": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Preset name; null for the default [search] section"
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/SearchPreferences"
+          },
+          "considered": {
+            "type": "integer",
+            "title": "Considered",
+            "description": "Offers in the database for this search"
+          },
+          "passed": {
+            "type": "integer",
+            "title": "Passed",
+            "description": "Offers that pass the hard filters (after merging duplicates)"
+          },
+          "needs_sync": {
+            "type": "boolean",
+            "title": "Needs Sync",
+            "description": "No offers of this search's categories have been downloaded yet"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "preferences",
+          "considered",
+          "passed",
+          "needs_sync"
+        ],
+        "title": "SearchSummaryItem"
+      },
+      "Seniority": {
+        "type": "string",
+        "enum": [
+          "intern",
+          "junior",
+          "mid",
+          "senior",
+          "manager",
+          "c_level"
+        ],
+        "title": "Seniority"
+      },
+      "Settings": {
+        "properties": {
+          "default_mode": {
+            "$ref": "#/components/schemas/MatchingMode"
+          },
+          "weights": {
+            "$ref": "#/components/schemas/RuleWeights"
+          },
+          "experience": {
+            "$ref": "#/components/schemas/ExperienceSettings"
+          },
+          "ai": {
+            "$ref": "#/components/schemas/AISettings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "default_mode",
+          "weights",
+          "experience",
+          "ai"
+        ],
+        "title": "Settings",
+        "description": "Read-only configuration the UI uses for labels and explanations."
+      },
+      "Skill": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "level": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Level",
+            "description": "Required proficiency, 1 (basic) to 5 (expert)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "level"
+        ],
+        "title": "Skill"
+      },
+      "SourceStatus": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "offers_in_db": {
+            "type": "integer",
+            "title": "Offers In Db"
+          },
+          "last_sync_started": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Sync Started"
+          },
+          "last_sync_finished": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Sync Finished"
+          },
+          "last_sync_fetched": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Sync Fetched"
+          },
+          "last_sync_new": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Sync New"
+          },
+          "last_sync_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Sync Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "offers_in_db",
+          "last_sync_started",
+          "last_sync_finished",
+          "last_sync_fetched",
+          "last_sync_new",
+          "last_sync_error"
+        ],
+        "title": "SourceStatus"
+      },
+      "SyncHistoryItem": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Started At"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categories",
+            "description": "Empty: all categories; null: not recorded (older runs)"
+          },
+          "fetched": {
+            "type": "integer",
+            "title": "Fetched"
+          },
+          "new": {
+            "type": "integer",
+            "title": "New"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "source",
+          "started_at",
+          "finished_at",
+          "categories",
+          "fetched",
+          "new",
+          "error"
+        ],
+        "title": "SyncHistoryItem"
+      },
+      "SyncRequest": {
+        "properties": {
+          "sources": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sources",
+            "description": "Default: search.sources from config"
+          },
+          "categories": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categories",
+            "description": "Default: search.categories from config"
+          },
+          "search": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Search",
+            "description": "Take sources/categories from a named search preset"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          }
+        },
+        "type": "object",
+        "title": "SyncRequest"
+      },
+      "SyncResultItem": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "fetched": {
+            "type": "integer",
+            "title": "Fetched"
+          },
+          "new": {
+            "type": "integer",
+            "title": "New"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "fetched",
+          "new",
+          "error"
+        ],
+        "title": "SyncResultItem"
+      },
+      "SyncStatus": {
+        "properties": {
+          "running": {
+            "type": "boolean",
+            "title": "Running"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "category_index": {
+            "type": "integer",
+            "title": "Category Index"
+          },
+          "category_count": {
+            "type": "integer",
+            "title": "Category Count"
+          },
+          "fetched": {
+            "type": "integer",
+            "title": "Fetched"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          },
+          "cancelled": {
+            "type": "boolean",
+            "title": "Cancelled"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/SyncResultItem"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "running",
+          "started_at",
+          "finished_at",
+          "source",
+          "category",
+          "category_index",
+          "category_count",
+          "fetched",
+          "total",
+          "cancelled",
+          "error",
+          "results"
+        ],
+        "title": "SyncStatus"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WorkplaceType": {
+        "type": "string",
+        "enum": [
+          "remote",
+          "hybrid",
+          "office"
+        ],
+        "title": "WorkplaceType"
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+/* Design tokens from the "Job Seeker – web app" design. Dark is the default theme. */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0a0b0d;
+  --panel: #111317;
+  --panel2: #181b21;
+  --line: #252a31;
+  --text: #e7e9ec;
+  --muted: #9aa1ad;
+  --accent: #8ab4ff;
+  --accent-ink: #0a0b0d;
+  --accent-soft: rgba(138, 180, 255, 0.12);
+  --warn: #f5a35c;
+  --warn-soft: rgba(245, 163, 92, 0.12);
+  --scroll: #353b45;
+  --scroll-hover: #4b525e;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --backdrop: rgba(0, 0, 0, 0.55);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f5f6f8;
+  --panel: #ffffff;
+  --panel2: #eef0f3;
+  --line: #dde1e7;
+  --text: #14161a;
+  --muted: #525a66;
+  --accent: #2f5bd3;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(47, 91, 211, 0.1);
+  --warn: #a6500b;
+  --warn-soft: rgba(166, 80, 11, 0.1);
+  --scroll: #c6ccd5;
+  --scroll-hover: #a3aab5;
+  --shadow: 0 16px 40px rgba(20, 22, 26, 0.12);
+  --backdrop: rgba(20, 22, 26, 0.35);
+}
+
+:root {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  /* Breakpoints (used in media queries, kept here for reference): phone < 768px, tablet < 1200px. */
+}

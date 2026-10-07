@@ -1,0 +1,296 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 20px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  align-items: start;
+}
+
+.sourceHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sourceName {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.statusOk,
+.statusWarn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.statusOk {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.statusWarn {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background: currentColor;
+}
+
+.apiName {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.stats > div {
+  background: var(--panel);
+  padding: 10px 12px;
+}
+
+.stats dt {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.stats dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.stats .statBig {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.legend {
+  padding: 0 0 8px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cat {
+  min-height: 34px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.catOn {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.catCount {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.syncRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--panel2);
+}
+
+.progressHead,
+.progressFoot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.progressHead :global(.mono) {
+  margin-left: auto;
+}
+
+.progressFoot :global(.btn) {
+  margin-left: auto;
+}
+
+.history {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.historyRow {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 64px 64px 44px;
+  gap: 8px;
+  align-items: baseline;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12.5px;
+}
+
+.historyRow:last-child {
+  border-bottom: 0;
+}
+
+.hCats {
+  overflow-wrap: anywhere;
+}
+
+.hError {
+  color: var(--warn);
+}
+
+.hNum {
+  text-align: right;
+}
+
+.future {
+  border-style: dashed;
+  background: transparent;
+}
+
+@media (max-width: 767px) {
+  .topbar {
+    padding: 12px 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stats > div {
+    padding: 8px 10px;
+  }
+
+  .stats dt {
+    font-size: 11px;
+  }
+
+  .stats dd {
+    font-size: 13px;
+  }
+
+  .stats .statBig {
+    font-size: 15px;
+  }
+
+  .cat {
+    min-height: 38px;
+  }
+
+  .syncBtn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .syncRow {
+    text-align: center;
+  }
+
+  .historyRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'start fetched'
+      'cats new';
+    row-gap: 2px;
+  }
+
+  .hStart {
+    grid-area: start;
+  }
+
+  .hCats {
+    grid-area: cats;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .hFetched {
+    grid-area: fetched;
+  }
+
+  .hNew {
+    grid-area: new;
+    color: var(--muted);
+    font-size: 11.5px;
+  }
+
+  .hTime {
+    display: none;
+  }
+}
