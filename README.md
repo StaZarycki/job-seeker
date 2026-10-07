@@ -1,37 +1,39 @@
 # Job Seeker
 
-Szuka ofert pracy pasujących do Twojego CV. Pobiera oferty z serwisów (na razie JustJoin.it), buduje profil z CV w PDF i układa ranking z uzasadnieniem. Ocenia regułami (tryb Standard, darmowy) albo dodatkowo modelem AI.
+Finds job offers that match your CV. It downloads offers from job boards (JustJoin.it for now), builds a profile from your PDF CV and ranks the offers with an explanation for each. Offers are scored by rules (Standard mode, free) or additionally by an AI model.
 
-| Część | Katalog | Technologie |
+The user interface and messages are in Polish.
+
+| Part | Directory | Stack |
 |---|---|---|
-| Backend: profil z CV, pobieranie ofert, dopasowanie, REST API i CLI | [`backend/`](backend/README.md) | Python 3.13, FastAPI, SQLite, uv |
-| Frontend: aplikacja webowa (desktop, tablet, telefon) | [`web/`](web/README.md) | React 19, TypeScript, Vite, TanStack Query |
+| Backend: CV profile, offer download, matching, REST API and CLI | [`backend/`](backend/README.md) | Python 3.13, FastAPI, SQLite, uv |
+| Frontend: web app (desktop, tablet, phone) | [`web/`](web/README.md) | React 19, TypeScript, Vite, TanStack Query |
 
-## Uruchomienie
+## Getting started
 
 ```bash
 cd backend
 uv sync
-uv run jobseeker serve        # API na http://127.0.0.1:8000 (dokumentacja: /docs)
+uv run jobseeker serve        # API on http://127.0.0.1:8000 (docs: /docs)
 ```
 
-W drugim terminalu:
+In a second terminal:
 
 ```bash
 cd web
 npm install
-npm run dev                   # aplikacja na http://localhost:5173
+npm run dev                   # app on http://localhost:5173
 ```
 
-Frontend wysyła zapytania pod `/api/...`, a serwer deweloperski Vite przekazuje je do backendu na porcie 8000.
+The frontend sends requests to `/api/...`, and the Vite dev server forwards them to the backend on port 8000.
 
-Pierwsze kroki w aplikacji:
-1. Wrzuć CV (PDF) do `backend/cv/` albo wgraj je na ekranie **Profil**.
-2. Pobierz oferty na ekranie **Źródła** lub przyciskiem **Synchronizuj** na ekranie **Oferty**.
+First steps in the app:
+1. Put your CV (PDF) in `backend/cv/` or upload it on the **Profil** (Profile) screen.
+2. Download offers on the **Źródła** (Sources) screen or with the **Synchronizuj** (Sync) button on the **Oferty** (Offers) screen.
 
-Z backendu można też korzystać bez frontendu, przez CLI (`uv run jobseeker --help`), co opisuje [backend/README.md](backend/README.md).
+You can also use the backend without the frontend, through the CLI (`uv run jobseeker --help`), as described in [backend/README.md](backend/README.md).
 
-## Rozwój
+## Development
 
 ```bash
 # backend
@@ -40,10 +42,10 @@ cd backend && uv run pytest && uv run ruff check . && uv run mypy src tests
 # frontend
 cd web && npm run typecheck && npm run lint && npm test
 
-# po zmianie API: wygeneruj typy TypeScript z OpenAPI backendu
+# after an API change: generate TypeScript types from the backend's OpenAPI schema
 cd web && npm run gen:api
 ```
 
-## Licencja
+## License
 
 [MIT](LICENSE)
