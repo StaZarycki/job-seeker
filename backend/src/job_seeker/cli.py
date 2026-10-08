@@ -36,8 +36,9 @@ console = Console()
 ConfigOption = Annotated[Path | None, typer.Option("--config", help="Ścieżka do config.toml")]
 
 
+# Help texts and console output are Rich markup: "\[" keeps a literal TOML section header such as [searches.x].
 SearchOption = Annotated[
-    str | None, typer.Option("--search", help="Profil wyszukiwania z [searches.<nazwa>] w config.toml")
+    str | None, typer.Option("--search", help=r"Profil wyszukiwania z \[searches.<nazwa>] w config.toml")
 ]
 
 
@@ -84,8 +85,8 @@ def sync(
     except ValueError as exc:
         _fail(str(exc))
     categories = category or prefs.categories
-    console.print(f"Pobieram oferty: źródła {', '.join(source or prefs.sources)}; "
-                  f"kategorie {', '.join(categories) or 'wszystkie'}...")  # fmt: skip
+    console.print(f"Pobieram oferty: źródła {escape(', '.join(source or prefs.sources))}; "
+                  f"kategorie {escape(', '.join(categories) or 'wszystkie')}...")  # fmt: skip
 
     def done(result: SyncResult) -> None:
         if result.error:
@@ -163,14 +164,14 @@ def offer(offer_id: str, config: ConfigOption = None) -> None:
 
 @app.command()
 def searches(config: ConfigOption = None) -> None:
-    """Lista profili wyszukiwania ([searches.<nazwa>] w config.toml)."""
+    r"""Lista profili wyszukiwania (\[searches.<nazwa>] w config.toml)."""
     service = _service(config)
     if not service.config.searches:
-        console.print("Brak profili. Dodaj np. [searches.cpp] w config.toml (wzór w config.example.toml).")
+        console.print(r"Brak profili. Dodaj np. \[searches.cpp] w config.toml (wzór w config.example.toml).")
         return
     for name, overrides in sorted(service.config.searches.items()):
         settings = "; ".join(f"{key} = {value}" for key, value in overrides.items())
-        console.print(f"[bold]{name}[/]: {escape(settings)}")
+        console.print(f"[bold]{escape(name)}[/]: {escape(settings)}")
 
 
 @app.command()
@@ -207,7 +208,7 @@ def _load_profile(service: JobSeekerService, force: bool = False) -> ProfileStat
 def _print_profile_notice(state: ProfileState) -> None:
     if state.rebuilt:
         reason = "nowe/zmienione CV lub aktualizacja aplikacji"
-        console.print(f"[cyan]Profil przebudowany z {state.profile.source_file} ({reason}).[/]")
+        console.print(f"[cyan]Profil przebudowany z {escape(state.profile.source_file or '-')} ({reason}).[/]")
     if state.warning:
         console.print(f"[yellow]{escape(state.warning)}[/]")
 
@@ -215,7 +216,7 @@ def _print_profile_notice(state: ProfileState) -> None:
 def _print_profile(state: ProfileState) -> None:
     p = state.profile
     console.print(f"[bold]{escape(p.headline or 'Profil')}[/]  ({escape(p.location or '-')})")
-    console.print(f"CV: {p.source_file}   hash profilu: {state.profile_hash}")
+    console.print(f"CV: {escape(p.source_file or '-')}   hash profilu: {state.profile_hash}")
     console.print(f"Doświadczenie: {p.years_of_experience:g} lat → poziom [bold]{p.seniority.value}[/]")
     console.print("Języki: " + ", ".join(f"{k} {v}" for k, v in p.languages.items()))
     core = [s.name for s in p.skills if s.weight >= 1]
@@ -287,7 +288,7 @@ def _salary_cell(r: MatchResult) -> str:
         return "[dim]brak[/]"
     low = f"{s.min_pln_month:,.0f}".replace(",", " ") if s.min_pln_month else "?"
     high = f"{s.max_pln_month:,.0f}".replace(",", " ") if s.max_pln_month else "?"
-    return f"{low} - {high}\n[dim]{s.contract}{', brutto' if s.gross else ''}[/]"
+    return f"{low} - {high}\n[dim]{escape(s.contract)}{', brutto' if s.gross else ''}[/]"
 
 
 def _skills_cell(r: MatchResult) -> str:
