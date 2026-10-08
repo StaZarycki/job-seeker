@@ -33,6 +33,20 @@ First steps in the app:
 
 You can also use the backend without the frontend, through the CLI (`uv run jobseeker --help`), as described in [backend/README.md](backend/README.md).
 
+## Docker
+
+Runs both parts without installing Python or Node:
+
+```bash
+docker compose up -d --build      # app on http://localhost:8080
+```
+
+- The frontend is served by nginx, which forwards `/api/*` to the backend. The backend's API docs are at http://localhost:8000/docs.
+- Your files stay in `backend/` on the host (`config.toml`, `.env`, `cv/`, `data/`, `profile.overrides.toml`) and are mounted into the backend container, so a Docker run and a local run share the same CV, database and settings. None of them are baked into the images.
+- CLI commands run inside the container, e.g. `docker compose exec backend jobseeker sync`.
+- Both ports listen on localhost only, because the app has no login and can trigger paid AI requests. To open it from a phone on your network, run `JOBSEEKER_HOST=0.0.0.0 docker compose up -d`. `JOBSEEKER_PORT` and `JOBSEEKER_API_PORT` change the ports.
+- Stop it with `docker compose down`. Don't run the compose backend and a local `jobseeker serve` at the same time: both use port 8000 and the same database.
+
 ## Development
 
 ```bash

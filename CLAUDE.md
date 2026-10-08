@@ -32,6 +32,8 @@ npm run gen:api                          # export backend OpenAPI -> web/openapi
 
 `.claude/launch.json` defines the `backend` and `web` preview servers.
 
+`compose.yaml` runs both parts in Docker (`docker compose up -d --build`, app on localhost:8080): `backend/Dockerfile` (uv, `jobseeker serve` on 0.0.0.0) and `web/Dockerfile` (Vite build served by nginx; `web/nginx.conf` proxies `/api/` to `backend:8000` and strips `/api`, like the dev server). The host's `backend/` directory is mounted at `/instance` and `JOBSEEKER_CONFIG=/instance/config.toml`, so personal files stay on the host. Keep them out of images: `backend/.dockerignore` excludes them, so update it when adding new personal files.
+
 Before finishing a change, all checks for the touched part must pass:
 - backend: pytest, ruff, mypy;
 - web: typecheck, lint, test, prettier `--check`.

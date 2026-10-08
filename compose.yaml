@@ -1,0 +1,27 @@
+# Backend (FastAPI) + frontend (nginx serving the built app, proxying /api to the backend).
+#   docker compose up -d --build      ->  http://localhost:8080
+#   docker compose exec backend jobseeker sync
+#
+# Your personal files stay on the host in backend/ (config.toml, .env, cv/, data/, profile.overrides.toml);
+# the backend container reads and writes them there, so the database and CV are shared with a local run.
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/instance
+    restart: unless-stopped
+    # Not needed by the app (the frontend talks to the backend inside the compose network);
+    # handy for the API docs at http://localhost:8000/docs.
+    ports:
+      - "127.0.0.1:${JOBSEEKER_API_PORT:-8000}:8000"
+
+  web:
+    build: ./web
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    # Localhost only by default: the app has no login and can trigger paid AI requests.
+    # To open it from a phone on your network, set JOBSEEKER_HOST=0.0.0.0.
+    ports:
+      - "${JOBSEEKER_HOST:-127.0.0.1}:${JOBSEEKER_PORT:-8080}:80"
