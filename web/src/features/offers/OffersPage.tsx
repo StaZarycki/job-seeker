@@ -138,9 +138,16 @@ export function OffersPage() {
           <Banner
             tone="warn"
             action={
-              <button type="button" className="btn" onClick={() => setFilters({ mode: 'basic' })}>
-                Wróć do trybu Standard
-              </button>
+              <>
+                {aiError.code === 'ai_not_configured' ? (
+                  <Link to="/settings#keys" className="btn btn-primary">
+                    Dodaj klucz w Ustawieniach
+                  </Link>
+                ) : null}
+                <button type="button" className="btn" onClick={() => setFilters({ mode: 'basic' })}>
+                  Wróć do trybu Standard
+                </button>
+              </>
             }
           >
             {aiError.code === 'ai_not_configured' ? <strong>Tryb AI nie jest skonfigurowany. </strong> : null}

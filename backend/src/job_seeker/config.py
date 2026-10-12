@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from dotenv import load_dotenv
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
 from job_seeker.domain.models import Seniority, WorkplaceType
 
@@ -23,6 +23,8 @@ class MatchingMode(StrEnum):
 
 
 class PathsConfig(BaseModel):
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
+
     cv_dir: Path = Path("cv")
     cv_path: Path | None = Field(
         default=None, description="Explicit CV file; overrides picking the newest PDF in cv_dir"
@@ -55,7 +57,7 @@ class SearchPreferences(BaseModel):
     onsite_only_in_preferred_cities: bool = Field(
         default=True, description="Drop hybrid/office offers that are not located in one of preferred_cities"
     )
-    min_salary_pln_month: float | None = None
+    min_salary_pln_month: float | None = Field(default=None, ge=0)
     exclude_keywords: list[str] = Field(default_factory=list, description="Whole words matched in title and skills")
     title_keywords: list[str] = Field(
         default_factory=lambda: ["backend", "back-end", "full stack", "fullstack", "full-stack"],
@@ -68,23 +70,30 @@ class SearchPreferences(BaseModel):
         default_factory=list,
         description="Skills you are moving towards (e.g. C++): partial credit in matching, told to the AI scorer",
     )
-    max_offer_age_days: int | None = 45
+    max_offer_age_days: int | None = Field(default=45, ge=0, description="0 or null: no age limit")
+
+    @field_validator("max_offer_age_days")
+    @classmethod
+    def _no_limit(cls, value: int | None) -> int | None:
+        return value or None  # TOML has no null, so config.toml spells "no limit" as 0
 
 
 class RuleWeights(BaseModel):
     model_config = ConfigDict(json_schema_serialization_defaults_required=True)
 
-    skills: float = 0.45
-    title: float = 0.10
-    seniority: float = 0.15
-    location: float = 0.10
-    salary: float = 0.10
-    languages: float = 0.05
-    freshness: float = 0.05
+    skills: float = Field(default=0.45, ge=0)
+    title: float = Field(default=0.10, ge=0)
+    seniority: float = Field(default=0.15, ge=0)
+    location: float = Field(default=0.10, ge=0)
+    salary: float = Field(default=0.10, ge=0)
+    languages: float = Field(default=0.05, ge=0)
+    freshness: float = Field(default=0.05, ge=0)
 
 
 class ExperienceConfig(BaseModel):
     """How experience in one technology carries over to another (see matching/experience.py)."""
+
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
 
     transfer_ratio: float = Field(
         default=0.35, ge=0, le=1, description="Share of general experience that counts in an unfamiliar technology"
@@ -98,12 +107,16 @@ class ExperienceConfig(BaseModel):
 
 
 class MatchingConfig(BaseModel):
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
+
     mode: MatchingMode = MatchingMode.BASIC
     weights: RuleWeights = Field(default_factory=RuleWeights)
     experience: ExperienceConfig = Field(default_factory=ExperienceConfig)
 
 
 class AIConfig(BaseModel):
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
+
     provider: str = "anthropic"
     model: str = "claude-haiku-4-5"
     top_n: int = Field(default=20, ge=1)
@@ -114,12 +127,16 @@ class AIConfig(BaseModel):
 
 
 class JustJoinConfig(BaseModel):
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
+
     page_size: int = Field(default=100, ge=1, le=100)
     request_delay_s: float = Field(default=0.5, ge=0)
     max_retries: int = Field(default=3, ge=0)
 
 
 class ApiConfig(BaseModel):
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
+
     cors_origins: list[str] = Field(
         default_factory=lambda: ["http://localhost:5173", "http://127.0.0.1:5173"],
         description="Origins allowed to call the REST API from a browser (the web frontend's dev server)",
@@ -128,6 +145,7 @@ class ApiConfig(BaseModel):
 
 class AppConfig(BaseModel):
     base_dir: Path = Field(default_factory=Path.cwd, exclude=True)
+    config_path: Path | None = Field(default=None, exclude=True, description="The config.toml it was loaded from")
     paths: PathsConfig = Field(default_factory=PathsConfig)
     search: SearchPreferences = Field(default_factory=SearchPreferences)
     matching: MatchingConfig = Field(default_factory=MatchingConfig)
@@ -147,6 +165,11 @@ class AppConfig(BaseModel):
             except ValidationError as exc:
                 raise ValueError(f"Błąd w [searches.{name}]: {exc}") from exc
         return self
+
+    @property
+    def file(self) -> Path:
+        """config.toml to edit: the loaded file, or the default name in base_dir when built in code."""
+        return self.config_path or self.base_dir / DEFAULT_CONFIG_NAME
 
     def resolve(self, path: Path) -> Path:
         return path if path.is_absolute() else self.base_dir / path
@@ -171,11 +194,17 @@ def load_config(path: Path | None = None) -> AppConfig:
     base_dir = path.parent.resolve()
     load_dotenv(base_dir / ".env")
 
-    data: dict[str, object] = {}
+    data: dict[str, Any] = {}
     if path.is_file():
         with path.open("rb") as f:
             data = tomllib.load(f)
+    return config_from_toml(data, path)
+
+
+def config_from_toml(data: dict[str, Any], path: Path) -> AppConfig:
+    """Validate parsed TOML as the config stored at ``path`` (relative paths resolve next to it)."""
+    data = dict(data)
     paths = data.get("paths")
     if isinstance(paths, dict) and not paths.get("cv_path"):
-        paths.pop("cv_path", None)  # TOML has no null; treat "" as unset
-    return AppConfig.model_validate({**data, "base_dir": base_dir})
+        data["paths"] = {k: v for k, v in paths.items() if k != "cv_path"}  # TOML has no null; "" means unset
+    return AppConfig.model_validate({**data, "base_dir": path.parent.resolve(), "config_path": path})

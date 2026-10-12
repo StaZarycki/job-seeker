@@ -41,16 +41,18 @@ Before finishing a change, all checks for the touched part must pass:
 ## Rules that matter
 
 - **API contract.** After changing any backend model or route that the frontend uses, run `npm run gen:api` in `web/` and commit the regenerated `openapi.json` and `src/api/schema.ts`. Never hand-edit `schema.ts`. Response models inherit from `job_seeker.domain.models.Model` (`json_schema_serialization_defaults_required`), so generated TS types have no spurious optional fields. Keep using it for new response models.
-- **Errors.** The API returns `{"detail": "<Polish message>", "code": "<code>"}`. Codes are mapped in `backend/src/job_seeker/api/app.py` (`ERRORS`) and mirrored in `web/src/api/client.ts` (`ApiErrorCode`). The UI picks its state from `code`, never from the message text.
+- **Errors.** The API returns `{"detail": "<Polish message>", "code": "<code>"}`. Codes are mapped in `backend/src/job_seeker/api/app.py` (`ERRORS`) and mirrored in `web/src/api/client.ts` (`ApiErrorCode`). The UI picks its state from `code`, never from the message text. Invalid values (request bodies included, instead of FastAPI's 422) come back as 400 `invalid_request` with `"fields": {"ai.top_n": "Minimum 1."}`, which forms show next to the field.
 - **Personal data.** Never commit `backend/cv/`, `backend/data/`, `backend/.env`, `backend/config.toml` or `backend/profile.overrides.toml`; all are gitignored. Never put CV contact data into anything sent to an AI model: `cv_reader.sanitize` strips it.
 - **AI calls cost money.** `mode=ai` sends real requests to Anthropic using the user's key from `backend/.env`. Don't trigger AI mode (CLI `--mode ai`, `/matches?mode=ai`, `/offers/{id}/assess`) without asking. Tests use `tests/fakes.py::FakeScorer` and never touch the network. Default model: `claude-haiku-4-5`. Keys without a workspace need `ANTHROPIC_WORKSPACE_ID`.
-- **Don't edit the user's config.** `backend/config.toml` and `profile.overrides.toml` belong to the user. Change `config.example.toml` / `profile.overrides.example.toml` instead, and tell the user what to copy.
+- **Don't edit the user's config.** `backend/config.toml` and `profile.overrides.toml` belong to the user. Change `config.example.toml` / `profile.overrides.example.toml` instead, and tell the user what to copy. The app itself edits `config.toml` from the Ustawienia and Wyszukiwania screens, so to try those live, start the backend with `JOBSEEKER_CONFIG` pointing at a copy (absolute `[paths]`), never at the real file.
+- **Writing config.toml.** Only through `config_store.ConfigStore`: tomlkit keeps comments, layout and CRLF; only changed keys are written; every write carries the file's `version` (content hash) and a stale one fails with 409 `config_conflict`; the result is validated as `AppConfig` before an atomic replace. `max_offer_age_days = 0` means no limit (TOML has no null). API keys go to `.env` via `EnvStore` and are never returned (only `set` and the last 4 characters).
 - **uv workspace trap.** On the author's machine a parent directory holds a `pyproject.toml` uv workspace. Running `uv init` here once added this project to its `members`, so never run `uv init`. `backend/` works standalone with `uv sync`.
 
 ## Backend architecture (`backend/src/job_seeker/`)
 
 - `domain/models.py`: source-agnostic models (`JobOffer`, `CandidateProfile`, `RuleScore`, `MatchResult`, …). `JobOffer.id` = `source:external_id` (a computed field, so it appears in API output).
-- `config.py`: `config.toml` → `AppConfig`.
+- `config.py`: `config.toml` → `AppConfig` (`config_from_toml`; `AppConfig.file` is the file to edit).
+- `config_store.py`: edits `config.toml` (sections, `[search]`, `[searches.*]` presets) and `.env` for the settings API (`api/routes/settings.py`: `/config`, `/searches/{name}`, `/env-keys`). After a save the service swaps its config (`apply_config`); paths and CORS need a restart (`restart_required`).
   - `[search]` is the default search; `[searches.<name>]` are presets merged on top via `AppConfig.preferences(search, overrides)`.
   - `SearchPreferences` forbids unknown keys, so typos fail loudly.
 - `sources/`: the `JobSource` protocol (`fetch_offers(query, on_progress)`, `fetch_details`, `list_categories`) and the registry.
@@ -78,13 +80,14 @@ Tests live in `backend/tests/`:
 
 - `api/client.ts` (fetch wrapper, `ApiError`, type aliases from the schema) and `api/hooks.ts` (all TanStack Query hooks and mutations, with invalidation).
 - `app/`:
-  - `routes.tsx` defines the routes: `/`, `/offers/:offerId`, `/profile`, `/searches`, `/sources`;
+  - `routes.tsx` defines the routes: `/`, `/offers/:offerId`, `/profile`, `/searches`, `/searches/:name` (`default`, `new` or a preset), `/sources`, `/settings`;
   - `AppShell.tsx`: sidebar on ≥768 px, bottom tabs on phones;
   - `theme.ts`: dark is the default; the choice is stored in localStorage.
 - `features/<screen>/`: one folder per screen, each with its own CSS module.
   - Offer list state (preset, mode, filter overrides, status, activity) lives in URL search params (`features/offers/params.ts`).
   - Opening "Aplikuj w JustJoin.it" marks the offer as visited (`useSetOfferActivity`, patched optimistically); "applied" is a manual toggle in the offer details. Visited cards are dimmed.
-- `components/`: shared UI (`ui.tsx`, `PresetPicker`, `ApiErrorState`, `icons.tsx` with inline SVGs from the design).
+- `components/`: shared UI (`ui.tsx`, `PresetPicker`, `ApiErrorState`, `icons.tsx` with inline SVGs from the design) and `forms.tsx` (field rows, tags, chips, switch, number input, and `SaveBar` with change preview and conflict / write / validation errors).
+- Settings forms keep a draft next to the loaded data (`draft ?? loaded`), diff them with `lib/diff.ts` and send the `version` they were loaded at. `lib/searchFields.ts` lists every `[search]` field once for the search editor.
 - `styles/tokens.css`: design tokens as CSS variables for dark and light. Use `var(--…)`, never hard-coded colors.
 
 Responsive behaviour follows the design:

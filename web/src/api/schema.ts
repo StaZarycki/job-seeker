@@ -348,6 +348,106 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/config": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Config
+         * @description Global settings from config.toml (search settings: GET /searches).
+         */
+        get: operations["get_config_config_get"];
+        /** Update Config */
+        put: operations["update_config_config_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/searches/default": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update Default Search
+         * @description Save the [search] section, the base every preset inherits from.
+         */
+        put: operations["update_default_search_searches_default_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/searches/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Save Preset
+         * @description Create (``create: true``), replace or rename the ``[searches.<name>]`` preset.
+         */
+        put: operations["save_preset_searches__name__put"];
+        post?: never;
+        /** Delete Preset */
+        delete: operations["delete_preset_searches__name__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/env-keys": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Env Keys
+         * @description Which API keys are set in .env. Values are never returned.
+         */
+        get: operations["env_keys_env_keys_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/env-keys/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Set Env Key */
+        put: operations["set_env_key_env_keys__name__put"];
+        post?: never;
+        /** Remove Env Key */
+        delete: operations["remove_env_key_env_keys__name__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -382,6 +482,84 @@ export interface components {
              * @description Skills the offer needs that the candidate lacks
              */
             missing_skills: string[];
+        };
+        /** AIConfig */
+        "AIConfig-Input": {
+            /**
+             * Provider
+             * @default anthropic
+             */
+            provider: string;
+            /**
+             * Model
+             * @default claude-haiku-4-5
+             */
+            model: string;
+            /**
+             * Top N
+             * @default 20
+             */
+            top_n: number;
+            /**
+             * Weight
+             * @description Share of the AI score in the final score
+             * @default 0.7
+             */
+            weight: number;
+            /**
+             * Base Url
+             * @description For openai_compatible providers, e.g. Ollama
+             */
+            base_url?: string | null;
+            /**
+             * Api Key Env
+             * @description Env var holding the API key; provider default if empty
+             */
+            api_key_env?: string | null;
+            /**
+             * Max Concurrency
+             * @default 4
+             */
+            max_concurrency: number;
+        };
+        /** AIConfig */
+        "AIConfig-Output": {
+            /**
+             * Provider
+             * @default anthropic
+             */
+            provider: string;
+            /**
+             * Model
+             * @default claude-haiku-4-5
+             */
+            model: string;
+            /**
+             * Top N
+             * @default 20
+             */
+            top_n: number;
+            /**
+             * Weight
+             * @description Share of the AI score in the final score
+             * @default 0.7
+             */
+            weight: number;
+            /**
+             * Base Url
+             * @description For openai_compatible providers, e.g. Ollama
+             */
+            base_url: string | null;
+            /**
+             * Api Key Env
+             * @description Env var holding the API key; provider default if empty
+             */
+            api_key_env: string | null;
+            /**
+             * Max Concurrency
+             * @default 4
+             */
+            max_concurrency: number;
         };
         /** AIResult */
         AIResult: {
@@ -435,6 +613,22 @@ export interface components {
             output_tokens: number;
             /** Errors */
             errors: string[];
+        };
+        /** ApiConfig */
+        "ApiConfig-Input": {
+            /**
+             * Cors Origins
+             * @description Origins allowed to call the REST API from a browser (the web frontend's dev server)
+             */
+            cors_origins?: string[];
+        };
+        /** ApiConfig */
+        "ApiConfig-Output": {
+            /**
+             * Cors Origins
+             * @description Origins allowed to call the REST API from a browser (the web frontend's dev server)
+             */
+            cors_origins: string[];
         };
         /** Body_upload_cv_profile_cv_post */
         Body_upload_cv_profile_cv_post: {
@@ -513,6 +707,118 @@ export interface components {
             /** Count */
             count: number | null;
         };
+        /** ConfigResponse */
+        ConfigResponse: {
+            /**
+             * Version
+             * @description Content hash of config.toml; empty when the file doesn't exist yet
+             */
+            version: string;
+            /** Config File */
+            config_file: string;
+            /**
+             * Restart Required
+             * @description Saved paths or CORS origins differ from the running server's
+             */
+            restart_required: boolean;
+            matching: components["schemas"]["MatchingConfig-Output"];
+            ai: components["schemas"]["AIConfig-Output"];
+            justjoin: components["schemas"]["JustJoinConfig-Output"];
+            paths: components["schemas"]["PathsConfig-Output"];
+            api: components["schemas"]["ApiConfig-Output"];
+        };
+        /**
+         * ConfigUpdate
+         * @description Sections to save; each is sent whole, only fields that changed are written.
+         */
+        ConfigUpdate: {
+            /**
+             * Version
+             * @description config.toml version from the last read; a stale one is refused with 409
+             */
+            version: string;
+            /**
+             * Force
+             * @description Overwrite even if config.toml changed meanwhile
+             * @default false
+             */
+            force: boolean;
+            matching?: components["schemas"]["MatchingConfig-Input"] | null;
+            ai?: components["schemas"]["AIConfig-Input"] | null;
+            justjoin?: components["schemas"]["JustJoinConfig-Input"] | null;
+            paths?: components["schemas"]["PathsConfig-Input"] | null;
+            api?: components["schemas"]["ApiConfig-Input"] | null;
+        };
+        /** DefaultSearchUpdate */
+        DefaultSearchUpdate: {
+            /**
+             * Version
+             * @description config.toml version from the last read; a stale one is refused with 409
+             */
+            version: string;
+            /**
+             * Force
+             * @description Overwrite even if config.toml changed meanwhile
+             * @default false
+             */
+            force: boolean;
+            preferences: components["schemas"]["SearchPreferences-Input"];
+        };
+        /** EnvKeyStatus */
+        EnvKeyStatus: {
+            /** Name */
+            name: string;
+            /** Label */
+            label: string;
+            /** Set */
+            set: boolean;
+            /**
+             * Hint
+             * @description Last characters of the value, e.g. '…a3F9'; the value is never returned
+             */
+            hint: string | null;
+        };
+        /** EnvKeyValue */
+        EnvKeyValue: {
+            /** Value */
+            value: string;
+        };
+        /**
+         * ExperienceConfig
+         * @description How experience in one technology carries over to another (see matching/experience.py).
+         */
+        "ExperienceConfig-Input": {
+            /**
+             * Transfer Ratio
+             * @description Share of general experience that counts in an unfamiliar technology
+             * @default 0.35
+             */
+            transfer_ratio: number;
+            /**
+             * Declared Ratio
+             * @description Share of general experience assumed for skills listed in the CV but not tied to a position
+             * @default 0.5
+             */
+            declared_ratio: number;
+        };
+        /**
+         * ExperienceConfig
+         * @description How experience in one technology carries over to another (see matching/experience.py).
+         */
+        "ExperienceConfig-Output": {
+            /**
+             * Transfer Ratio
+             * @description Share of general experience that counts in an unfamiliar technology
+             * @default 0.35
+             */
+            transfer_ratio: number;
+            /**
+             * Declared Ratio
+             * @description Share of general experience assumed for skills listed in the CV but not tied to a position
+             * @default 0.5
+             */
+            declared_ratio: number;
+        };
         /** ExperienceSettings */
         ExperienceSettings: {
             /** Transfer Ratio */
@@ -582,6 +888,42 @@ export interface components {
              */
             readonly id: string;
         };
+        /** JustJoinConfig */
+        "JustJoinConfig-Input": {
+            /**
+             * Page Size
+             * @default 100
+             */
+            page_size: number;
+            /**
+             * Request Delay S
+             * @default 0.5
+             */
+            request_delay_s: number;
+            /**
+             * Max Retries
+             * @default 3
+             */
+            max_retries: number;
+        };
+        /** JustJoinConfig */
+        "JustJoinConfig-Output": {
+            /**
+             * Page Size
+             * @default 100
+             */
+            page_size: number;
+            /**
+             * Request Delay S
+             * @default 0.5
+             */
+            request_delay_s: number;
+            /**
+             * Max Retries
+             * @default 3
+             */
+            max_retries: number;
+        };
         /** LanguageRequirement */
         LanguageRequirement: {
             /**
@@ -617,7 +959,7 @@ export interface components {
             profile_rebuilt: boolean;
             /** Warning */
             warning: string | null;
-            preferences: components["schemas"]["SearchPreferences"];
+            preferences: components["schemas"]["SearchPreferences-Output"];
             ai: components["schemas"]["AIUsage"] | null;
             /** Results */
             results: components["schemas"]["MatchResult"][];
@@ -644,6 +986,20 @@ export interface components {
              * @description When the user marked the offer as applied
              */
             applied_at: string | null;
+        };
+        /** MatchingConfig */
+        "MatchingConfig-Input": {
+            /** @default basic */
+            mode: components["schemas"]["MatchingMode"];
+            weights?: components["schemas"]["RuleWeights-Input"];
+            experience?: components["schemas"]["ExperienceConfig-Input"];
+        };
+        /** MatchingConfig */
+        "MatchingConfig-Output": {
+            /** @default basic */
+            mode: components["schemas"]["MatchingMode"];
+            weights: components["schemas"]["RuleWeights-Output"];
+            experience: components["schemas"]["ExperienceConfig-Output"];
         };
         /**
          * MatchingMode
@@ -674,6 +1030,81 @@ export interface components {
         OfferStatusUpdate: {
             /** Status */
             status: ("saved" | "hidden") | null;
+        };
+        /** PathsConfig */
+        "PathsConfig-Input": {
+            /**
+             * Cv Dir
+             * Format: path
+             */
+            cv_dir?: string;
+            /**
+             * Cv Path
+             * @description Explicit CV file; overrides picking the newest PDF in cv_dir
+             */
+            cv_path?: string | null;
+            /**
+             * Data Dir
+             * Format: path
+             */
+            data_dir?: string;
+            /**
+             * Overrides
+             * Format: path
+             */
+            overrides?: string;
+        };
+        /** PathsConfig */
+        "PathsConfig-Output": {
+            /**
+             * Cv Dir
+             * Format: path
+             */
+            cv_dir: string;
+            /**
+             * Cv Path
+             * @description Explicit CV file; overrides picking the newest PDF in cv_dir
+             */
+            cv_path: string | null;
+            /**
+             * Data Dir
+             * Format: path
+             */
+            data_dir: string;
+            /**
+             * Overrides
+             * Format: path
+             */
+            overrides: string;
+        };
+        /** PresetUpdate */
+        PresetUpdate: {
+            /**
+             * Version
+             * @description config.toml version from the last read; a stale one is refused with 409
+             */
+            version: string;
+            /**
+             * Force
+             * @description Overwrite even if config.toml changed meanwhile
+             * @default false
+             */
+            force: boolean;
+            /**
+             * Overrides
+             * @description Fields of [search] this preset changes; the rest inherit
+             */
+            overrides: {
+                [key: string]: unknown;
+            };
+            /**
+             * Create
+             * @description Fail if a preset with this name already exists
+             * @default false
+             */
+            create: boolean;
+            /** Rename To */
+            rename_to?: string | null;
         };
         /**
          * ProfileOverrides
@@ -799,7 +1230,45 @@ export interface components {
             main_skills: string[];
         };
         /** RuleWeights */
-        RuleWeights: {
+        "RuleWeights-Input": {
+            /**
+             * Skills
+             * @default 0.45
+             */
+            skills: number;
+            /**
+             * Title
+             * @default 0.1
+             */
+            title: number;
+            /**
+             * Seniority
+             * @default 0.15
+             */
+            seniority: number;
+            /**
+             * Location
+             * @default 0.1
+             */
+            location: number;
+            /**
+             * Salary
+             * @default 0.1
+             */
+            salary: number;
+            /**
+             * Languages
+             * @default 0.05
+             */
+            languages: number;
+            /**
+             * Freshness
+             * @default 0.05
+             */
+            freshness: number;
+        };
+        /** RuleWeights */
+        "RuleWeights-Output": {
             /**
              * Skills
              * @default 0.45
@@ -861,11 +1330,72 @@ export interface components {
             /** Original Max */
             original_max: number | null;
         };
+        /** SavedConfig */
+        SavedConfig: {
+            /** Version */
+            version: string;
+            /** Restart Required */
+            restart_required: boolean;
+        };
         /**
          * SearchPreferences
          * @description What the user is looking for. Every field can be overridden per request (CLI flags / API params).
          */
-        SearchPreferences: {
+        "SearchPreferences-Input": {
+            /** Sources */
+            sources?: string[];
+            /** Categories */
+            categories?: string[];
+            /**
+             * Experience Levels
+             * @description 'auto' = your level in the offer's technologies plus one level up; or an explicit list
+             * @default auto
+             */
+            experience_levels: components["schemas"]["Seniority"][] | "auto";
+            /** Workplace */
+            workplace?: components["schemas"]["WorkplaceType"][];
+            /** Preferred Cities */
+            preferred_cities?: string[];
+            /**
+             * Onsite Only In Preferred Cities
+             * @description Drop hybrid/office offers that are not located in one of preferred_cities
+             * @default true
+             */
+            onsite_only_in_preferred_cities: boolean;
+            /** Min Salary Pln Month */
+            min_salary_pln_month?: number | null;
+            /**
+             * Exclude Keywords
+             * @description Whole words matched in title and skills
+             */
+            exclude_keywords?: string[];
+            /**
+             * Title Keywords
+             * @description Words that make a job title attractive (core skills from the CV count automatically)
+             */
+            title_keywords?: string[];
+            /**
+             * Avoid Title Keywords
+             * @description Words that make a job title unattractive (soft penalty, not a filter)
+             */
+            avoid_title_keywords?: string[];
+            /**
+             * Target Skills
+             * @description Skills you are moving towards (e.g. C++): partial credit in matching, told to the AI scorer
+             */
+            target_skills?: string[];
+            /**
+             * Max Offer Age Days
+             * @description 0 or null: no age limit
+             * @default 45
+             */
+            max_offer_age_days: number | null;
+        };
+        /**
+         * SearchPreferences
+         * @description What the user is looking for. Every field can be overridden per request (CLI flags / API params).
+         */
+        "SearchPreferences-Output": {
             /** Sources */
             sources: string[];
             /** Categories */
@@ -910,6 +1440,7 @@ export interface components {
             target_skills: string[];
             /**
              * Max Offer Age Days
+             * @description 0 or null: no age limit
              * @default 45
              */
             max_offer_age_days: number | null;
@@ -921,7 +1452,7 @@ export interface components {
              * @description Preset name; null for the default [search] section
              */
             name: string | null;
-            preferences: components["schemas"]["SearchPreferences"];
+            preferences: components["schemas"]["SearchPreferences-Output"];
             /**
              * Considered
              * @description Offers in the database for this search
@@ -937,6 +1468,11 @@ export interface components {
              * @description No offers of this search's categories have been downloaded yet
              */
             needs_sync: boolean;
+            /**
+             * Overridden
+             * @description Fields this preset sets itself; the others inherit [search]
+             */
+            overridden: string[];
         };
         /**
          * Seniority
@@ -949,7 +1485,7 @@ export interface components {
          */
         Settings: {
             default_mode: components["schemas"]["MatchingMode"];
-            weights: components["schemas"]["RuleWeights"];
+            weights: components["schemas"]["RuleWeights-Output"];
             experience: components["schemas"]["ExperienceSettings"];
             ai: components["schemas"]["AISettings"];
         };
@@ -1609,7 +2145,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SearchPreferences"];
+                    "application/json": components["schemas"]["SearchPreferences-Output"];
                 };
             };
             /** @description Validation Error */
@@ -1639,6 +2175,247 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Settings"];
+                };
+            };
+        };
+    };
+    get_config_config_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConfigResponse"];
+                };
+            };
+        };
+    };
+    update_config_config_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfigUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConfigResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_default_search_searches_default_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DefaultSearchUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SavedConfig"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_preset_searches__name__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PresetUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SavedConfig"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_preset_searches__name__delete: {
+        parameters: {
+            query: {
+                version: string;
+                force?: boolean;
+            };
+            header?: never;
+            path: {
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SavedConfig"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    env_keys_env_keys_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EnvKeyStatus"][];
+                };
+            };
+        };
+    };
+    set_env_key_env_keys__name__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EnvKeyValue"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EnvKeyStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    remove_env_key_env_keys__name__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                name: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EnvKeyStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

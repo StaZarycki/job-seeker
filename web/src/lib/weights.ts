@@ -1,6 +1,6 @@
 import type { Schemas } from '../api/client';
 
-export type RuleWeights = Schemas['RuleWeights'];
+export type RuleWeights = Schemas['RuleWeights-Output'];
 
 /** Fallback until GET /settings loads; mirrors RuleWeights defaults in backend/src/job_seeker/config.py. */
 export const DEFAULT_WEIGHTS: RuleWeights = {
@@ -12,3 +12,14 @@ export const DEFAULT_WEIGHTS: RuleWeights = {
   languages: 0.05,
   freshness: 0.05,
 };
+
+/** Score components in display order, with their Polish labels. */
+export const WEIGHT_LABELS: [keyof RuleWeights, string][] = [
+  ['skills', 'Umiejętności'],
+  ['title', 'Tytuł'],
+  ['seniority', 'Seniority'],
+  ['location', 'Lokalizacja'],
+  ['salary', 'Widełki'],
+  ['languages', 'Języki'],
+  ['freshness', 'Świeżość'],
+];

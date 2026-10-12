@@ -12,6 +12,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field
 
 from job_seeker.config import AIConfig, AppConfig, MatchingMode, SearchPreferences
+from job_seeker.config_store import ConfigStore, EnvStore
 from job_seeker.domain.models import JobOffer, MatchResult
 from job_seeker.matching.ai.base import AIScorer
 from job_seeker.matching.ai.registry import create_scorer
@@ -122,6 +123,25 @@ class JobSeekerService:
         self._scorer_factory = scorer_factory
         self._sync_state = SyncJobState()
         self._sync_task: asyncio.Task[list[SyncResult]] | None = None
+        self._startup_config = config
+
+    # --- configuration ----------------------------------------------------------------------------------
+
+    @property
+    def config_store(self) -> ConfigStore:
+        return ConfigStore(self.config.file)
+
+    @property
+    def env_store(self) -> EnvStore:
+        return EnvStore(self.config.base_dir / ".env", self.config.ai.api_key_env)
+
+    def apply_config(self, config: AppConfig) -> None:
+        """Use a config saved from the web app. Search, matching, AI and source settings apply to the next
+        request; paths and CORS origins are only read at startup (see ``restart_required``)."""
+        self.config = config
+
+    def restart_required(self) -> bool:
+        return self.config.paths != self._startup_config.paths or self.config.api != self._startup_config.api
 
     def load_profile(self, force_rebuild: bool = False) -> ProfileState:
         return self.profiles.load(force_rebuild=force_rebuild)

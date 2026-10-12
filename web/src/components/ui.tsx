@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 
 import type { RuleWeights } from '../lib/weights';
-import { DEFAULT_WEIGHTS } from '../lib/weights';
+import { DEFAULT_WEIGHTS, WEIGHT_LABELS } from '../lib/weights';
 import { scoreTone, type ScoreTone } from '../lib/format';
 import { CheckIcon, CrossIcon, InfoIcon, WarningIcon } from './icons';
 import s from './ui.module.css';
@@ -87,16 +87,6 @@ export function SkillChips({
   );
 }
 
-const BAR_LABELS: [keyof RuleWeights, string][] = [
-  ['skills', 'Umiejętności'],
-  ['title', 'Tytuł'],
-  ['seniority', 'Seniority'],
-  ['location', 'Lokalizacja'],
-  ['salary', 'Widełki'],
-  ['languages', 'Języki'],
-  ['freshness', 'Świeżość'],
-];
-
 export function ScoreBars({
   breakdown,
   weights = DEFAULT_WEIGHTS,
@@ -107,7 +97,7 @@ export function ScoreBars({
   const total = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
   return (
     <div className={s.bars}>
-      {BAR_LABELS.map(([key, label]) => {
+      {WEIGHT_LABELS.map(([key, label]) => {
         const pct = Math.round((breakdown[key] ?? 0) * 100);
         const fill = pct >= 80 ? s.fillHigh : pct >= 50 ? s.fillMid : s.fillLow;
         return (

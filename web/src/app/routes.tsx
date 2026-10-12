@@ -6,6 +6,7 @@ import { StateCard } from '../components/ui';
 import { OffersPage } from '../features/offers/OffersPage';
 import { ProfilePage } from '../features/profile/ProfilePage';
 import { SearchesPage } from '../features/searches/SearchesPage';
+import { SettingsPage } from '../features/settings/SettingsPage';
 import { SourcesPage } from '../features/sources/SourcesPage';
 import { AppShell } from './AppShell';
 
@@ -17,7 +18,9 @@ export const routes: RouteObject[] = [
       { path: 'offers/:offerId', element: <OffersPage /> },
       { path: 'profile', element: <ProfilePage /> },
       { path: 'searches', element: <SearchesPage /> },
+      { path: 'searches/:name', element: <SearchesPage /> },
       { path: 'sources', element: <SourcesPage /> },
+      { path: 'settings', element: <SettingsPage /> },
       {
         path: '*',
         element: (

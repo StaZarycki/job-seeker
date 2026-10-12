@@ -1,0 +1,302 @@
+/* ---------- field row ---------- */
+.field {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 8px 20px;
+  align-items: start;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.fieldWithAside {
+  grid-template-columns: 210px minmax(0, 1fr) 132px;
+}
+
+.fieldText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 6px;
+}
+
+.fieldLabel {
+  font-weight: 500;
+  font-size: 13.5px;
+}
+
+.fieldHint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.fieldControl {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldError {
+  color: var(--warn);
+  font-size: 12.5px;
+}
+
+.fieldAside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  padding-top: 4px;
+}
+
+.disabled {
+  opacity: 0.55;
+}
+
+.invalid {
+  border-color: var(--warn) !important;
+}
+
+/* ---------- tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 3px 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+.tags:focus-within {
+  border-color: var(--accent);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 2px 2px 9px;
+  border-radius: 999px;
+  background: var(--panel2);
+  font-size: 12.5px;
+}
+
+.tagRemove {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tagRemove:hover {
+  color: var(--text);
+}
+
+.tagInput {
+  flex: 1 1 90px;
+  min-width: 90px;
+  min-height: 28px;
+  padding: 0 6px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 12.5px;
+}
+
+/* ---------- toggle chips ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  min-height: 32px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.chipOn {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.chips button:disabled,
+.tags button:disabled,
+.switch:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.chipCount {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+/* ---------- switch ---------- */
+.switch {
+  width: 42px;
+  height: 24px;
+  margin-top: 4px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.switchOn {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  justify-content: flex-end;
+}
+
+.knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--muted);
+}
+
+.switchOn .knob {
+  background: var(--accent);
+}
+
+.number {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+}
+
+/* ---------- save bar ---------- */
+.saveBar {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.saveBarRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.saveBarRow > [role='status'] {
+  margin-right: auto;
+}
+
+.saveBarActions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.previewToggle {
+  color: var(--accent);
+}
+
+.danger {
+  color: var(--warn);
+}
+
+.preview {
+  margin: 0;
+  max-height: 180px;
+  overflow: auto;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+@media (max-width: 767px) {
+  .field,
+  .fieldWithAside {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px 0;
+  }
+
+  .fieldText {
+    padding-top: 0;
+  }
+
+  .fieldAside {
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+  .chip {
+    min-height: 36px;
+  }
+
+  .tagRemove {
+    width: 30px;
+    height: 30px;
+  }
+
+  .tags {
+    min-height: 44px;
+  }
+
+  .switch {
+    width: 50px;
+    height: 30px;
+    padding: 3px;
+  }
+
+  .knob {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Above the fixed bottom tab bar (AppShell). */
+  .saveBar {
+    bottom: calc(70px + env(safe-area-inset-bottom));
+    padding: 10px 16px;
+  }
+
+  .saveBarRow :global(.btn-primary) {
+    flex: 1 1 auto;
+  }
+
+  .saveBarHidden {
+    display: none;
+  }
+
+  .saveBarSaved .saveBarRow > :not([role='status']) {
+    display: none;
+  }
+}

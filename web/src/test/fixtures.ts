@@ -2,6 +2,8 @@ import { http, HttpResponse } from 'msw';
 
 import type {
   CandidateProfile,
+  ConfigResponse,
+  EnvKeyStatus,
   JobOffer,
   MatchResponse,
   MatchResult,
@@ -149,14 +151,40 @@ export const settings: Settings = {
   ai: { provider: 'anthropic', model: 'claude-haiku-4-5', top_n: 20, weight: 0.7 },
 };
 
+export const config: ConfigResponse = {
+  version: 'v1',
+  config_file: '/app/config.toml',
+  restart_required: false,
+  matching: { mode: 'basic', weights: settings.weights, experience: settings.experience },
+  ai: {
+    provider: 'anthropic',
+    model: 'claude-haiku-4-5',
+    top_n: 20,
+    weight: 0.7,
+    base_url: null,
+    api_key_env: null,
+    max_concurrency: 4,
+  },
+  justjoin: { page_size: 100, request_delay_s: 0.5, max_retries: 3 },
+  paths: { cv_dir: 'cv', cv_path: null, data_dir: 'data', overrides: 'profile.overrides.toml' },
+  api: { cors_origins: ['http://localhost:5173'] },
+};
+
+export const envKeys: EnvKeyStatus[] = [
+  { name: 'ANTHROPIC_API_KEY', label: 'Anthropic', set: true, hint: '…a3F9' },
+  { name: 'ANTHROPIC_WORKSPACE_ID', label: 'Workspace Anthropic', set: false, hint: null },
+  { name: 'OPENAI_API_KEY', label: 'Zgodny z OpenAI', set: false, hint: null },
+];
+
 export const searches: SearchSummary[] = [
-  { name: null, preferences, considered: 100, passed: 40, needs_sync: false },
+  { name: null, preferences, considered: 100, passed: 40, needs_sync: false, overridden: [] },
   {
     name: 'cpp',
     preferences: { ...preferences, categories: ['c'], target_skills: ['C++'] },
     considered: 20,
     passed: 5,
     needs_sync: false,
+    overridden: ['categories', 'target_skills'],
   },
   {
     name: 'python',
@@ -164,6 +192,7 @@ export const searches: SearchSummary[] = [
     considered: 0,
     passed: 0,
     needs_sync: true,
+    overridden: ['categories'],
   },
 ];
 
@@ -200,6 +229,8 @@ export function baseHandlers() {
     http.get('/api/profile', () => HttpResponse.json(profileResponse)),
     http.get('/api/profile/overrides', () => HttpResponse.json(emptyOverrides)),
     http.get('/api/settings', () => HttpResponse.json(settings)),
+    http.get('/api/config', () => HttpResponse.json(config)),
+    http.get('/api/env-keys', () => HttpResponse.json(envKeys)),
     http.get('/api/searches', () => HttpResponse.json(searches)),
     http.get('/api/sources', () => HttpResponse.json(sources)),
     http.get('/api/sync/status', () => HttpResponse.json(idleSync)),

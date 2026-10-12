@@ -72,6 +72,7 @@ class SearchSummaryItem(Model):
     considered: int = Field(description="Offers in the database for this search")
     passed: int = Field(description="Offers that pass the hard filters (after merging duplicates)")
     needs_sync: bool = Field(description="No offers of this search's categories have been downloaded yet")
+    overridden: list[str] = Field(description="Fields this preset sets itself; the others inherit [search]")
 
 
 class ExperienceSettings(Model):
@@ -156,7 +157,12 @@ def searches(service: ServiceDep) -> list[SearchSummaryItem]:
     """The default search and every [searches.<name>] preset from config.toml, with offer counts."""
     return [
         SearchSummaryItem(
-            name=s.name, preferences=s.preferences, considered=s.considered, passed=s.passed, needs_sync=s.needs_sync
+            name=s.name,
+            preferences=s.preferences,
+            considered=s.considered,
+            passed=s.passed,
+            needs_sync=s.needs_sync,
+            overridden=sorted(service.config.searches.get(s.name, {})) if s.name else [],
         )
         for s in service.search_summaries()
     ]
