@@ -42,11 +42,16 @@ Other commands: `jobseeker categories` (category keys for the config), `jobseeke
 | `GET /offers/{id}`, `PUT /offers/{id}/status`, `POST /offers/{id}/assess` | details with description, save/hide, AI assessment of a single offer |
 | `PUT /offers/{id}/activity` | "visited" (`visited`) and "applied" (`applied`) marks |
 | `GET /profile`, `POST /profile/cv`, `POST /profile/rebuild`, `GET/PUT /profile/overrides` | profile built from the CV and manual corrections |
-| `GET /searches`, `GET /preferences`, `GET /settings` | search presets with offer counts, preferences, settings for the UI |
+| `GET /searches`, `GET /preferences`, `GET /settings` | search presets with offer counts and overridden fields, preferences, settings for the UI |
+| `GET/PUT /config` | global settings from config.toml (matching, AI, JustJoin.it, paths, CORS); saves keep comments |
+| `PUT /searches/default`, `PUT/DELETE /searches/{name}` | edit `[search]`, create/replace/rename/delete `[searches.<name>]` presets |
+| `GET /env-keys`, `PUT/DELETE /env-keys/{name}` | API keys in `.env`: write-only, the value is never returned |
 | `GET /sources`, `GET /sources/{source}/categories` | source status and categories |
 | `POST /sync`, `GET /sync/status`, `DELETE /sync`, `GET /syncs` | background sync with progress, cancellation, history |
 
-Errors look like `{"detail": "...", "code": "..."}`. Example codes: `cv_not_found`, `ai_not_configured`, `source_unavailable`, `sync_in_progress`.
+Errors look like `{"detail": "...", "code": "..."}`. Example codes: `cv_not_found`, `ai_not_configured`, `source_unavailable`, `sync_in_progress`, `config_conflict` (config.toml changed since it was read). Invalid values add `"fields"` with a message per field.
+
+The web app's Ustawienia and Wyszukiwania screens edit `config.toml` in place: only changed keys are written and your comments stay. Edits made in a text editor meanwhile are detected, not overwritten. In `config.toml`, `max_offer_age_days = 0` means no age limit.
 
 To allow browser access from origins other than the frontend dev server, set `[api] cors_origins`. Anthropic API keys that belong to an organization without a workspace need `ANTHROPIC_WORKSPACE_ID` in `.env`.
 

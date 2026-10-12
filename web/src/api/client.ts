@@ -11,7 +11,17 @@ export type CandidateProfile = Schemas['CandidateProfile'];
 export type ProfileOverrides = Schemas['ProfileOverrides-Output'];
 export type ProfileOverridesInput = Schemas['ProfileOverrides-Input'];
 export type SearchSummary = Schemas['SearchSummaryItem'];
-export type SearchPreferences = Schemas['SearchPreferences'];
+export type SearchPreferences = Schemas['SearchPreferences-Output'];
+export type ConfigResponse = Schemas['ConfigResponse'];
+export type MatchingConfig = Schemas['MatchingConfig-Output'];
+export type AIConfig = Schemas['AIConfig-Output'];
+export type JustJoinConfig = Schemas['JustJoinConfig-Output'];
+export type PathsConfig = Schemas['PathsConfig-Output'];
+export type ApiConfig = Schemas['ApiConfig-Output'];
+export type SavedConfig = Schemas['SavedConfig'];
+export type EnvKeyStatus = Schemas['EnvKeyStatus'];
+export type Seniority = Schemas['Seniority'];
+export type WorkplaceType = Schemas['WorkplaceType'];
 export type Settings = Schemas['Settings'];
 export type SourceStatus = Schemas['SourceStatus'];
 export type SyncStatus = Schemas['SyncStatus'];
@@ -31,6 +41,9 @@ export type ApiErrorCode =
   | 'ai_failed'
   | 'source_unavailable'
   | 'sync_in_progress'
+  | 'config_conflict'
+  | 'config_write_failed'
+  | 'search_not_found'
   | 'invalid_request'
   | 'network'
   | 'unknown';
@@ -38,12 +51,15 @@ export type ApiErrorCode =
 export class ApiError extends Error {
   readonly status: number;
   readonly code: ApiErrorCode;
+  /** For invalid_request: dotted field path ("ai.top_n") -> Polish message. */
+  readonly fields: Record<string, string>;
 
-  constructor(status: number, code: ApiErrorCode, detail: string) {
+  constructor(status: number, code: ApiErrorCode, detail: string, fields: Record<string, string> = {}) {
     super(detail);
     this.name = 'ApiError';
     this.status = status;
     this.code = code;
+    this.fields = fields;
   }
 }
 
@@ -76,7 +92,8 @@ export async function request<T>(path: string, init: RequestInit & { query?: Que
   if (!response.ok) {
     const detail = errorDetail(body) ?? `Błąd serwera (HTTP ${response.status}).`;
     const code = (isRecord(body) && typeof body.code === 'string' ? body.code : 'unknown') as ApiErrorCode;
-    throw new ApiError(response.status, code, detail);
+    const fields = isRecord(body) && isRecord(body.fields) ? (body.fields as Record<string, string>) : {};
+    throw new ApiError(response.status, code, detail, fields);
   }
   return body as T;
 }

@@ -31,6 +31,8 @@ First steps in the app:
 1. Put your CV (PDF) in `backend/cv/` or upload it on the **Profil** (Profile) screen.
 2. Download offers on the **Źródła** (Sources) screen or with the **Synchronizuj** (Sync) button on the **Oferty** (Offers) screen.
 
+Everything in `backend/config.toml` can be changed in the app: searches on the **Wyszukiwania** (Searches) screen, the rest (matching weights, AI model, API keys, JustJoin.it, paths) on **Ustawienia** (Settings). Saving keeps your comments in the file.
+
 You can also use the backend without the frontend, through the CLI (`uv run jobseeker --help`), as described in [backend/README.md](backend/README.md).
 
 ## Docker

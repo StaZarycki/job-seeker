@@ -2,7 +2,7 @@ import type { ComponentType } from 'react';
 import { Link, Outlet, useLocation } from 'react-router';
 
 import { useProfile } from '../api/hooks';
-import { BriefcaseIcon, DatabaseIcon, MoonIcon, SlidersIcon, SunIcon, UserIcon } from '../components/icons';
+import { BriefcaseIcon, DatabaseIcon, GearIcon, MoonIcon, SlidersIcon, SunIcon, UserIcon } from '../components/icons';
 import { countLabel } from '../lib/format';
 import s from './AppShell.module.css';
 import { useTheme } from './theme';
@@ -12,6 +12,7 @@ const NAV: { to: string; label: string; icon: ComponentType<{ size?: number }> }
   { to: '/profile', label: 'Profil', icon: UserIcon },
   { to: '/searches', label: 'Wyszukiwania', icon: SlidersIcon },
   { to: '/sources', label: 'Źródła', icon: DatabaseIcon },
+  { to: '/settings', label: 'Ustawienia', icon: GearIcon },
 ];
 
 /** Offers live at "/" and "/offers/:id", so "Oferty" is active on both. */

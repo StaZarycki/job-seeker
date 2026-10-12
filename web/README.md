@@ -28,9 +28,9 @@ The Vite server forwards requests under `/api/*` to the backend (`vite.config.ts
 src/
   api/          client.ts (fetch, errors with codes from the backend), hooks.ts (TanStack Query), schema.ts (generated)
   app/          router, AppShell (sidebar ≥768 px / bottom tabs on phones), theme
-  components/   shared UI: score, skill chips, score component bars, PresetPicker, error states
-  features/     offers, profile, searches, sources – the screens from the design
-  lib/          formatting (PLN, Polish plurals, dates), media queries
+  components/   shared UI: score, skill chips, score component bars, PresetPicker, error states, form controls + save bar
+  features/     offers, profile, searches, sources, settings – the screens from the design
+  lib/          formatting (PLN, Polish plurals, dates), media queries, settings diffs, search field definitions
   styles/       colour tokens (dark/light), global styles, scrollbars
 ```
 

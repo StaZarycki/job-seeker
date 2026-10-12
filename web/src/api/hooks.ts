@@ -5,7 +5,16 @@ import {
   ApiError,
   jsonBody,
   request,
+  type AIConfig,
+  type ApiConfig,
   type CategoryInfo,
+  type ConfigResponse,
+  type EnvKeyStatus,
+  type JustJoinConfig,
+  type MatchingConfig,
+  type PathsConfig,
+  type SavedConfig,
+  type SearchPreferences,
   type JobOffer,
   type MatchResponse,
   type MatchResult,
@@ -42,6 +51,8 @@ export const keys = {
   overrides: ['overrides'] as const,
   searches: ['searches'] as const,
   settings: ['settings'] as const,
+  config: ['config'] as const,
+  envKeys: ['env-keys'] as const,
   sources: ['sources'] as const,
   categories: (source: string) => ['categories', source] as const,
   syncStatus: ['sync-status'] as const,
@@ -230,4 +241,120 @@ export function useSaveOverrides() {
   return useProfileMutation((overrides: ProfileOverridesInput) =>
     request<ProfileResponse>('/profile/overrides', { method: 'PUT', ...jsonBody(overrides) }),
   );
+}
+
+// --- settings: config.toml and API keys -------------------------------------------------------------
+
+export function useConfig() {
+  return useQuery({ queryKey: keys.config, queryFn: () => request<ConfigResponse>('/config') });
+}
+
+export function useEnvKeys() {
+  return useQuery({ queryKey: keys.envKeys, queryFn: () => request<EnvKeyStatus[]>('/env-keys') });
+}
+
+export interface ConfigSections {
+  matching?: MatchingConfig;
+  ai?: AIConfig;
+  justjoin?: JustJoinConfig;
+  paths?: PathsConfig;
+  api?: ApiConfig;
+}
+
+/** Everything derived from config.toml: refetched after any save. */
+function useConfigSaved() {
+  const queryClient = useQueryClient();
+  return () => {
+    for (const key of [keys.config, keys.settings, keys.searches, keys.allMatches]) {
+      void queryClient.invalidateQueries({ queryKey: key });
+    }
+  };
+}
+
+export function useSaveConfig() {
+  const queryClient = useQueryClient();
+  const saved = useConfigSaved();
+  return useMutation({
+    mutationFn: ({
+      version,
+      force = false,
+      sections,
+    }: {
+      version: string;
+      force?: boolean;
+      sections: ConfigSections;
+    }) => request<ConfigResponse>('/config', { method: 'PUT', ...jsonBody({ version, force, ...sections }) }),
+    onSuccess: (config) => {
+      queryClient.setQueryData(keys.config, config);
+      saved();
+    },
+  });
+}
+
+export function useSaveDefaultSearch() {
+  const saved = useConfigSaved();
+  return useMutation({
+    mutationFn: ({
+      version,
+      force = false,
+      preferences,
+    }: {
+      version: string;
+      force?: boolean;
+      preferences: SearchPreferences;
+    }) => request<SavedConfig>('/searches/default', { method: 'PUT', ...jsonBody({ version, force, preferences }) }),
+    onSuccess: saved,
+  });
+}
+
+export interface PresetSave {
+  name: string;
+  version: string;
+  overrides: Partial<SearchPreferences>;
+  create?: boolean;
+  renameTo?: string | null;
+  force?: boolean;
+}
+
+export function useSavePreset() {
+  const saved = useConfigSaved();
+  return useMutation({
+    mutationFn: ({ name, version, overrides, create = false, renameTo = null, force = false }: PresetSave) =>
+      request<SavedConfig>(`/searches/${encodeURIComponent(name)}`, {
+        method: 'PUT',
+        ...jsonBody({ version, force, overrides, create, rename_to: renameTo }),
+      }),
+    onSuccess: saved,
+  });
+}
+
+export function useDeletePreset() {
+  const saved = useConfigSaved();
+  return useMutation({
+    mutationFn: ({ name, version, force = false }: { name: string; version: string; force?: boolean }) =>
+      request<SavedConfig>(`/searches/${encodeURIComponent(name)}`, { method: 'DELETE', query: { version, force } }),
+    onSuccess: saved,
+  });
+}
+
+function useEnvKeyMutation<TArg>(fn: (arg: TArg) => Promise<EnvKeyStatus>) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: fn,
+    onSuccess: (key) => {
+      queryClient.setQueryData<EnvKeyStatus[]>(keys.envKeys, (list) =>
+        list?.map((k) => (k.name === key.name ? key : k)),
+      );
+    },
+  });
+}
+
+export function useSetEnvKey() {
+  return useEnvKeyMutation(({ name, value }: { name: string; value: string }) =>
+    request<EnvKeyStatus>(`/env-keys/${name}`, { method: 'PUT', ...jsonBody({ value }) }),
+  );
+}
+
+export function useRemoveEnvKey() {
+  return useEnvKeyMutation((name: string) => request<EnvKeyStatus>(`/env-keys/${name}`, { method: 'DELETE' }));
 }

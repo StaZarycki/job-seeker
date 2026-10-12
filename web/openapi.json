@@ -900,7 +900,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchPreferences"
+                  "$ref": "#/components/schemas/SearchPreferences-Output"
                 }
               }
             }
@@ -933,6 +933,339 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Settings"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/config": {
+      "get": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Get Config",
+        "description": "Global settings from config.toml (search settings: GET /searches).",
+        "operationId": "get_config_config_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Update Config",
+        "operationId": "update_config_config_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfigUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/searches/default": {
+      "put": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Update Default Search",
+        "description": "Save the [search] section, the base every preset inherits from.",
+        "operationId": "update_default_search_searches_default_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DefaultSearchUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedConfig"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/searches/{name}": {
+      "put": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Save Preset",
+        "description": "Create (``create: true``), replace or rename the ``[searches.<name>]`` preset.",
+        "operationId": "save_preset_searches__name__put",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PresetUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedConfig"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Delete Preset",
+        "operationId": "delete_preset_searches__name__delete",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedConfig"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/env-keys": {
+      "get": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Env Keys",
+        "description": "Which API keys are set in .env. Values are never returned.",
+        "operationId": "env_keys_env_keys_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EnvKeyStatus"
+                  },
+                  "type": "array",
+                  "title": "Response Env Keys Env Keys Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/env-keys/{name}": {
+      "put": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Set Env Key",
+        "operationId": "set_env_key_env_keys__name__put",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnvKeyValue"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnvKeyStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Remove Env Key",
+        "operationId": "remove_env_key_env_keys__name__delete",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnvKeyStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -992,6 +1325,135 @@
         ],
         "title": "AIAssessment",
         "description": "Structured answer every AI scorer must return."
+      },
+      "AIConfig-Input": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider",
+            "default": "anthropic"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "default": "claude-haiku-4-5"
+          },
+          "top_n": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Top N",
+            "default": 20
+          },
+          "weight": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Weight",
+            "description": "Share of the AI score in the final score",
+            "default": 0.7
+          },
+          "base_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Url",
+            "description": "For openai_compatible providers, e.g. Ollama"
+          },
+          "api_key_env": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Api Key Env",
+            "description": "Env var holding the API key; provider default if empty"
+          },
+          "max_concurrency": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Max Concurrency",
+            "default": 4
+          }
+        },
+        "type": "object",
+        "title": "AIConfig"
+      },
+      "AIConfig-Output": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider",
+            "default": "anthropic"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "default": "claude-haiku-4-5"
+          },
+          "top_n": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Top N",
+            "default": 20
+          },
+          "weight": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Weight",
+            "description": "Share of the AI score in the final score",
+            "default": 0.7
+          },
+          "base_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Url",
+            "description": "For openai_compatible providers, e.g. Ollama"
+          },
+          "api_key_env": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Api Key Env",
+            "description": "Env var holding the API key; provider default if empty"
+          },
+          "max_concurrency": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Max Concurrency",
+            "default": 4
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "model",
+          "top_n",
+          "weight",
+          "base_url",
+          "api_key_env",
+          "max_concurrency"
+        ],
+        "title": "AIConfig"
       },
       "AIResult": {
         "properties": {
@@ -1125,6 +1587,37 @@
           "errors"
         ],
         "title": "AIUsage"
+      },
+      "ApiConfig-Input": {
+        "properties": {
+          "cors_origins": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cors Origins",
+            "description": "Origins allowed to call the REST API from a browser (the web frontend's dev server)"
+          }
+        },
+        "type": "object",
+        "title": "ApiConfig"
+      },
+      "ApiConfig-Output": {
+        "properties": {
+          "cors_origins": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cors Origins",
+            "description": "Origins allowed to call the REST API from a browser (the web frontend's dev server)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cors_origins"
+        ],
+        "title": "ApiConfig"
       },
       "Body_upload_cv_profile_cv_post": {
         "properties": {
@@ -1308,6 +1801,245 @@
           "count"
         ],
         "title": "CategoryInfo"
+      },
+      "ConfigResponse": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "description": "Content hash of config.toml; empty when the file doesn't exist yet"
+          },
+          "config_file": {
+            "type": "string",
+            "title": "Config File"
+          },
+          "restart_required": {
+            "type": "boolean",
+            "title": "Restart Required",
+            "description": "Saved paths or CORS origins differ from the running server's"
+          },
+          "matching": {
+            "$ref": "#/components/schemas/MatchingConfig-Output"
+          },
+          "ai": {
+            "$ref": "#/components/schemas/AIConfig-Output"
+          },
+          "justjoin": {
+            "$ref": "#/components/schemas/JustJoinConfig-Output"
+          },
+          "paths": {
+            "$ref": "#/components/schemas/PathsConfig-Output"
+          },
+          "api": {
+            "$ref": "#/components/schemas/ApiConfig-Output"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "config_file",
+          "restart_required",
+          "matching",
+          "ai",
+          "justjoin",
+          "paths",
+          "api"
+        ],
+        "title": "ConfigResponse"
+      },
+      "ConfigUpdate": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "description": "config.toml version from the last read; a stale one is refused with 409"
+          },
+          "force": {
+            "type": "boolean",
+            "title": "Force",
+            "description": "Overwrite even if config.toml changed meanwhile",
+            "default": false
+          },
+          "matching": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MatchingConfig-Input"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ai": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AIConfig-Input"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "justjoin": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JustJoinConfig-Input"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "paths": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PathsConfig-Input"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "api": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiConfig-Input"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "version"
+        ],
+        "title": "ConfigUpdate",
+        "description": "Sections to save; each is sent whole, only fields that changed are written."
+      },
+      "DefaultSearchUpdate": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "description": "config.toml version from the last read; a stale one is refused with 409"
+          },
+          "force": {
+            "type": "boolean",
+            "title": "Force",
+            "description": "Overwrite even if config.toml changed meanwhile",
+            "default": false
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/SearchPreferences-Input"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "preferences"
+        ],
+        "title": "DefaultSearchUpdate"
+      },
+      "EnvKeyStatus": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "set": {
+            "type": "boolean",
+            "title": "Set"
+          },
+          "hint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hint",
+            "description": "Last characters of the value, e.g. '…a3F9'; the value is never returned"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "label",
+          "set",
+          "hint"
+        ],
+        "title": "EnvKeyStatus"
+      },
+      "EnvKeyValue": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "title": "EnvKeyValue"
+      },
+      "ExperienceConfig-Input": {
+        "properties": {
+          "transfer_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Transfer Ratio",
+            "description": "Share of general experience that counts in an unfamiliar technology",
+            "default": 0.35
+          },
+          "declared_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Declared Ratio",
+            "description": "Share of general experience assumed for skills listed in the CV but not tied to a position",
+            "default": 0.5
+          }
+        },
+        "type": "object",
+        "title": "ExperienceConfig",
+        "description": "How experience in one technology carries over to another (see matching/experience.py)."
+      },
+      "ExperienceConfig-Output": {
+        "properties": {
+          "transfer_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Transfer Ratio",
+            "description": "Share of general experience that counts in an unfamiliar technology",
+            "default": 0.35
+          },
+          "declared_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Declared Ratio",
+            "description": "Share of general experience assumed for skills listed in the CV but not tied to a position",
+            "default": 0.5
+          }
+        },
+        "type": "object",
+        "required": [
+          "transfer_ratio",
+          "declared_ratio"
+        ],
+        "title": "ExperienceConfig",
+        "description": "How experience in one technology carries over to another (see matching/experience.py)."
       },
       "ExperienceSettings": {
         "properties": {
@@ -1539,6 +2271,61 @@
         ],
         "title": "JobOffer"
       },
+      "JustJoinConfig-Input": {
+        "properties": {
+          "page_size": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Page Size",
+            "default": 100
+          },
+          "request_delay_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Request Delay S",
+            "default": 0.5
+          },
+          "max_retries": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Max Retries",
+            "default": 3
+          }
+        },
+        "type": "object",
+        "title": "JustJoinConfig"
+      },
+      "JustJoinConfig-Output": {
+        "properties": {
+          "page_size": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Page Size",
+            "default": 100
+          },
+          "request_delay_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Request Delay S",
+            "default": 0.5
+          },
+          "max_retries": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Max Retries",
+            "default": 3
+          }
+        },
+        "type": "object",
+        "required": [
+          "page_size",
+          "request_delay_s",
+          "max_retries"
+        ],
+        "title": "JustJoinConfig"
+      },
       "LanguageRequirement": {
         "properties": {
           "code": {
@@ -1628,7 +2415,7 @@
             "title": "Warning"
           },
           "preferences": {
-            "$ref": "#/components/schemas/SearchPreferences"
+            "$ref": "#/components/schemas/SearchPreferences-Output"
           },
           "ai": {
             "anyOf": [
@@ -1740,6 +2527,43 @@
         ],
         "title": "MatchResult"
       },
+      "MatchingConfig-Input": {
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/MatchingMode",
+            "default": "basic"
+          },
+          "weights": {
+            "$ref": "#/components/schemas/RuleWeights-Input"
+          },
+          "experience": {
+            "$ref": "#/components/schemas/ExperienceConfig-Input"
+          }
+        },
+        "type": "object",
+        "title": "MatchingConfig"
+      },
+      "MatchingConfig-Output": {
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/MatchingMode",
+            "default": "basic"
+          },
+          "weights": {
+            "$ref": "#/components/schemas/RuleWeights-Output"
+          },
+          "experience": {
+            "$ref": "#/components/schemas/ExperienceConfig-Output"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "weights",
+          "experience"
+        ],
+        "title": "MatchingConfig"
+      },
       "MatchingMode": {
         "type": "string",
         "enum": [
@@ -1835,6 +2659,124 @@
           "status"
         ],
         "title": "OfferStatusUpdate"
+      },
+      "PathsConfig-Input": {
+        "properties": {
+          "cv_dir": {
+            "type": "string",
+            "format": "path",
+            "title": "Cv Dir"
+          },
+          "cv_path": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "path"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cv Path",
+            "description": "Explicit CV file; overrides picking the newest PDF in cv_dir"
+          },
+          "data_dir": {
+            "type": "string",
+            "format": "path",
+            "title": "Data Dir"
+          },
+          "overrides": {
+            "type": "string",
+            "format": "path",
+            "title": "Overrides"
+          }
+        },
+        "type": "object",
+        "title": "PathsConfig"
+      },
+      "PathsConfig-Output": {
+        "properties": {
+          "cv_dir": {
+            "type": "string",
+            "format": "path",
+            "title": "Cv Dir"
+          },
+          "cv_path": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "path"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cv Path",
+            "description": "Explicit CV file; overrides picking the newest PDF in cv_dir"
+          },
+          "data_dir": {
+            "type": "string",
+            "format": "path",
+            "title": "Data Dir"
+          },
+          "overrides": {
+            "type": "string",
+            "format": "path",
+            "title": "Overrides"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cv_dir",
+          "cv_path",
+          "data_dir",
+          "overrides"
+        ],
+        "title": "PathsConfig"
+      },
+      "PresetUpdate": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "description": "config.toml version from the last read; a stale one is refused with 409"
+          },
+          "force": {
+            "type": "boolean",
+            "title": "Force",
+            "description": "Overwrite even if config.toml changed meanwhile",
+            "default": false
+          },
+          "overrides": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Overrides",
+            "description": "Fields of [search] this preset changes; the rest inherit"
+          },
+          "create": {
+            "type": "boolean",
+            "title": "Create",
+            "description": "Fail if a preset with this name already exists",
+            "default": false
+          },
+          "rename_to": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rename To"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "overrides"
+        ],
+        "title": "PresetUpdate"
       },
       "ProfileOverrides-Input": {
         "properties": {
@@ -2119,40 +3061,95 @@
         ],
         "title": "RuleScore"
       },
-      "RuleWeights": {
+      "RuleWeights-Input": {
         "properties": {
           "skills": {
             "type": "number",
+            "minimum": 0.0,
             "title": "Skills",
             "default": 0.45
           },
           "title": {
             "type": "number",
+            "minimum": 0.0,
             "title": "Title",
             "default": 0.1
           },
           "seniority": {
             "type": "number",
+            "minimum": 0.0,
             "title": "Seniority",
             "default": 0.15
           },
           "location": {
             "type": "number",
+            "minimum": 0.0,
             "title": "Location",
             "default": 0.1
           },
           "salary": {
             "type": "number",
+            "minimum": 0.0,
             "title": "Salary",
             "default": 0.1
           },
           "languages": {
             "type": "number",
+            "minimum": 0.0,
             "title": "Languages",
             "default": 0.05
           },
           "freshness": {
             "type": "number",
+            "minimum": 0.0,
+            "title": "Freshness",
+            "default": 0.05
+          }
+        },
+        "type": "object",
+        "title": "RuleWeights"
+      },
+      "RuleWeights-Output": {
+        "properties": {
+          "skills": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Skills",
+            "default": 0.45
+          },
+          "title": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Title",
+            "default": 0.1
+          },
+          "seniority": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Seniority",
+            "default": 0.15
+          },
+          "location": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Location",
+            "default": 0.1
+          },
+          "salary": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Salary",
+            "default": 0.1
+          },
+          "languages": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Languages",
+            "default": 0.05
+          },
+          "freshness": {
+            "type": "number",
+            "minimum": 0.0,
             "title": "Freshness",
             "default": 0.05
           }
@@ -2268,7 +3265,25 @@
         "title": "Salary",
         "description": "Salary range normalized to PLN per month."
       },
-      "SearchPreferences": {
+      "SavedConfig": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "restart_required": {
+            "type": "boolean",
+            "title": "Restart Required"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "restart_required"
+        ],
+        "title": "SavedConfig"
+      },
+      "SearchPreferences-Input": {
         "properties": {
           "sources": {
             "items": {
@@ -2324,7 +3339,8 @@
           "min_salary_pln_month": {
             "anyOf": [
               {
-                "type": "number"
+                "type": "number",
+                "minimum": 0.0
               },
               {
                 "type": "null"
@@ -2367,13 +3383,132 @@
           "max_offer_age_days": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0.0
               },
               {
                 "type": "null"
               }
             ],
             "title": "Max Offer Age Days",
+            "description": "0 or null: no age limit",
+            "default": 45
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SearchPreferences",
+        "description": "What the user is looking for. Every field can be overridden per request (CLI flags / API params)."
+      },
+      "SearchPreferences-Output": {
+        "properties": {
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Categories"
+          },
+          "experience_levels": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Seniority"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string",
+                "const": "auto"
+              }
+            ],
+            "title": "Experience Levels",
+            "description": "'auto' = your level in the offer's technologies plus one level up; or an explicit list",
+            "default": "auto"
+          },
+          "workplace": {
+            "items": {
+              "$ref": "#/components/schemas/WorkplaceType"
+            },
+            "type": "array",
+            "title": "Workplace"
+          },
+          "preferred_cities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Preferred Cities"
+          },
+          "onsite_only_in_preferred_cities": {
+            "type": "boolean",
+            "title": "Onsite Only In Preferred Cities",
+            "description": "Drop hybrid/office offers that are not located in one of preferred_cities",
+            "default": true
+          },
+          "min_salary_pln_month": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Salary Pln Month"
+          },
+          "exclude_keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Exclude Keywords",
+            "description": "Whole words matched in title and skills"
+          },
+          "title_keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Title Keywords",
+            "description": "Words that make a job title attractive (core skills from the CV count automatically)"
+          },
+          "avoid_title_keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Avoid Title Keywords",
+            "description": "Words that make a job title unattractive (soft penalty, not a filter)"
+          },
+          "target_skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Target Skills",
+            "description": "Skills you are moving towards (e.g. C++): partial credit in matching, told to the AI scorer"
+          },
+          "max_offer_age_days": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Offer Age Days",
+            "description": "0 or null: no age limit",
             "default": 45
           }
         },
@@ -2411,7 +3546,7 @@
             "description": "Preset name; null for the default [search] section"
           },
           "preferences": {
-            "$ref": "#/components/schemas/SearchPreferences"
+            "$ref": "#/components/schemas/SearchPreferences-Output"
           },
           "considered": {
             "type": "integer",
@@ -2427,6 +3562,14 @@
             "type": "boolean",
             "title": "Needs Sync",
             "description": "No offers of this search's categories have been downloaded yet"
+          },
+          "overridden": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Overridden",
+            "description": "Fields this preset sets itself; the others inherit [search]"
           }
         },
         "type": "object",
@@ -2435,7 +3578,8 @@
           "preferences",
           "considered",
           "passed",
-          "needs_sync"
+          "needs_sync",
+          "overridden"
         ],
         "title": "SearchSummaryItem"
       },
@@ -2457,7 +3601,7 @@
             "$ref": "#/components/schemas/MatchingMode"
           },
           "weights": {
-            "$ref": "#/components/schemas/RuleWeights"
+            "$ref": "#/components/schemas/RuleWeights-Output"
           },
           "experience": {
             "$ref": "#/components/schemas/ExperienceSettings"

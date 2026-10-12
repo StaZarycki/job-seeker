@@ -21,7 +21,7 @@ exclude_keywords = ["Java", "PHP", ".NET"]     # odrzuca: całe słowa w tytule 
 title_keywords = ["backend", "back-end", "full stack", "fullstack", "full-stack"]  # premiowane w tytule (+ główne umiejętności z CV)
 avoid_title_keywords = []                      # obniżają wynik, np. ["frontend", "manager"]
 target_skills = []                             # technologie, na które się przebranżawiasz (częściowo zaliczane)
-max_offer_age_days = 45
+max_offer_age_days = 45                        # 0 = bez limitu
 
 [matching]
 mode = "basic"                # basic = tylko reguły (darmowo) | ai = reguły + ocena modelem AI
