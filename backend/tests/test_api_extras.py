@@ -187,6 +187,9 @@ def test_api_endpoints_for_frontend(service: JobSeekerService) -> None:
         assert history[0]["categories"] == ["javascript"]
 
         offer_id = client.get("/matches", params={"top": 1}).json()["results"][0]["offer"]["id"]
+        page = client.get("/matches", params={"top": 1, "offset": 1}).json()
+        assert page["offset"] == 1 and page["total"] == page["passed"] > 1
+        assert page["results"][0]["offer"]["id"] != offer_id
         assert client.put(f"/offers/{offer_id}/status", json={"status": "saved"}).status_code == 204
         saved = client.get("/matches", params={"status": "saved"}).json()["results"]
         assert [r["offer"]["id"] for r in saved] == [offer_id] and saved[0]["status"] == "saved"

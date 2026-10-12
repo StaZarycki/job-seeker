@@ -102,6 +102,8 @@ export function matchResponse(results: MatchResult[] = RESULTS, extra: Partial<M
     considered: 100,
     filtered_out: 60,
     passed: 40,
+    total: 40,
+    offset: 0,
     profile_hash: 'abc',
     profile_rebuilt: false,
     warning: null,

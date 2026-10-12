@@ -77,6 +77,34 @@ async def test_ai_mode_scores_top_n_and_caches(offers: list[JobOffer], profile: 
     assert second.ai_cached == 3 and second.ai_calls == 0
 
 
+async def test_pages_slice_the_whole_ranking(offers: list[JobOffer], profile: CandidateProfile, db: Database) -> None:
+    whole = await _run(offers, profile, db, None, top=500)
+    first = await _run(offers, profile, db, None, top=3)
+    second = await _run(offers, profile, db, None, top=3, offset=3)
+    ids = [r.offer.id for r in whole.results]
+    assert [r.offer.id for r in first.results + second.results] == ids[:6]
+    assert second.offset == 3 and second.total == whole.total == whole.passed == len(ids)
+    beyond = await _run(offers, profile, db, None, top=3, offset=len(ids))
+    assert beyond.results == [] and beyond.total == len(ids)
+
+
+async def test_min_score_is_applied_before_paging(
+    offers: list[JobOffer], profile: CandidateProfile, db: Database
+) -> None:
+    whole = await _run(offers, profile, db, None, top=500)
+    threshold = whole.results[4].final_score
+    page = await _run(offers, profile, db, None, top=2, offset=2, min_score=threshold)
+    kept = [r for r in whole.results if r.final_score >= threshold]
+    assert page.total == len(kept) and [r.offer.id for r in page.results] == [r.offer.id for r in kept[2:4]]
+
+
+async def test_ai_rates_the_top_n_on_any_page(offers: list[JobOffer], profile: CandidateProfile, db: Database) -> None:
+    scorer = FakeScorer(score=100)
+    page = await _run(offers, profile, db, scorer, top=2, offset=4)
+    assert len(scorer.calls) == 3  # the top 3 of the whole ranking, not of this page
+    assert all(r.ai is None for r in page.results) and page.offset == 4
+
+
 async def test_profile_change_invalidates_ai_cache(
     offers: list[JobOffer], profile: CandidateProfile, db: Database
 ) -> None:

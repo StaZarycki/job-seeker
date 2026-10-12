@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Query
+from pydantic import Field
 
 from job_seeker.api.deps import ServiceDep
 from job_seeker.config import MatchingMode, SearchPreferences
@@ -28,6 +29,8 @@ class MatchResponse(Model):
     considered: int
     filtered_out: int
     passed: int
+    total: int = Field(description="Ranked offers available for paging (passed, minus those below min_score)")
+    offset: int = Field(description="Position of results[0] in the whole ranking")
     profile_hash: str
     profile_rebuilt: bool
     warning: str | None
@@ -40,7 +43,8 @@ class MatchResponse(Model):
 async def get_matches(
     service: ServiceDep,
     mode: MatchingMode | None = None,
-    top: Annotated[int, Query(ge=1, le=500)] = 20,
+    top: Annotated[int, Query(ge=1, le=500, description="Page size")] = 20,
+    offset: Annotated[int, Query(ge=0, description="Skip this many ranked offers (page * top)")] = 0,
     provider: str | None = None,
     model: str | None = None,
     min_score: Annotated[float | None, Query(ge=0, le=100)] = None,
@@ -62,6 +66,7 @@ async def get_matches(
     request = MatchRequest(
         mode=mode,
         top=top,
+        offset=offset,
         provider=provider,
         model=model,
         min_score=min_score,
@@ -89,6 +94,8 @@ async def get_matches(
         considered=report.considered,
         filtered_out=report.filtered_out,
         passed=report.passed,
+        total=report.total,
+        offset=report.offset,
         profile_hash=outcome.profile.profile_hash,
         profile_rebuilt=outcome.profile.rebuilt,
         warning=outcome.profile.warning,

@@ -64,9 +64,24 @@
               "type": "integer",
               "maximum": 500,
               "minimum": 1,
+              "description": "Page size",
               "default": 20,
               "title": "Top"
-            }
+            },
+            "description": "Page size"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Skip this many ranked offers (page * top)",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Skip this many ranked offers (page * top)"
           },
           {
             "name": "provider",
@@ -2395,6 +2410,16 @@
             "type": "integer",
             "title": "Passed"
           },
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "description": "Ranked offers available for paging (passed, minus those below min_score)"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset",
+            "description": "Position of results[0] in the whole ranking"
+          },
           "profile_hash": {
             "type": "string",
             "title": "Profile Hash"
@@ -2441,6 +2466,8 @@
           "considered",
           "filtered_out",
           "passed",
+          "total",
+          "offset",
           "profile_hash",
           "profile_rebuilt",
           "warning",

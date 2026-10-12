@@ -953,6 +953,16 @@ export interface components {
             filtered_out: number;
             /** Passed */
             passed: number;
+            /**
+             * Total
+             * @description Ranked offers available for paging (passed, minus those below min_score)
+             */
+            total: number;
+            /**
+             * Offset
+             * @description Position of results[0] in the whole ranking
+             */
+            offset: number;
             /** Profile Hash */
             profile_hash: string;
             /** Profile Rebuilt */
@@ -1652,7 +1662,10 @@ export interface operations {
         parameters: {
             query?: {
                 mode?: components["schemas"]["MatchingMode"] | null;
+                /** @description Page size */
                 top?: number;
+                /** @description Skip this many ranked offers (page * top) */
+                offset?: number;
                 provider?: string | null;
                 model?: string | null;
                 min_score?: number | null;

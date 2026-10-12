@@ -27,9 +27,9 @@ describe('OffersPage', () => {
     renderApp('/');
 
     const list = await screen.findByRole('region', { name: 'Ranking ofert' });
-    expect(await within(list).findAllByRole('link')).toHaveLength(2);
+    expect(await within(list).findAllByRole('link', { name: /Engineer|Developer/ })).toHaveLength(2);
     expect(within(list).getByText('Backend Engineer')).toBeInTheDocument();
-    expect(screen.getByText('40', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText(/ofert po filtrach/)).toHaveTextContent('40 z 100 ofert po filtrach');
 
     const detail = await screen.findByRole('article', { name: 'Oferta: Backend Engineer' });
     expect(within(detail).getByText('Wynik Standard')).toBeInTheDocument();
@@ -166,10 +166,64 @@ describe('OffersPage', () => {
     renderApp('/');
 
     const list = await screen.findByRole('region', { name: 'Ranking ofert' });
-    const [withLogo, withoutLogo] = await within(list).findAllByRole('link');
+    const [withLogo, withoutLogo] = await within(list).findAllByRole('link', { name: /Engineer|Developer/ });
     expect(withLogo!.querySelector('img')).toHaveAttribute('src', logo);
     expect(withoutLogo!.querySelector('img')).toBeNull();
     expect(within(withoutLogo!).getByText(RESULTS[1]!.offer.company.charAt(0).toUpperCase())).toBeInTheDocument();
+  });
+
+  it('pages through the ranking with the page in the URL', async () => {
+    const user = userEvent.setup();
+    const log: URLSearchParams[] = [];
+    server.use(
+      ...baseHandlers(),
+      http.get('/api/matches', ({ request }) => {
+        const params = new URL(request.url).searchParams;
+        log.push(params);
+        return HttpResponse.json(matchResponse(RESULTS, { total: 95, offset: Number(params.get('offset') ?? 0) }));
+      }),
+    );
+    const { router } = renderApp('/?page=2');
+
+    const pages = await screen.findByRole('navigation', { name: 'Strony rankingu' });
+    expect(log.at(-1)?.get('offset')).toBe('20');
+    expect(screen.getByText('21–22')).toBeInTheDocument();
+    expect(within(pages).getByRole('link', { name: 'Strona 2' })).toHaveAttribute('aria-current', 'page');
+    expect(within(pages).getByRole('link', { name: 'Strona 5' })).toHaveAttribute('href', '/?page=5');
+
+    await user.click(within(pages).getByRole('link', { name: 'Strona 3' }));
+    await waitFor(() => expect(router.state.location.search).toBe('?page=3'));
+    await waitFor(() => expect(log.at(-1)?.get('offset')).toBe('40'));
+    const detail = await screen.findByRole('article', { name: 'Oferta: Backend Engineer' });
+    expect(within(detail).getByText('41 / 95')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Tylko zapisane' }));
+    await waitFor(() => expect(router.state.location.search).toBe('?status=saved')); // filters restart at page 1
+  });
+
+  it('uses previous / next on phones and handles a page past the end', async () => {
+    server.use(
+      ...baseHandlers(),
+      http.get('/api/matches', ({ request }) => {
+        const offset = Number(new URL(request.url).searchParams.get('offset') ?? 0);
+        return HttpResponse.json(matchResponse(offset >= 95 ? [] : RESULTS, { total: 95, offset }));
+      }),
+    );
+    renderApp('/?page=2', { width: 390 });
+    const pages = await screen.findByRole('navigation', { name: 'Strony rankingu' });
+    expect(within(pages).getByText('2 z 5')).toBeInTheDocument();
+    expect(within(pages).getByRole('link', { name: /Następna/ })).toHaveAttribute('href', '/?page=3');
+    expect(within(pages).getByRole('link', { name: /Poprzednia/ })).toHaveAttribute('href', '/');
+  });
+
+  it('offers the last page when the requested one is past the end', async () => {
+    server.use(
+      ...baseHandlers(),
+      http.get('/api/matches', () => HttpResponse.json(matchResponse([], { total: 45, offset: 180 }))),
+    );
+    renderApp('/?page=10');
+    expect(await screen.findByText('Ranking ma 3 strony')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Przejdź do strony 3' })).toHaveAttribute('href', '/?page=3');
   });
 
   it('asks for a CV when the backend has none', async () => {

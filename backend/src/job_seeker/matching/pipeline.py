@@ -32,6 +32,8 @@ class MatchReport:
     considered: int = 0
     filtered_out: int = 0
     passed: int = 0  # offers left after filters and merging duplicate postings
+    total: int = 0  # ranked offers available for paging (passed, minus those below min_score)
+    offset: int = 0  # index of results[0] in the whole ranking
     ai_provider: str | None = None
     ai_model: str | None = None
     ai_calls: int = 0
@@ -79,6 +81,8 @@ async def run_matching(
     weights: RuleWeights,
     mode: MatchingMode,
     top: int,
+    offset: int = 0,
+    min_score: float | None = None,
     db: Database,
     ai_config: AIConfig,
     scorer: AIScorer | None = None,
@@ -89,8 +93,16 @@ async def run_matching(
     experience_config = experience_config or ExperienceConfig()
     ranked, filtered = rank_by_rules(offers, profile, prefs, weights, experience_config=experience_config)
     report = MatchReport(
-        results=ranked[:top], mode=mode, considered=len(offers), filtered_out=filtered, passed=len(ranked)
+        results=[], mode=mode, considered=len(offers), filtered_out=filtered, passed=len(ranked), offset=offset
     )
+
+    def paginate(ordered: list[MatchResult]) -> None:
+        if min_score is not None:
+            ordered = [r for r in ordered if r.final_score >= min_score]
+        report.total = len(ordered)
+        report.results = ordered[offset : offset + top]
+
+    paginate(ranked)
     if mode is MatchingMode.BASIC or not ranked:
         return report
     if scorer is None:
@@ -163,7 +175,8 @@ async def run_matching(
     assessed.sort(key=lambda r: r.final_score, reverse=True)
     # AI-assessed offers first, then the remaining rule-ranked ones.
     assessed_ids = {r.offer.id for r in assessed}
-    report.results = (assessed + [r for r in ranked if r.offer.id not in assessed_ids])[:top]
+    # The AI always rates the top N of the whole ranking, whichever page is shown (cached after the first time).
+    paginate(assessed + [r for r in ranked if r.offer.id not in assessed_ids])
     return report
 
 

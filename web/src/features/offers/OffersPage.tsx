@@ -5,10 +5,12 @@ import { ApiError, type MatchResponse, type MatchResult } from '../../api/client
 import { useMatches, useSearches, useSettings, useSources, useStartSync, useSyncStatus } from '../../api/hooks';
 import { ApiErrorState } from '../../components/ApiErrorState';
 import { DatabaseIcon, RefreshIcon, SparkleIcon } from '../../components/icons';
+import { Pagination } from '../../components/Pagination';
 import { PresetPicker } from '../../components/PresetPicker';
 import { Banner, ProgressBar, Segmented, Skeleton, StateCard } from '../../components/ui';
 import { countLabel, formatDateTime, formatNumber, OFFER_FORMS, plural } from '../../lib/format';
-import { useEscape, useMediaQuery, WIDE_QUERY } from '../../lib/hooks';
+import { PHONE_QUERY, useEscape, useMediaQuery, WIDE_QUERY } from '../../lib/hooks';
+import { rangeLabel } from '../../lib/pagination';
 import { FilterChips } from './FilterChips';
 import { OfferCard } from './OfferCard';
 import { OfferDetail } from './OfferDetail';
@@ -20,6 +22,7 @@ export function OffersPage() {
   const { search: query } = useLocation();
   const navigate = useNavigate();
   const wide = useMediaQuery(WIDE_QUERY);
+  const phone = useMediaQuery(PHONE_QUERY);
   const [filters, setFilters] = useOfferFilters();
   const [assessed, setAssessed] = useState<Record<string, MatchResult>>({});
 
@@ -41,6 +44,15 @@ export function OffersPage() {
   const selectedIndex = selected ? results.indexOf(selected) : -1;
 
   const listHref = `/${query}`;
+  // Page links lead back to the list: the open offer isn't on the other page.
+  const pageHref = (page: number) => {
+    const params = new URLSearchParams(query);
+    if (page > 1) params.set('page', String(page));
+    else params.delete('page');
+    const text = params.toString();
+    return text ? `/?${text}` : '/';
+  };
+  const pageCount = report ? Math.ceil(report.total / filters.top) : 0;
   const closeDetail = useCallback(() => navigate(listHref), [navigate, listHref]);
   useEscape(Boolean(offerId) && !wide, closeDetail);
 
@@ -63,7 +75,8 @@ export function OffersPage() {
   }
 
   const emptyDb = source && source.offers_in_db === 0;
-  const noResults = report && report.results.length === 0;
+  const noResults = report && report.total === 0;
+  const pastLastPage = report && report.total > 0 && report.results.length === 0;
 
   return (
     <div className={s.layout}>
@@ -183,7 +196,7 @@ export function OffersPage() {
               {OFFER_FORMS[2]} po filtrach
             </span>
             <span>
-              pokazano <span className={s.summaryValue}>{report.results.length}</span>
+              pokazano <span className={s.summaryValue}>{rangeLabel(report.offset, report.results.length)}</span>
             </span>
             {report.ai ? (
               <span className={s.summaryAi}>
@@ -223,6 +236,18 @@ export function OffersPage() {
                   ? 'Wszystkie pasujące oferty były już otwierane w JustJoin.it.'
                   : `Odrzucono ${formatNumber(report.filtered_out)} z ${formatNumber(report.considered)} ofert. Poluzuj filtry powyżej albo w config.toml.`}
           </StateCard>
+        ) : pastLastPage ? (
+          <StateCard
+            tag="brak strony"
+            title={`Ranking ma ${pageCount} ${plural(pageCount, ['stronę', 'strony', 'stron'])}`}
+            actions={
+              <Link to={pageHref(pageCount)} className="btn btn-primary">
+                Przejdź do strony {pageCount}
+              </Link>
+            }
+          >
+            Na stronie {filters.page} nie ma już ofert – lista mogła się skrócić po zmianie filtrów albo ukryciu ofert.
+          </StateCard>
         ) : (
           <div className={s.split}>
             <section className={s.list} aria-label="Ranking ofert" aria-busy={basic.isFetching}>
@@ -236,6 +261,9 @@ export function OffersPage() {
                     />
                   ))
                 : Array.from({ length: 6 }, (_, i) => <CardSkeleton key={i} />)}
+              {report ? (
+                <Pagination page={filters.page} pageCount={pageCount} hrefFor={pageHref} compact={phone} />
+              ) : null}
             </section>
 
             {selected ? (
@@ -255,7 +283,7 @@ export function OffersPage() {
                     aiMode={filters.mode === 'ai'}
                     aiTopN={settings.data?.ai.top_n ?? 20}
                     search={filters.search}
-                    position={`${selectedIndex + 1} / ${results.length}`}
+                    position={`${(report?.offset ?? 0) + selectedIndex + 1} / ${report?.total ?? results.length}`}
                     onClose={wide ? undefined : closeDetail}
                     onHidden={onHidden}
                     onAssessed={(r) => setAssessed((a) => ({ ...a, [r.offer.id]: r }))}
