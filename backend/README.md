@@ -38,7 +38,7 @@ Other commands: `jobseeker categories` (category keys for the config), `jobseeke
 
 | Endpoint | Description |
 |---|---|
-| `GET /matches?search=&mode=&top=&status=&activity=` | ranked offers (Standard or AI) with filters; `activity=unvisited` leaves out visited offers, `activity=applied` returns the ones marked as applied |
+| `GET /matches?search=&mode=&top=&offset=&status=&activity=` | ranked offers (Standard or AI) with filters, a page at a time (`top` = page size, `offset`, `total` in the response); `activity=unvisited` leaves out visited offers, `activity=applied` returns the ones marked as applied |
 | `GET /offers/{id}`, `PUT /offers/{id}/status`, `POST /offers/{id}/assess` | details with description, save/hide, AI assessment of a single offer |
 | `PUT /offers/{id}/activity` | "visited" (`visited`) and "applied" (`applied`) marks |
 | `GET /profile`, `POST /profile/cv`, `POST /profile/rebuild`, `GET/PUT /profile/overrides` | profile built from the CV and manual corrections |

@@ -42,7 +42,8 @@ class MatchRequest(BaseModel):
     """Per-request overrides of the configured defaults."""
 
     mode: MatchingMode | None = None
-    top: int = Field(default=20, ge=1, le=500)
+    top: int = Field(default=20, ge=1, le=500, description="Page size")
+    offset: int = Field(default=0, ge=0, description="Skip this many offers of the ranking (paging)")
     provider: str | None = None
     model: str | None = None
     min_score: float | None = Field(default=None, ge=0, le=100)
@@ -291,6 +292,8 @@ class JobSeekerService:
                 weights=self.config.matching.weights,
                 mode=mode,
                 top=request.top,
+                offset=request.offset,
+                min_score=request.min_score,
                 db=self.db,
                 ai_config=ai_config,
                 scorer=scorer,
@@ -302,8 +305,6 @@ class JobSeekerService:
             await close_sources()
             if scorer is not None:
                 await scorer.aclose()
-        if request.min_score is not None:
-            report.results = [r for r in report.results if r.final_score >= request.min_score]
         self._attach_marks(report.results, statuses, activity)
         return MatchOutcome(report=report, profile=profile_state, preferences=prefs)
 

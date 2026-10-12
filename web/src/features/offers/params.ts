@@ -15,6 +15,8 @@ export interface OfferFilters {
   minSalary: number | null;
   status: OfferStatus | null;
   activity: ActivityFilter | null;
+  /** 1-based page of the ranking; ``top`` is the page size. */
+  page: number;
 }
 
 /** Offer list state lives in the URL (?search=cpp&mode=ai&category=c…) so views can be linked and go back. */
@@ -26,6 +28,7 @@ export function useOfferFilters(): [OfferFilters, (patch: Partial<OfferFilters>)
     const minSalary = Number(params.get('min_salary'));
     const status = params.get('status');
     const activity = params.get('activity');
+    const page = Number(params.get('page'));
     return {
       search: params.get('search'),
       mode: params.get('mode') === 'ai' ? 'ai' : 'basic',
@@ -35,6 +38,7 @@ export function useOfferFilters(): [OfferFilters, (patch: Partial<OfferFilters>)
       minSalary: Number.isFinite(minSalary) && minSalary > 0 ? minSalary : null,
       status: status === 'saved' || status === 'hidden' ? status : null,
       activity: activity === 'unvisited' || activity === 'applied' ? activity : null,
+      page: Number.isInteger(page) && page > 1 ? page : 1,
     };
   }, [params]);
 
@@ -43,6 +47,9 @@ export function useOfferFilters(): [OfferFilters, (patch: Partial<OfferFilters>)
       setParams(
         (current) => {
           const next = new URLSearchParams(current);
+          // Any other change gives a different ranking, so it starts from the first page again.
+          next.delete('page');
+          if (patch.page && patch.page > 1) next.set('page', String(patch.page));
           const set = (key: string, value: string | number | null | undefined) => {
             if (value === null || value === undefined || value === '') next.delete(key);
             else next.set(key, String(value));
@@ -86,5 +93,6 @@ export function toMatchParams(filters: OfferFilters, mode: MatchingMode): MatchP
     minSalary: filters.minSalary,
     status: filters.status,
     activity: filters.activity,
+    offset: (filters.page - 1) * filters.top,
   };
 }

@@ -65,7 +65,7 @@ Before finishing a change, all checks for the touched part must pass:
 - `matching/`:
   - `rules.py`: hard filters plus a weighted 0–100 score with Polish notes.
   - `experience.py`: experience in the offer's main technologies. Untargeted experience transfers at `transfer_ratio`; the `"auto"` level filter allows your level plus one step up.
-  - `pipeline.py`: rules first, then the AI for the top N. The AI cache is keyed by `assessment_key` (profile hash + target skills + experience config + provider + model).
+  - `pipeline.py`: rules first, then the AI for the top N of the whole ranking (on every page), then `offset`/`top` cut the page; `min_score` is applied before paging, `total` is what can be paged. The AI cache is keyed by `assessment_key` (profile hash + target skills + experience config + provider + model).
   - `ai/`: pluggable scorers with a shared prompt.
 - `services/job_seeker.py`: everything the CLI and API call: matching, background sync job (`start_sync_job` / `sync_status` / `cancel_sync`), offer marks (saved/hidden), offer activity (visited/applied), single-offer assessment, search summaries.
 - `storage/db.py`: SQLite with short-lived connections per operation. Tables: `offers`, `offer_status` (saved/hidden), `offer_activity` (visited/applied timestamps, independent of the status), `ai_assessments`, `sync_runs`. Schema changes need an in-place migration in `Database.__init__` (see the `categories` column).
@@ -84,7 +84,7 @@ Tests live in `backend/tests/`:
   - `AppShell.tsx`: sidebar on ≥768 px, bottom tabs on phones;
   - `theme.ts`: dark is the default; the choice is stored in localStorage.
 - `features/<screen>/`: one folder per screen, each with its own CSS module.
-  - Offer list state (preset, mode, filter overrides, status, activity) lives in URL search params (`features/offers/params.ts`).
+  - Offer list state (preset, mode, filter overrides, status, activity, page) lives in URL search params (`features/offers/params.ts`). `top` is the page size and `?page=` the 1-based page (sent as `offset`); any other filter change resets the page. `components/Pagination.tsx` renders real links (numbers on desktop, previous/next on phones).
   - Opening "Aplikuj w JustJoin.it" marks the offer as visited (`useSetOfferActivity`, patched optimistically); "applied" is a manual toggle in the offer details. Visited cards are dimmed.
 - `components/`: shared UI (`ui.tsx`, `PresetPicker`, `ApiErrorState`, `icons.tsx` with inline SVGs from the design) and `forms.tsx` (field rows, tags, chips, switch, number input, and `SaveBar` with change preview and conflict / write / validation errors).
 - Settings forms keep a draft next to the loaded data (`draft ?? loaded`), diff them with `lib/diff.ts` and send the `version` they were loaded at. `lib/searchFields.ts` lists every `[search]` field once for the search editor.

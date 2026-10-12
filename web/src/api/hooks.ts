@@ -41,6 +41,7 @@ export interface MatchParams {
   minSalary?: number | null;
   status?: OfferStatus | null;
   activity?: ActivityFilter | null;
+  offset?: number;
 }
 
 export const keys = {
@@ -79,6 +80,7 @@ export function useMatches(params: MatchParams, enabled = true) {
           min_salary: params.minSalary,
           status: params.status,
           activity: params.activity,
+          offset: params.offset || undefined,
         },
       }),
     enabled,

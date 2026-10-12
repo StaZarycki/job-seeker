@@ -83,10 +83,10 @@ export function FilterChips({
     },
     {
       key: 'top',
-      label: 'Top',
+      label: 'Na stronę',
       value: String(filters.top),
       input: String(filters.top),
-      inputLabel: 'Liczba pokazywanych ofert',
+      inputLabel: 'Ofert na stronie',
       inputMode: 'numeric',
       modified: filters.top !== DEFAULT_TOP,
       apply: (v) => onChange({ top: Math.min(500, Math.max(1, Number(v) || DEFAULT_TOP)) }),
